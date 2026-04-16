@@ -2,7 +2,7 @@
 const TESTING_MODE = false;
 
 const experimentIdOSF = 'H9cxh2VA14kV';
-const prolificCompletionURL = '';  // TODO: fill in after prolific setup
+const prolificCompletionURL = 'https://app.prolific.com/submissions/complete?cc=CEPHL0CF';
 const TEST = false;                // true = prefix saves w/ DEBUG_
 const VERBOSE = false;
 const SEED = null;
@@ -10,8 +10,8 @@ const SEED = null;
 const N_ITEMS = 102;               // total items in stimulus set
 const N_TRIALS_PER_PARTICIPANT = 50;  // how many each participant sees (set lower to subsample)
 const N_ATTENTION_CHECKS = 2;
-const ESTIMATED_DURATION_MIN = 15;  // UPDATE after pilot
-const PAYMENT = 2.50;               // UPDATE after pilot ($)
+const ESTIMATED_DURATION_MIN = 15;  // TODO: UPDATE after pilot!!
+const PAYMENT = 2.50;               // TODO: UPDATE after pilot ($)!
 
 const LAB_NAME = "Social Interaction Lab";
 const PI_NAME = "Robert Hawkins";
