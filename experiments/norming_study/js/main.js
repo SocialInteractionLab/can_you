@@ -131,7 +131,7 @@ function initStudy(stimuli) {
         checkID: c.checkID, targetValue: c.targetValue, passed: null, responseValue: null
     }))});
 
-    var shuffledStimuli = jsPsych.randomization.shuffle([...stimuli]);
+    var shuffledStimuli = jsPsych.randomization.shuffle([...stimuli]).slice(0, N_TRIALS_PER_PARTICIPANT);
 
     var attnPositions = [];
     while (attnPositions.length < N_ATTENTION_CHECKS) {
@@ -217,7 +217,7 @@ function initStudy(stimuli) {
     });
 
     var mainTrialCount = 0;
-    var midpoint = Math.floor(N_ITEMS / 2);
+    var midpoint = Math.floor(N_TRIALS_PER_PARTICIPANT / 2);
 
     trialSequence.forEach(function(item) {
         if (item.type === 'stimulus') {

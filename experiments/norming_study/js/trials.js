@@ -15,7 +15,7 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
 
     var trialHTML = `
         <div class='prevent-select trial-box'>
-            <div class='item-counter'>${mainTrialIndex} / ${N_ITEMS}</div>
+            <div class='item-counter'>${mainTrialIndex} / ${N_TRIALS_PER_PARTICIPANT}</div>
             <p class='trial-preamble'>We asked 100 people:</p>
             <p class='trial-question'><em><b>"Can you ${stimulus.actionPhrase}?"</b></em></p>
             <div class='slider-section'>
@@ -139,7 +139,7 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
                 };
 
                 jsPsych.data.dataProperties.trialResponses.push(trialData);
-                jsPsych.progressBar.progress = mainTrialIndex / N_ITEMS;
+                jsPsych.progressBar.progress = mainTrialIndex / N_TRIALS_PER_PARTICIPANT;
                 logToBrowser('trial response', trialData);
                 jsPsych.finishTrial();
             });

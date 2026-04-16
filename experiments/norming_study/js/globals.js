@@ -7,7 +7,8 @@ const TEST = false;                // true = prefix saves w/ DEBUG_
 const VERBOSE = false;
 const SEED = null;
 
-const N_ITEMS = 102;
+const N_ITEMS = 102;               // total items in stimulus set
+const N_TRIALS_PER_PARTICIPANT = 50;  // how many each participant sees (set lower to subsample)
 const N_ATTENTION_CHECKS = 2;
 const ESTIMATED_DURATION_MIN = 15;  // UPDATE after pilot
 const PAYMENT = 2.50;               // UPDATE after pilot ($)

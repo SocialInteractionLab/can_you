@@ -25,7 +25,7 @@ function formatFirstHalf(jsPsych) {
         DEBUG:        TEST ? 1 : 0,
         sliderOrder:  d.sliderOrder,
         half:         1,
-        trials:       d.trialResponses.slice(0, Math.floor(N_ITEMS / 2))
+        trials:       d.trialResponses.slice(0, Math.floor(N_TRIALS_PER_PARTICIPANT / 2))
     });
 }
 
@@ -41,7 +41,7 @@ function formatSecondHalf(jsPsych) {
         trialOrder:      d.trialOrder,
         attentionChecks: d.attentionChecks,
         half:            2,
-        trials:          d.trialResponses.slice(Math.floor(N_ITEMS / 2))
+        trials:          d.trialResponses.slice(Math.floor(N_TRIALS_PER_PARTICIPANT / 2))
     });
 }
 
