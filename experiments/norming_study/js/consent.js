@@ -8,8 +8,6 @@ function getConsentHTML() {
 
             <hr class="consent-hr">
 
-            <p>Dear Participant,</p>
-
             <p>Thank you for your interest in our study! You are being invited to participate in a research study conducted by researchers at the ${LAB_NAME} at ${INSTITUTION}. The purpose of this study is to better understand how we think about everyday questions and situations.</p>
 
             <p>In this study, you will see a series of short descriptions of everyday questions and use sliders to make estimates about each one. We expect this study to take approximately <strong>${ESTIMATED_DURATION_MIN} minutes</strong>, and you will receive <strong>$${PAYMENT.toFixed(2)}</strong> for your participation.</p>
