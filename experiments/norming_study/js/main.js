@@ -233,7 +233,7 @@ function initStudy(stimuli) {
                     type: jsPsychPipe,
                     action: 'save',
                     experiment_id: experimentIdOSF,
-                    filename: getFilePrefix(jsPsych) + '_1_half.json',
+                    filename: getFilePrefix(jsPsych) + '_1_half.csv',
                     data_string: () => formatFirstHalf(jsPsych),
                     wait_message: saveMsg
                 });
@@ -271,7 +271,7 @@ function initStudy(stimuli) {
         type: jsPsychPipe,
         action: 'save',
         experiment_id: experimentIdOSF,
-        filename: getFilePrefix(jsPsych) + '_2_half.json',
+        filename: getFilePrefix(jsPsych) + '_2_half.csv',
         data_string: () => formatSecondHalf(jsPsych),
         wait_message: saveMsg
     };
@@ -280,7 +280,7 @@ function initStudy(stimuli) {
         type: jsPsychPipe,
         action: 'save',
         experiment_id: experimentIdOSF,
-        filename: getFilePrefix(jsPsych) + '_demographics.json',
+        filename: getFilePrefix(jsPsych) + '_demographics.csv',
         data_string: () => formatDemographics(jsPsych),
         wait_message: saveMsg
     };

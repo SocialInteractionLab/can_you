@@ -8,56 +8,110 @@ function logToBrowser(ctx, variable) {
     }
 }
 
-// prolificID when available, else subjectID; timestamp generated once at session start
+// prolificID when available, else subjectID
 function getFilePrefix(jsPsych) {
     var d = jsPsych.data.dataProperties;
     var id = d.prolificID || d.subjectID;
     return (TEST ? 'DEBUG_' : '') + d.sessionTimestamp + '_' + id;
 }
 
+// convert array of flat objects to CSV string
+function toCSV(rows) {
+    if (!rows || rows.length === 0) return '';
+    var headers = Object.keys(rows[0]);
+    var lines = [headers.join(',')];
+    rows.forEach(function(row) {
+        var vals = headers.map(function(h) {
+            var v = row[h];
+            if (v === null || v === undefined) return '';
+            var s = String(v);
+            if (s.includes(',') || s.includes('"') || s.includes('\n')) {
+                return '"' + s.replace(/"/g, '""') + '"';
+            }
+            return s;
+        });
+        lines.push(vals.join(','));
+    });
+    return lines.join('\n');
+}
+
 function formatFirstHalf(jsPsych) {
     var d = jsPsych.data.dataProperties;
-    return JSON.stringify({
-        subjectID:    d.subjectID,
-        prolificID:   d.prolificID,
-        studyID:      d.studyID,
-        sessionID:    d.sessionID,
-        DEBUG:        TEST ? 1 : 0,
-        sliderOrder:  d.sliderOrder,
-        half:         1,
-        trials:       d.trialResponses.slice(0, Math.floor(N_TRIALS_PER_PARTICIPANT / 2))
+    var trials = d.trialResponses.slice(0, Math.floor(N_TRIALS_PER_PARTICIPANT / 2));
+    var rows = trials.map(function(t) {
+        return Object.assign({
+            subjectID:   d.subjectID,
+            prolificID:  d.prolificID,
+            studyID:     d.studyID,
+            sessionID:   d.sessionID,
+            DEBUG:       TEST ? 1 : 0,
+            sliderOrder: d.sliderOrder,
+            half:        1
+        }, t);
     });
+    return toCSV(rows);
 }
 
 function formatSecondHalf(jsPsych) {
     var d = jsPsych.data.dataProperties;
-    return JSON.stringify({
-        subjectID:       d.subjectID,
-        prolificID:      d.prolificID,
-        studyID:         d.studyID,
-        sessionID:       d.sessionID,
-        DEBUG:           TEST ? 1 : 0,
-        sliderOrder:     d.sliderOrder,
-        trialOrder:      d.trialOrder,
-        attentionChecks: d.attentionChecks,
-        half:            2,
-        trials:          d.trialResponses.slice(Math.floor(N_TRIALS_PER_PARTICIPANT / 2))
+    var trials = d.trialResponses.slice(Math.floor(N_TRIALS_PER_PARTICIPANT / 2));
+    var trialRows = trials.map(function(t) {
+        return Object.assign({
+            subjectID:   d.subjectID,
+            prolificID:  d.prolificID,
+            studyID:     d.studyID,
+            sessionID:   d.sessionID,
+            DEBUG:       TEST ? 1 : 0,
+            sliderOrder: d.sliderOrder,
+            half:        2
+        }, t);
     });
+    // append attention check rows
+    var attnRows = (d.attentionChecks || []).map(function(c) {
+        return {
+            subjectID:   d.subjectID,
+            prolificID:  d.prolificID,
+            studyID:     d.studyID,
+            sessionID:   d.sessionID,
+            DEBUG:       TEST ? 1 : 0,
+            sliderOrder: d.sliderOrder,
+            half:        'attn',
+            trialIndex:  c.checkID,
+            itemID:      c.checkID,
+            actionPhrase: '',
+            abilityResponse:     c.topResponse,
+            abilityRT:           '',
+            abilityDragged:      c.topDragged,
+            willingnessResponse: c.bottomResponse,
+            willingnessRT:       '',
+            willingnessDragged:  c.bottomDragged,
+            trialRT:     '',
+            suspicious:  !c.passed,
+            targetValue: c.targetValue,
+            passed:      c.passed
+        };
+    });
+    return toCSV(trialRows.concat(attnRows));
 }
 
 function formatDemographics(jsPsych) {
     var d = jsPsych.data.dataProperties;
-    return JSON.stringify({
+    var demo = d.demographics || {};
+    var row = {
         subjectID:         d.subjectID,
         prolificID:        d.prolificID,
         DEBUG:             TEST ? 1 : 0,
-        demographics:      d.demographics,
-        strategy:          d.strategy,
-        technicalIssues:   d.technicalIssues,
-        feedback:          d.feedback,
-        visibilityChanges: d.visibilityChanges,
+        age:               demo.age || '',
+        gender:            demo.gender || '',
+        race:              (demo.race || []).join(';'),
+        education:         demo.education || '',
+        strategy:          d.strategy || '',
+        technicalIssues:   d.technicalIssues || '',
+        feedback:          d.feedback || '',
+        visibilityChanges: (d.visibilityChanges || []).length,
         totalDurationMs:   Date.now() - d.startTime
-    });
+    };
+    return toCSV([row]);
 }
 
 function updateSliderGradient(slider) {
