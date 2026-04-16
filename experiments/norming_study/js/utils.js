@@ -40,6 +40,7 @@ function formatFirstHalf(jsPsych) {
     var trials = d.trialResponses.slice(0, Math.floor(N_TRIALS_PER_PARTICIPANT / 2));
     var rows = trials.map(function(t) {
         return Object.assign({
+            trial_type:  'whyask-trial',
             subjectID:   d.subjectID,
             prolificID:  d.prolificID,
             studyID:     d.studyID,
@@ -57,6 +58,7 @@ function formatSecondHalf(jsPsych) {
     var trials = d.trialResponses.slice(Math.floor(N_TRIALS_PER_PARTICIPANT / 2));
     var trialRows = trials.map(function(t) {
         return Object.assign({
+            trial_type:  'whyask-trial',
             subjectID:   d.subjectID,
             prolificID:  d.prolificID,
             studyID:     d.studyID,
@@ -69,6 +71,7 @@ function formatSecondHalf(jsPsych) {
     // append attention check rows
     var attnRows = (d.attentionChecks || []).map(function(c) {
         return {
+            trial_type:  'whyask-trial',
             subjectID:   d.subjectID,
             prolificID:  d.prolificID,
             studyID:     d.studyID,
@@ -98,6 +101,7 @@ function formatDemographics(jsPsych) {
     var d = jsPsych.data.dataProperties;
     var demo = d.demographics || {};
     var row = {
+        trial_type:  'whyask-trial',
         subjectID:         d.subjectID,
         prolificID:        d.prolificID,
         DEBUG:             TEST ? 1 : 0,
