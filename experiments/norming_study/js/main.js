@@ -239,7 +239,7 @@ function initStudy(stimuli) {
                 });
             }
         } else {
-            trialBlock.push(buildAttentionCheck(item.data, jsPsych));
+            trialBlock.push(buildAttentionCheck(item.data, sliderOrder, jsPsych));
         }
     });
 

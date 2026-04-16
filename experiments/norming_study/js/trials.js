@@ -148,19 +148,30 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
 }
 
 
-function buildAttentionCheck(checkConfig, jsPsych) {
+function buildAttentionCheck(checkConfig, sliderOrder, jsPsych) {
     var N = checkConfig.targetValue;
+    var topDim    = sliderOrder === 'AW' ? 'able'    : 'willing';
+    var bottomDim = sliderOrder === 'AW' ? 'willing' : 'able';
 
     var html = `
         <div class='prevent-select trial-box'>
-            <p class='trial-preamble'>Quick check</p>
-            <p class='trial-question'><em><b>For this one only, please move the slider to exactly ${N} people.</b></em></p>
+            <p class='trial-question' style='margin-bottom:28px;'>Please move both sliders to exactly <b>${N} people</b>.</p>
             <div class='slider-section'>
                 <div class='slider-question'>
-                    <input type='range' class='trial-slider' id='attn-slider' min='0' max='100' step='1' value='50'>
+                    <p class='question-text'>How many of the 100 people said that they were ${dimSpan(topDim)} to?</p>
+                    <input type='range' class='trial-slider' id='attn-slider-top' min='0' max='100' step='1' value='50'>
                     <div class='slider-footer'>
                         <span class='slider-label-min'>0 people</span>
-                        <span class='slider-value-display' id='attn-val'>?</span>
+                        <span class='slider-value-display' id='attn-val-top'>?</span>
+                        <span class='slider-label-max'>100 people</span>
+                    </div>
+                </div>
+                <div class='slider-question'>
+                    <p class='question-text'>How many of the 100 people said that they were ${dimSpan(bottomDim)} to?</p>
+                    <input type='range' class='trial-slider' id='attn-slider-bottom' min='0' max='100' step='1' value='50'>
+                    <div class='slider-footer'>
+                        <span class='slider-label-min'>0 people</span>
+                        <span class='slider-value-display' id='attn-val-bottom'>?</span>
                         <span class='slider-label-max'>100 people</span>
                     </div>
                 </div>
@@ -177,45 +188,71 @@ function buildAttentionCheck(checkConfig, jsPsych) {
         choices: [],
         response_ends_trial: false,
         on_load: function() {
-            var slider      = document.getElementById('attn-slider');
-            var valDisplay  = document.getElementById('attn-val');
-            var submitBtn   = document.getElementById('attn-submit-btn');
-            var touched     = false;
-            var pointerDown = false;
-            var dragged     = false;
+            var sliderTop    = document.getElementById('attn-slider-top');
+            var sliderBottom = document.getElementById('attn-slider-bottom');
+            var valTop       = document.getElementById('attn-val-top');
+            var valBottom    = document.getElementById('attn-val-bottom');
+            var submitBtn    = document.getElementById('attn-submit-btn');
+            var topTouched = false, bottomTouched = false;
+            var topPointerDown = false, bottomPointerDown = false;
+            var topDragged = false, bottomDragged = false;
 
-            updateSliderGradient(slider);
+            updateSliderGradient(sliderTop);
+            updateSliderGradient(sliderBottom);
 
-            slider.addEventListener('input', function() {
-                updateSliderGradient(slider);
-                if (touched) valDisplay.textContent = `${slider.value} people`;
+            sliderTop.addEventListener('input', function() {
+                updateSliderGradient(sliderTop);
+                if (topTouched) valTop.textContent = `${sliderTop.value} people`;
+            });
+            sliderBottom.addEventListener('input', function() {
+                updateSliderGradient(sliderBottom);
+                if (bottomTouched) valBottom.textContent = `${sliderBottom.value} people`;
             });
 
-            function onTouch() {
-                if (!touched) {
-                    touched = true;
-                    submitBtn.disabled = false;
-                    valDisplay.textContent = `${slider.value} people`;
+            function touchTop() {
+                if (!topTouched) {
+                    topTouched = true;
+                    valTop.textContent = `${sliderTop.value} people`;
                 }
+                if (topTouched && bottomTouched) submitBtn.disabled = false;
             }
-            slider.addEventListener('mousedown', onTouch);
-            slider.addEventListener('touchstart', onTouch);
-            slider.addEventListener('keydown', onTouch);
+            function touchBottom() {
+                if (!bottomTouched) {
+                    bottomTouched = true;
+                    valBottom.textContent = `${sliderBottom.value} people`;
+                }
+                if (topTouched && bottomTouched) submitBtn.disabled = false;
+            }
 
-            slider.addEventListener('pointerdown', function() { pointerDown = true; });
-            slider.addEventListener('pointermove', function() { if (pointerDown) dragged = true; });
-            document.addEventListener('pointerup', function() { pointerDown = false; });
+            sliderTop.addEventListener('mousedown', touchTop);
+            sliderTop.addEventListener('touchstart', touchTop);
+            sliderTop.addEventListener('keydown', touchTop);
+            sliderBottom.addEventListener('mousedown', touchBottom);
+            sliderBottom.addEventListener('touchstart', touchBottom);
+            sliderBottom.addEventListener('keydown', touchBottom);
+
+            sliderTop.addEventListener('pointerdown', function() { topPointerDown = true; });
+            sliderTop.addEventListener('pointermove', function() { if (topPointerDown) topDragged = true; });
+            sliderBottom.addEventListener('pointerdown', function() { bottomPointerDown = true; });
+            sliderBottom.addEventListener('pointermove', function() { if (bottomPointerDown) bottomDragged = true; });
+            document.addEventListener('pointerup', function() {
+                topPointerDown = false;
+                bottomPointerDown = false;
+            });
 
             submitBtn.addEventListener('click', function() {
-                var responseValue = parseInt(slider.value);
-                var passed = Math.abs(responseValue - N) <= 5;
+                var topVal    = parseInt(sliderTop.value);
+                var bottomVal = parseInt(sliderBottom.value);
+                var passed = Math.abs(topVal - N) <= 5 && Math.abs(bottomVal - N) <= 5;
 
                 var checkResult = {
-                    checkID:       checkConfig.checkID,
-                    targetValue:   N,
-                    passed:        passed,
-                    responseValue: responseValue,
-                    dragged:       dragged
+                    checkID:            checkConfig.checkID,
+                    targetValue:        N,
+                    passed:             passed,
+                    topResponse:        topVal,
+                    bottomResponse:     bottomVal,
+                    topDragged:         topDragged,
+                    bottomDragged:      bottomDragged
                 };
 
                 var existing = jsPsych.data.dataProperties.attentionChecks;
