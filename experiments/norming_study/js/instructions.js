@@ -7,7 +7,7 @@ function getInstructionPages(sliderOrder) {
     return [
         // page 1
         `<div class='prevent-select content-box'>
-            <p>In this study, we'll show you a series of everyday requests — things like <em>"Can you make a sandwich?"</em> or <em>"Can you drive me to the airport?"</em></p>
+            <p>In this study, we'll show you a series of everyday questions — things like <em>"Can you make a sandwich?"</em> or <em>"Can you drive me to the airport?"</em></p>
             <p>For each question, imagine we asked 100 random people from the general population</p>
             <p>Your job will be to estimate how those 100 people would respond</p>
         </div>`,
