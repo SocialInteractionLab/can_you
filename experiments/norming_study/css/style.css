@@ -1,9 +1,3 @@
-/*
- * Thinking About What People Do — norming study
- * Aesthetic borrowed from stumpers_experiment
- */
-
-/* --- base --- */
 html, body {
   height: 100%;
   margin: 0;
@@ -31,8 +25,6 @@ p, li, label {
   user-select: none;
 }
 
-
-/* --- content box (consent, instructions, surveys) --- */
 .content-box {
   background-color: white;
   border: 1px solid #ddd;
@@ -65,7 +57,6 @@ p, li, label {
   color: #028090;
 }
 
-/* 🌱 logo — positioned top-right of content box */
 .lab-logo {
   position: absolute;
   top: 18px;
@@ -80,8 +71,6 @@ p, li, label {
   margin: 20px 0;
 }
 
-
-/* --- trial layout --- */
 .trial-box {
   background-color: white;
   border: 1px solid #ddd;
@@ -94,7 +83,13 @@ p, li, label {
   max-width: 88vw;
 }
 
-/* "We asked 100 people:" label above the question */
+.item-counter {
+  text-align: right;
+  font-size: 13px;
+  color: #bbb;
+  margin-bottom: 8px;
+}
+
 .trial-preamble {
   font-size: 15px;
   text-align: center !important;
@@ -102,7 +97,6 @@ p, li, label {
   margin-bottom: 6px;
 }
 
-/* "Can you X?" — the main question */
 .trial-question {
   font-size: 22px;
   font-weight: 600;
@@ -113,7 +107,6 @@ p, li, label {
   line-height: 1.4;
 }
 
-/* wrapper around the two slider cards */
 .slider-section {
   margin-top: 4px;
 }
@@ -139,8 +132,39 @@ p, li, label {
   font-weight: 700;
 }
 
+/* tooltip on able/willing — dotted underline signals hoverable */
+.dim-tooltip {
+  cursor: help;
+  text-decoration: underline dotted currentColor;
+  text-underline-offset: 3px;
+  position: relative;
+  display: inline-block;
+}
 
-/* --- slider --- */
+.dim-tooltip::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2b2b2b;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 400;
+  font-style: normal;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 100;
+}
+
+.dim-tooltip:hover::after {
+  opacity: 1;
+}
+
 input[type="range"].trial-slider,
 input[type="range"].demo-slider {
   -webkit-appearance: none;
@@ -152,7 +176,7 @@ input[type="range"].demo-slider {
   border: 1px solid #ccc;
   cursor: pointer;
   margin-bottom: 6px;
-  /* fill initialized to 50% in JS via updateSliderGradient() */
+  /* fill set in JS via updateSliderGradient() */
 }
 
 input[type="range"].trial-slider::-webkit-slider-thumb,
@@ -188,7 +212,6 @@ input[type="range"].demo-slider::-moz-range-track {
   background: transparent;
 }
 
-/* slider footer: 0 / value display / 100 */
 .slider-footer {
   display: flex;
   justify-content: space-between;
@@ -215,8 +238,6 @@ input[type="range"].demo-slider::-moz-range-track {
   text-align: center;
 }
 
-
-/* --- buttons --- */
 .jspsych-btn {
   font-size: 16px;
   font-weight: 600;
@@ -240,15 +261,13 @@ input[type="range"].demo-slider::-moz-range-track {
   cursor: not-allowed;
 }
 
-/* consent button slightly larger */
+/* consent btn slightly larger */
 #consent-btn {
   padding: 14px 36px;
   font-size: 17px;
   margin-top: 4px;
 }
 
-
-/* --- progress bar --- */
 #jspsych-progressbar-container {
   background-color: #e8e8e8;
   border-bottom: 1px solid #ddd;
@@ -258,14 +277,10 @@ input[type="range"].demo-slider::-moz-range-track {
   background-color: #028090;
 }
 
-
-/* --- instruction/survey wrappers — reuse content-box --- */
-/* jsPsych wraps content in #jspsych-content; our .content-box handles width */
 #jspsych-content .content-box {
   margin-top: 20px;
 }
 
-/* survey form field sizing */
 textarea {
   font-family: 'Helvetica Neue', Arial, sans-serif;
   font-size: 15px;
@@ -291,7 +306,7 @@ hr {
   margin: 20px 0;
 }
 
-/* fullscreen enforcement overlay (production only) */
+/* fullscreen overlay — production only */
 #fullscreen-overlay {
   position: fixed;
   top: 0;

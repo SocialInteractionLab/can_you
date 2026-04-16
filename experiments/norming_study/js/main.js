@@ -1,21 +1,16 @@
-// production protections — only applied when TESTING_MODE = false
 function applyProductionProtections() {
-    // disable right-click
     document.addEventListener('contextmenu', e => e.preventDefault());
 
-    // block inspect element keyboard shortcuts (F12, Ctrl/Cmd+Shift+I/J/C, Ctrl/Cmd+U)
     document.addEventListener('keydown', function(e) {
         if (e.key === 'F12') { e.preventDefault(); return; }
         if ((e.ctrlKey || e.metaKey) && e.shiftKey && 'ijcIJC'.includes(e.key)) { e.preventDefault(); return; }
         if ((e.ctrlKey || e.metaKey) && 'uU'.includes(e.key)) { e.preventDefault(); return; }
     });
 
-    // disable copy/cut/paste — match stumpers_experiment pattern
     ['copy', 'cut', 'paste'].forEach(evt =>
         document.addEventListener(evt, e => e.preventDefault())
     );
 
-    // fullscreen enforcement — show overlay if participant exits fullscreen
     var overlay = document.createElement('div');
     overlay.id = 'fullscreen-overlay';
     overlay.style.display = 'none';
@@ -26,82 +21,118 @@ function applyProductionProtections() {
         </div>
     `;
     document.body.appendChild(overlay);
-
     document.addEventListener('fullscreenchange', function() {
         overlay.style.display = document.fullscreenElement ? 'none' : 'flex';
     });
+
+    var lastActivity = Date.now();
+    ['mousemove', 'keydown', 'mousedown', 'touchstart', 'scroll'].forEach(evt =>
+        document.addEventListener(evt, function() { lastActivity = Date.now(); }, { passive: true })
+    );
+    setInterval(function() {
+        if (Date.now() - lastActivity > IDLE_TIMEOUT_MS) {
+            window.onbeforeunload = null;
+            document.body.innerHTML = `
+                <div style='font-family:Helvetica Neue,Arial,sans-serif; text-align:center; margin-top:15vh; color:#333;'>
+                    <p style='font-size:22px; font-weight:600;'>Your session has timed out.</p>
+                    <p style='font-size:16px; color:#666;'>You were inactive for more than 5 minutes.<br>
+                    Please return this study on Prolific.</p>
+                </div>`;
+        }
+    }, 30000);
 }
 
 
-// entry point — called from window.onload in index.html
-// stimuli: array from STIMULI_DATA.stimuli (loaded as script tag, not fetch — avoids CORS issues locally)
-function initStudy(stimuli) {
-    logToBrowser('initializing study', null);
+function checkMobile() {
+    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+        || window.innerWidth < 768;
+    if (isMobile) {
+        document.body.style.fontFamily = 'Helvetica Neue, Arial, sans-serif';
+        document.body.innerHTML = `
+            <div style='max-width:500px; margin:15vh auto; text-align:center; padding:32px; background:white;
+                        border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.1);'>
+                <p style='font-size:20px; font-weight:600; color:#333;'>Desktop required</p>
+                <p style='font-size:16px; color:#666;'>This study must be completed on a desktop or laptop computer.
+                Please return this study on Prolific and complete it on a desktop device.</p>
+            </div>`;
+        window.onbeforeunload = null;
+        return true;
+    }
+    return false;
+}
 
+
+// greys out next button w/ countdown — re-call on each page nav
+function lockInstructionsNext(secs) {
+    var btn = document.getElementById('jspsych-instructions-next');
+    if (!btn) return;
+    btn.disabled = true;
+    var remaining = secs;
+    btn.textContent = `Next (${remaining}s)`;
+    var timer = setInterval(function() {
+        remaining--;
+        if (remaining > 0) {
+            btn.textContent = `Next (${remaining}s)`;
+        } else {
+            clearInterval(timer);
+            btn.disabled = false;
+            btn.textContent = 'Next';
+        }
+    }, 1000);
+}
+
+
+function initStudy(stimuli) {
+    if (checkMobile()) return;
+
+    logToBrowser('initializing study', null);
     if (!TESTING_MODE) applyProductionProtections();
 
-    // parse Prolific URL params — match priors_study convention
     var urlParams = new URLSearchParams(window.location.search);
     var prolificID = urlParams.get('PROLIFIC_PID');
     var studyID    = urlParams.get('STUDY_ID');
     var sessionID  = urlParams.get('SESSION_ID');
-    logToBrowser('PROLIFIC_PID', prolificID);
-    logToBrowser('STUDY_ID', studyID);
-    logToBrowser('SESSION_ID', sessionID);
 
-    // init jsPsych
     var jsPsych = initJsPsych({
         show_progress_bar: true,
-        auto_update_progress_bar: false   // manual updates for main trials only
+        auto_update_progress_bar: false
     });
 
-    // session-level data properties
-    jsPsych.data.addProperties({ subjectID: jsPsych.randomization.randomID(10) });
+    jsPsych.data.addProperties({ subjectID:  jsPsych.randomization.randomID(10) });
     jsPsych.data.addProperties({ prolificID: prolificID });
-    jsPsych.data.addProperties({ studyID: studyID });
-    jsPsych.data.addProperties({ sessionID: sessionID });
-    jsPsych.data.addProperties({ startTime: Date.now() });
+    jsPsych.data.addProperties({ studyID:    studyID });
+    jsPsych.data.addProperties({ sessionID:  sessionID });
+    jsPsych.data.addProperties({ startTime:  Date.now() });
     jsPsych.data.addProperties({ trialResponses: [] });
     jsPsych.data.addProperties({ attentionChecks: [] });
 
-    if (TEST) {
-        jsPsych.data.addProperties({ DEBUG: true });
-    }
-    if (SEED) {
-        jsPsych.randomization.setSeed(SEED);
-    }
+    if (TEST) jsPsych.data.addProperties({ DEBUG: true });
+    if (SEED) jsPsych.randomization.setSeed(SEED);
 
-    // --- session-level randomization ---
-
-    // slider order: "AW" (ability top) or "WA" (willingness top), fixed for whole session
-    var sliderOrder = jsPsych.randomization.sampleWithoutReplacement(['AW', 'WA'], 1)[0];
-    jsPsych.data.addProperties({ sliderOrder: sliderOrder });
-    logToBrowser('sliderOrder', sliderOrder);
-
-    // sample 2 attention check words without replacement
-    var attnWords = jsPsych.randomization.sampleWithoutReplacement(ATTN_CHECK_POOL, 2);
-
-    // build attention check configs (random sides, random pairing)
-    var remainingWords = [...ATTN_CHECK_POOL].filter(w => !attnWords.includes(w));
-    var sides = jsPsych.randomization.shuffle(['left', 'right']);
-    var attnConfigs = attnWords.map(function(word, i) {
-        // pick a random "other" word for the opposite label
-        var otherWord = remainingWords[i % remainingWords.length];
-        return {
-            checkID: `ATTN_${i + 1}`,
-            word: word,
-            correctSide: sides[i],
-            wordOther: otherWord
-        };
+    // tab visibility — logged w/ timestamp on each hide/show
+    jsPsych.data.addProperties({ visibilityChanges: [] });
+    document.addEventListener('visibilitychange', function() {
+        jsPsych.data.dataProperties.visibilityChanges.push({
+            hidden:      document.hidden,
+            timestamp:   Date.now(),
+            msFromStart: Date.now() - jsPsych.data.dataProperties.startTime
+        });
     });
 
-    // init attn check placeholders (filled in on_finish of each check)
-    jsPsych.data.addProperties({ attentionChecks: attnConfigs.map(c => ({ checkID: c.checkID, word: c.word, correctSide: c.correctSide, passed: null, responseValue: null })) });
+    // randomization
+    var sliderOrder = jsPsych.randomization.sampleWithoutReplacement(['AW', 'WA'], 1)[0];
+    jsPsych.data.addProperties({ sliderOrder: sliderOrder });
 
-    // shuffle stimuli
+    var attnTargets = jsPsych.randomization.sampleWithoutReplacement(ATTN_TARGET_POOL, 2);
+    var attnConfigs = attnTargets.map(function(target, i) {
+        return { checkID: `ATTN_${i + 1}`, targetValue: target };
+    });
+    jsPsych.data.addProperties({ attentionChecks: attnConfigs.map(c => ({
+        checkID: c.checkID, targetValue: c.targetValue, passed: null, responseValue: null
+    }))});
+
     var shuffledStimuli = jsPsych.randomization.shuffle([...stimuli]);
 
-    // pick 2 distinct insertion positions within the shuffled array (not first, not last)
     var attnPositions = [];
     while (attnPositions.length < N_ATTENTION_CHECKS) {
         var pos = jsPsych.randomization.randomInt(1, shuffledStimuli.length - 1);
@@ -109,24 +140,20 @@ function initStudy(stimuli) {
     }
     attnPositions.sort((a, b) => a - b);
 
-    // build sequence, then splice attn checks in at specified positions
-    // pos + i accounts for the index shift caused by each prior insertion
     var trialSequence = shuffledStimuli.map(s => ({ type: 'stimulus', data: s }));
     attnPositions.forEach(function(pos, i) {
+        // pos + i accounts for index shift from prior insertions
         trialSequence.splice(pos + i, 0, { type: 'attn', data: attnConfigs[i] });
     });
 
-    // store trial order for data output
     var trialOrder = trialSequence.map(t => t.type === 'attn' ? t.data.checkID : t.data.itemID);
     jsPsych.data.addProperties({ trialOrder: trialOrder });
-    logToBrowser('trialOrder', trialOrder);
 
-
-    // --- build timeline ---
+    // timeline
     var timeline = [];
+    var saveMsg = "<p style='text-align:center; color:#555; font-family:Helvetica Neue,Arial,sans-serif;'>Saving your data — please don't close this page...</p>";
 
-    // 1. consent page — single button: consent + fullscreen + begin (match stumpers pattern)
-    var consentTrial = {
+    timeline.push({
         type: jsPsychHtmlButtonResponse,
         stimulus: getConsentHTML(),
         choices: [],
@@ -141,21 +168,24 @@ function initStudy(stimuli) {
                 jsPsych.finishTrial();
             });
         }
-    };
-    timeline.push(consentTrial);
+    });
 
-    // 2. instructions text pages
-    var instructionsTrial = {
+    timeline.push({
         type: jsPsychInstructions,
         pages: getInstructionPages(sliderOrder),
         show_clickable_nav: true,
         allow_keys: false,
-        allow_backward: true
-    };
-    timeline.push(instructionsTrial);
+        allow_backward: true,
+        on_load: function() {
+            lockInstructionsNext(5);
+            var btn = document.getElementById('jspsych-instructions-next');
+            if (btn) btn.addEventListener('click', function() {
+                setTimeout(function() { lockInstructionsNext(5); }, 50);
+            });
+        }
+    });
 
-    // 3. interactive demo slider trial (separate bc jsPsychInstructions on_load fires once, not per page)
-    var demoTrial = {
+    timeline.push({
         type: jsPsychHtmlButtonResponse,
         stimulus: getDemoHTML(sliderOrder),
         choices: [],
@@ -163,10 +193,8 @@ function initStudy(stimuli) {
         on_load: function() {
             var d1 = document.getElementById('demo-slider-1');
             var d2 = document.getElementById('demo-slider-2');
-
             updateSliderGradient(d1);
             updateSliderGradient(d2);
-
             d1.addEventListener('input', function() {
                 updateSliderGradient(d1);
                 document.getElementById('demo-val-1').textContent = `${d1.value} people`;
@@ -175,107 +203,100 @@ function initStudy(stimuli) {
                 updateSliderGradient(d2);
                 document.getElementById('demo-val-2').textContent = `${d2.value} people`;
             });
-
             document.getElementById('demo-continue-btn').addEventListener('click', function() {
                 jsPsych.finishTrial();
             });
         }
-    };
-    timeline.push(demoTrial);
+    });
 
-    // 4. main trials + attention checks (interleaved)
     var mainTrialCount = 0;
+    var midpoint = Math.floor(N_ITEMS / 2);
+
     trialSequence.forEach(function(item) {
         if (item.type === 'stimulus') {
             mainTrialCount++;
             timeline.push(buildMainTrial(item.data, sliderOrder, mainTrialCount, jsPsych));
+            if (mainTrialCount === midpoint) {
+                timeline.push({
+                    type: jsPsychPipe,
+                    action: 'save',
+                    experiment_id: experimentIdOSF,
+                    filename: () => `${getFilePrefix(jsPsych)}_1_half.json`,
+                    data_string: () => formatFirstHalf(jsPsych),
+                    wait_message: saveMsg
+                });
+            }
         } else {
             timeline.push(buildAttentionCheck(item.data, jsPsych));
         }
     });
 
-    // 5. demographics
-    var demographicsTrial = {
+    timeline.push({
         type: jsPsychSurveyHtmlForm,
-        preamble: "<div class='prevent-select'><p><b>Almost done! Please answer a few questions about yourself.</b></p></div>",
+        preamble: "<div class='prevent-select content-box'><p><b>Almost done! Please answer a few questions about yourself.</b></p></div>",
         html: getDemographicsHTML(),
         button_label: 'Continue',
-        on_finish: function(data) {
-            processDemographics(data, jsPsych);
-        }
-    };
-    timeline.push(demographicsTrial);
+        on_finish: function(data) { processDemographics(data, jsPsych); }
+    });
 
-    // 6. strategy question
-    var strategyTrial = {
+    timeline.push({
         type: jsPsychSurveyHtmlForm,
-        preamble: "<div class='prevent-select'><p><b>One more question:</b></p></div>",
+        preamble: "<div class='prevent-select content-box'><p><b>One more question:</b></p></div>",
         html: getStrategyHTML(),
         button_label: 'Continue',
-        on_finish: function(data) {
-            processStrategy(data, jsPsych);
-        }
-    };
-    timeline.push(strategyTrial);
+        on_finish: function(data) { processStrategy(data, jsPsych); }
+    });
 
-    // 7. technical issues + feedback
-    var technicalTrial = {
+    timeline.push({
         type: jsPsychSurveyHtmlForm,
-        preamble: "<div class='prevent-select'><p><b>Last page:</b></p></div>",
+        preamble: "<div class='prevent-select content-box'><p><b>Last page:</b></p></div>",
         html: getTechnicalFeedbackHTML(),
         button_label: 'Submit',
-        on_finish: function(data) {
-            processTechnicalFeedback(data, jsPsych);
-        }
-    };
-    timeline.push(technicalTrial);
+        on_finish: function(data) { processTechnicalFeedback(data, jsPsych); }
+    });
 
-    // 8+9. save to DataPipe — both saves are BLOCKING timeline nodes.
-    // the completion page (step 10) cannot appear until both saves succeed.
-    // wait_message shown to participant during each save so they don't navigate away.
-    var saveMsg = "<p style='text-align:center; color:#555;'>Saving your data — please don't close this page...</p>";
-
-    var trialFilename = (TEST ? 'DEBUG_' : '') + `${jsPsych.data.dataProperties.subjectID}_trials.json`;
-    var saveTrialData = {
+    timeline.push({
         type: jsPsychPipe,
         action: 'save',
         experiment_id: experimentIdOSF,
-        filename: trialFilename,
-        data_string: () => formatTrialResponses(jsPsych),
+        filename: () => `${getFilePrefix(jsPsych)}_2_half.json`,
+        data_string: () => formatSecondHalf(jsPsych),
         wait_message: saveMsg
-    };
-    timeline.push(saveTrialData);
+    });
 
-    var surveyFilename = (TEST ? 'DEBUG_' : '') + `${jsPsych.data.dataProperties.subjectID}_survey.json`;
-    var saveSurveyData = {
+    timeline.push({
         type: jsPsychPipe,
         action: 'save',
         experiment_id: experimentIdOSF,
-        filename: surveyFilename,
-        data_string: () => formatSurveyResponses(jsPsych),
+        filename: () => `${getFilePrefix(jsPsych)}_demographics.json`,
+        data_string: () => formatDemographics(jsPsych),
         wait_message: saveMsg
-    };
-    timeline.push(saveSurveyData);
+    });
 
-    // 10. completion page + Prolific redirect (button click, not auto)
-    var completionTrial = {
-        type: jsPsychInstructions,
-        pages: [`
-            <div class='prevent-select bounding-div'>
-                <p style='font-size:20px;'><b>You're all done!</b></p>
-                <p>Thank you for participating in our study. Your responses have been saved.</p>
-                <p>Click the button below to complete your submission on Prolific.</p>
+    timeline.push({
+        type: jsPsychHtmlButtonResponse,
+        stimulus: `
+            <div class='content-box' style='text-align:center;'>
+                <p style='font-size:24px; font-weight:600; margin-bottom:8px;'>Thank you so much!</p>
+                <p style='font-size:17px;'>Your responses have been saved and will really help our research.
+                We're grateful for your time and careful attention.</p>
+                <p style='color:#888; font-size:15px; margin-top:24px;'>
+                    You'll be redirected to Prolific automatically in a few seconds.<br>
+                    If nothing happens, <a href='${prolificCompletionURL}' style='color:#028090;'>click here</a>.
+                </p>
             </div>
-        `],
-        show_clickable_nav: true,
-        allow_backward: false,
-        button_label_next: 'Complete Submission',
-        on_finish: function() {
+        `,
+        choices: [],
+        response_ends_trial: false,
+        on_load: function() {
             window.onbeforeunload = null;
-            window.open(prolificCompletionURL, '_self');
+            if (prolificCompletionURL) {
+                setTimeout(function() {
+                    window.location.href = prolificCompletionURL;
+                }, 3000);
+            }
         }
-    };
-    timeline.push(completionTrial);
+    });
 
     jsPsych.run(timeline);
 }

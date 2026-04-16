@@ -1,4 +1,3 @@
-// consent page — single button triggers consent + fullscreen + begin
 function getConsentHTML() {
     return `
         <div class="content-box" style="position: relative;">

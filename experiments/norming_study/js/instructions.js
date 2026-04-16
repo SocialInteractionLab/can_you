@@ -13,17 +13,12 @@ function getInstructionPages(sliderOrder) {
         </div>`,
 
         // page 2
-        `<div class='prevent-select content-box'>
-            <p>For each question, you will be asked to rate two things:</p>
-            <ul style='text-align:left; max-width:600px; margin:auto;'>
-                <li style='margin-bottom:10px;'>
-                    <b>How many of the 100 people said they were <em>${firstDim}</em> to?</b>
-                </li>
-                <li style='margin-bottom:10px;'>
-                    <b>How many of the 100 people said they were <em>${secondDim}</em> to?</b>
-                </li>
-            </ul>
-            <p><strong>There are no right or wrong answers</strong> — all we are interested in is what you think!</p>
+        `<div class='prevent-select content-box' style='text-align:center;'>
+            <p style='text-align:center;'>For each question, you will be asked to rate two things:</p>
+            <p style='text-align:center; margin-top:28px;'>How many of the 100 people said they were <em>${firstDim}</em> to?</p>
+            <p style='text-align:center; color:#aaa; margin:4px 0;'>and</p>
+            <p style='text-align:center; margin-bottom:28px;'>How many of the 100 people said they were <em>${secondDim}</em> to?</p>
+            <p style='text-align:center;'>There are no right or wrong answers — all we are interested in is what you think!</p>
         </div>`
     ];
 }
