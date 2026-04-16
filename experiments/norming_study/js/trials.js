@@ -1,6 +1,6 @@
 // hover tooltips for able/willing
 var DIM_TIPS = {
-    able:    'Could they physically or skillfully do it?',
+    able:    'Could they physically do it?',
     willing: 'Would they agree to do it?'
 };
 
@@ -67,11 +67,11 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
 
             sliderTop.addEventListener('input', function() {
                 updateSliderGradient(sliderTop);
-                valTop.textContent = `${sliderTop.value} people`;
+                if (topTouched) valTop.textContent = `${sliderTop.value} people`;
             });
             sliderBottom.addEventListener('input', function() {
                 updateSliderGradient(sliderBottom);
-                valBottom.textContent = `${sliderBottom.value} people`;
+                if (bottomTouched) valBottom.textContent = `${sliderBottom.value} people`;
             });
 
             // mousedown not input — fires even if value stays at 50
@@ -188,7 +188,7 @@ function buildAttentionCheck(checkConfig, jsPsych) {
 
             slider.addEventListener('input', function() {
                 updateSliderGradient(slider);
-                valDisplay.textContent = `${slider.value} people`;
+                if (touched) valDisplay.textContent = `${slider.value} people`;
             });
 
             function onTouch() {

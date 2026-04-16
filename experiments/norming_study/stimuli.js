@@ -29,7 +29,7 @@ var STIMULI_DATA = {
     },
     {
       "itemID": 7,
-      "actionPhrase": "solve a calculus integral in your head"
+      "actionPhrase": "solve a complicated calculus integral in your head"
     },
     {
       "itemID": 8,

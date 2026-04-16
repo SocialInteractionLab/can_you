@@ -177,10 +177,10 @@ function initStudy(stimuli) {
         allow_keys: false,
         allow_backward: true,
         on_load: function() {
-            lockInstructionsNext(5);
+            lockInstructionsNext(8);
             var btn = document.getElementById('jspsych-instructions-next');
             if (btn) btn.addEventListener('click', function() {
-                setTimeout(function() { lockInstructionsNext(5); }, 50);
+                setTimeout(function() { lockInstructionsNext(8); }, 50);
             });
         }
     });
@@ -193,15 +193,22 @@ function initStudy(stimuli) {
         on_load: function() {
             var d1 = document.getElementById('demo-slider-1');
             var d2 = document.getElementById('demo-slider-2');
+            var d1touched = false, d2touched = false;
             updateSliderGradient(d1);
             updateSliderGradient(d2);
+            d1.addEventListener('mousedown', function() { d1touched = true; });
+            d1.addEventListener('touchstart', function() { d1touched = true; });
+            d1.addEventListener('keydown',    function() { d1touched = true; });
+            d2.addEventListener('mousedown', function() { d2touched = true; });
+            d2.addEventListener('touchstart', function() { d2touched = true; });
+            d2.addEventListener('keydown',    function() { d2touched = true; });
             d1.addEventListener('input', function() {
                 updateSliderGradient(d1);
-                document.getElementById('demo-val-1').textContent = `${d1.value} people`;
+                if (d1touched) document.getElementById('demo-val-1').textContent = `${d1.value} people`;
             });
             d2.addEventListener('input', function() {
                 updateSliderGradient(d2);
-                document.getElementById('demo-val-2').textContent = `${d2.value} people`;
+                if (d2touched) document.getElementById('demo-val-2').textContent = `${d2.value} people`;
             });
             document.getElementById('demo-continue-btn').addEventListener('click', function() {
                 jsPsych.finishTrial();

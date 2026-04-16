@@ -39,7 +39,7 @@ function getDemoHTML(sliderOrder) {
                         <input type='range' class='demo-slider' id='demo-slider-1' min='0' max='100' step='1' value='50'>
                         <div class='slider-footer'>
                             <span class='slider-label-min'>0 people</span>
-                            <span class='slider-value-display' id='demo-val-1'>50 people</span>
+                            <span class='slider-value-display' id='demo-val-1'>?</span>
                             <span class='slider-label-max'>100 people</span>
                         </div>
                     </div>
@@ -48,7 +48,7 @@ function getDemoHTML(sliderOrder) {
                         <input type='range' class='demo-slider' id='demo-slider-2' min='0' max='100' step='1' value='50'>
                         <div class='slider-footer'>
                             <span class='slider-label-min'>0 people</span>
-                            <span class='slider-value-display' id='demo-val-2'>50 people</span>
+                            <span class='slider-value-display' id='demo-val-2'>?</span>
                             <span class='slider-label-max'>100 people</span>
                         </div>
                     </div>
