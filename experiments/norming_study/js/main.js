@@ -103,6 +103,10 @@ function initStudy(stimuli) {
     jsPsych.data.addProperties({ studyID:    studyID });
     jsPsych.data.addProperties({ sessionID:  sessionID });
     jsPsych.data.addProperties({ startTime:  Date.now() });
+    var _now = new Date();
+    var _ts = [_now.getFullYear(), String(_now.getMonth()+1).padStart(2,'0'), String(_now.getDate()).padStart(2,'0')].join('') +
+              '_' + [String(_now.getHours()).padStart(2,'0'), String(_now.getMinutes()).padStart(2,'0'), String(_now.getSeconds()).padStart(2,'0')].join('');
+    jsPsych.data.addProperties({ sessionTimestamp: _ts });
     jsPsych.data.addProperties({ trialResponses: [] });
     jsPsych.data.addProperties({ attentionChecks: [] });
 
@@ -149,11 +153,11 @@ function initStudy(stimuli) {
     var trialOrder = trialSequence.map(t => t.type === 'attn' ? t.data.checkID : t.data.itemID);
     jsPsych.data.addProperties({ trialOrder: trialOrder });
 
-    // timeline
-    var timeline = [];
     var saveMsg = "<p style='text-align:center; color:#555; font-family:Helvetica Neue,Arial,sans-serif;'>Saving your data — please don't close this page...</p>";
 
-    timeline.push({
+    // --- trial objects ---
+
+    var consent = {
         type: jsPsychHtmlButtonResponse,
         stimulus: getConsentHTML(),
         choices: [],
@@ -168,9 +172,9 @@ function initStudy(stimuli) {
                 jsPsych.finishTrial();
             });
         }
-    });
+    };
 
-    timeline.push({
+    var instructions = {
         type: jsPsychInstructions,
         pages: getInstructionPages(sliderOrder),
         show_clickable_nav: true,
@@ -183,9 +187,9 @@ function initStudy(stimuli) {
                 setTimeout(function() { lockInstructionsNext(8); }, 50);
             });
         }
-    });
+    };
 
-    timeline.push({
+    var demo = {
         type: jsPsychHtmlButtonResponse,
         stimulus: getDemoHTML(sliderOrder),
         choices: [],
@@ -214,17 +218,18 @@ function initStudy(stimuli) {
                 jsPsych.finishTrial();
             });
         }
-    });
+    };
 
+    // main trials + attn checks + mid-save — built as array so they can stay in one block
     var mainTrialCount = 0;
     var midpoint = Math.floor(N_TRIALS_PER_PARTICIPANT / 2);
-
+    var trialBlock = [];
     trialSequence.forEach(function(item) {
         if (item.type === 'stimulus') {
             mainTrialCount++;
-            timeline.push(buildMainTrial(item.data, sliderOrder, mainTrialCount, jsPsych));
+            trialBlock.push(buildMainTrial(item.data, sliderOrder, mainTrialCount, jsPsych));
             if (mainTrialCount === midpoint) {
-                timeline.push({
+                trialBlock.push({
                     type: jsPsychPipe,
                     action: 'save',
                     experiment_id: experimentIdOSF,
@@ -234,53 +239,53 @@ function initStudy(stimuli) {
                 });
             }
         } else {
-            timeline.push(buildAttentionCheck(item.data, jsPsych));
+            trialBlock.push(buildAttentionCheck(item.data, jsPsych));
         }
     });
 
-    timeline.push({
+    var demographics = {
         type: jsPsychSurveyHtmlForm,
-        preamble: "<div class='prevent-select content-box'><p><b>Almost done! Please answer a few questions about yourself.</b></p></div>",
+        preamble: "",
         html: getDemographicsHTML(),
         button_label: 'Continue',
         on_finish: function(data) { processDemographics(data, jsPsych); }
-    });
+    };
 
-    timeline.push({
+    var strategy = {
         type: jsPsychSurveyHtmlForm,
-        preamble: "<div class='prevent-select content-box'><p><b>One more question:</b></p></div>",
+        preamble: "",
         html: getStrategyHTML(),
         button_label: 'Continue',
         on_finish: function(data) { processStrategy(data, jsPsych); }
-    });
+    };
 
-    timeline.push({
+    var technical = {
         type: jsPsychSurveyHtmlForm,
-        preamble: "<div class='prevent-select content-box'><p><b>Last page:</b></p></div>",
+        preamble: "",
         html: getTechnicalFeedbackHTML(),
         button_label: 'Submit',
         on_finish: function(data) { processTechnicalFeedback(data, jsPsych); }
-    });
+    };
 
-    timeline.push({
+    var save2half = {
         type: jsPsychPipe,
         action: 'save',
         experiment_id: experimentIdOSF,
         filename: () => `${getFilePrefix(jsPsych)}_2_half.json`,
         data_string: () => formatSecondHalf(jsPsych),
         wait_message: saveMsg
-    });
+    };
 
-    timeline.push({
+    var saveDemographics = {
         type: jsPsychPipe,
         action: 'save',
         experiment_id: experimentIdOSF,
         filename: () => `${getFilePrefix(jsPsych)}_demographics.json`,
         data_string: () => formatDemographics(jsPsych),
         wait_message: saveMsg
-    });
+    };
 
-    timeline.push({
+    var completion = {
         type: jsPsychHtmlButtonResponse,
         stimulus: `
             <div class='content-box' style='text-align:center;'>
@@ -303,7 +308,13 @@ function initStudy(stimuli) {
                 }, 3000);
             }
         }
-    });
+    };
+
+    // --- timeline (reorder vars here to change order) ---
+    var timeline = 
+        [consent, instructions, demo]
+        .concat(trialBlock)
+        .concat([demographics, strategy, technical, save2half, saveDemographics, completion]);
 
     jsPsych.run(timeline);
 }

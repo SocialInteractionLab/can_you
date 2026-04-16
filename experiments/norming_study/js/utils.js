@@ -8,11 +8,11 @@ function logToBrowser(ctx, variable) {
     }
 }
 
-// prolificID when available, else subjectID
+// prolificID when available, else subjectID; timestamp generated once at session start
 function getFilePrefix(jsPsych) {
     var d = jsPsych.data.dataProperties;
     var id = d.prolificID || d.subjectID;
-    return (TEST ? 'DEBUG_' : '') + id;
+    return (TEST ? 'DEBUG_' : '') + d.sessionTimestamp + '_' + id;
 }
 
 function formatFirstHalf(jsPsych) {
