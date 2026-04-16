@@ -1,0 +1,315 @@
+/*
+ * Thinking About What People Do — norming study
+ * Aesthetic borrowed from stumpers_experiment
+ */
+
+/* --- base --- */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f9f4ea;
+}
+
+#jspsych-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+p, li, label {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.prevent-select {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+/* --- content box (consent, instructions, surveys) --- */
+.content-box {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 32px 48px 36px 48px;
+  margin: 20px auto;
+  box-sizing: border-box;
+  min-width: 860px;
+  max-width: 88vw;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.content-box p {
+  text-align: left;
+  line-height: 1.65;
+  font-size: 18px;
+  color: #333;
+}
+
+.content-box li {
+  text-align: left;
+  line-height: 1.5;
+  font-size: 18px;
+  color: #333;
+}
+
+.content-box a {
+  color: #028090;
+}
+
+/* 🌱 logo — positioned top-right of content box */
+.lab-logo {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 22px;
+  opacity: 0.7;
+}
+
+.consent-hr {
+  border: none;
+  border-top: 1px solid #e8e8e8;
+  margin: 20px 0;
+}
+
+
+/* --- trial layout --- */
+.trial-box {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 32px 48px 36px 48px;
+  margin: 20px auto;
+  box-sizing: border-box;
+  min-width: 860px;
+  max-width: 88vw;
+}
+
+/* "We asked 100 people:" label above the question */
+.trial-preamble {
+  font-size: 15px;
+  text-align: center !important;
+  color: #999;
+  margin-bottom: 6px;
+}
+
+/* "Can you X?" — the main question */
+.trial-question {
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center !important;
+  color: #222;
+  margin-top: 0;
+  margin-bottom: 28px;
+  line-height: 1.4;
+}
+
+/* wrapper around the two slider cards */
+.slider-section {
+  margin-top: 4px;
+}
+
+.slider-question {
+  background: #fafafa;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 20px 28px 16px 28px;
+  margin-bottom: 16px;
+}
+
+.question-text {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 14px;
+  color: #333;
+  text-align: center;
+}
+
+.question-text em {
+  font-style: italic;
+  font-weight: 700;
+}
+
+
+/* --- slider --- */
+input[type="range"].trial-slider,
+input[type="range"].demo-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  outline: none;
+  height: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  margin-bottom: 6px;
+  /* fill initialized to 50% in JS via updateSliderGradient() */
+}
+
+input[type="range"].trial-slider::-webkit-slider-thumb,
+input[type="range"].demo-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #028090;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  margin-top: -6px;
+}
+
+input[type="range"].trial-slider::-moz-range-thumb,
+input[type="range"].demo-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #028090;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+input[type="range"].trial-slider::-moz-range-track,
+input[type="range"].demo-slider::-moz-range-track {
+  height: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: transparent;
+}
+
+/* slider footer: 0 / value display / 100 */
+.slider-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.slider-label-min,
+.slider-label-max {
+  font-size: 13px;
+  color: #888;
+  min-width: 24px;
+}
+
+.slider-label-max {
+  text-align: right;
+}
+
+.slider-value-display {
+  font-size: 16px;
+  font-weight: 700;
+  color: #028090;
+  min-width: 80px;
+  text-align: center;
+}
+
+
+/* --- buttons --- */
+.jspsych-btn {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 28px;
+  margin: 12px 8px 0 8px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #028090;
+  color: white;
+  transition: background-color 0.15s ease;
+}
+
+.jspsych-btn:hover:not(:disabled) {
+  background-color: #05668D;
+}
+
+.jspsych-btn:disabled {
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* consent button slightly larger */
+#consent-btn {
+  padding: 14px 36px;
+  font-size: 17px;
+  margin-top: 4px;
+}
+
+
+/* --- progress bar --- */
+#jspsych-progressbar-container {
+  background-color: #e8e8e8;
+  border-bottom: 1px solid #ddd;
+}
+
+#jspsych-progressbar-inner {
+  background-color: #028090;
+}
+
+
+/* --- instruction/survey wrappers — reuse content-box --- */
+/* jsPsych wraps content in #jspsych-content; our .content-box handles width */
+#jspsych-content .content-box {
+  margin-top: 20px;
+}
+
+/* survey form field sizing */
+textarea {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+input[type="number"],
+select {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 8px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #e8e8e8;
+  margin: 20px 0;
+}
+
+/* fullscreen enforcement overlay (production only) */
+#fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.88);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullscreen-overlay-box {
+  background: white;
+  border-radius: 10px;
+  padding: 48px 56px;
+  text-align: center;
+  max-width: 480px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}

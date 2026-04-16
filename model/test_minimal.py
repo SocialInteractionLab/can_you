@@ -258,7 +258,7 @@ c_ig = PALETTES['primary'][0]   # #789769 green
 ctx_labels = list(contexts.keys())
 x = np.arange(len(ctx_labels))
 x_ticks = [f"{l}\n(f={f:.2f})" for l, f in contexts.items()]
-out_dir = '/Users/mokeeffe/Documents/GitHub/can_you/results/test_minimal'
+out_dir = '/Users/mokeeffe/Documents/GitHub/can_you/results/model/test_minimal'
 
 # --- fig 1: goal inference + compliance ---
 fig, axes = plt.subplots(1, 2, figsize=(10, 4))
@@ -282,7 +282,7 @@ plt.suptitle(fr'$\alpha$={alpha}, $\delta$={delta}, $f_k$={f_k}', fontsize=10)
 plt.tight_layout()
 plt.savefig(os.path.join(out_dir, 'goal_compliance.png'), dpi=150, bbox_inches='tight')
 plt.close()
-print(f"\nsaved → results/test_minimal/goal_compliance.png")
+print(f"\nsaved → {out_dir}/goal_compliance.png")
 
 # --- fig 2: IG by context ---
 fig, ax = plt.subplots(figsize=(6, 4))
@@ -297,5 +297,5 @@ for bar, v in zip(bars, ig_vals):
 plt.tight_layout()
 plt.savefig(os.path.join(out_dir, 'info_gain.png'), dpi=150, bbox_inches='tight')
 plt.close()
-print(f"saved → results/test_minimal/info_gain.png")
+print(f"saved → {out_dir}/info_gain.png")
 
