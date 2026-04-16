@@ -155,6 +155,22 @@ function initStudy(stimuli) {
 
     var saveMsg = "<p style='text-align:center; color:#555; font-family:Helvetica Neue,Arial,sans-serif;'>Saving your data — please don't close this page...</p>";
 
+    function handleSaveResult(data, label) {
+        if (data.success) return;
+        console.error('DataPipe save failed', label, data.result);
+        window.onbeforeunload = null;
+        document.body.innerHTML = `
+            <div style='font-family:Helvetica Neue,Arial,sans-serif; text-align:center; margin:15vh auto; max-width:720px; color:#333;'>
+                <p style='font-size:24px; font-weight:600;'>We couldn't save your data.</p>
+                <p style='font-size:16px; color:#666; line-height:1.5;'>
+                    The upload to DataPipe was rejected before it reached OSF.
+                    Please do not close this page. Open the browser console and send the error message to the research team.
+                </p>
+                <p style='font-size:15px; color:#888;'>Failed step: ${label}</p>
+            </div>`;
+        throw new Error('DataPipe save failed: ' + label);
+    }
+
     // --- trial objects ---
 
     var consent = {
@@ -235,7 +251,8 @@ function initStudy(stimuli) {
                     experiment_id: experimentIdOSF,
                     filename: getFilePrefix(jsPsych) + '_1_half.csv',
                     data_string: () => formatFirstHalf(jsPsych),
-                    wait_message: saveMsg
+                    wait_message: saveMsg,
+                    on_finish: function(data) { handleSaveResult(data, 'first half'); }
                 });
             }
         } else {
@@ -273,7 +290,8 @@ function initStudy(stimuli) {
         experiment_id: experimentIdOSF,
         filename: getFilePrefix(jsPsych) + '_2_half.csv',
         data_string: () => formatSecondHalf(jsPsych),
-        wait_message: saveMsg
+        wait_message: saveMsg,
+        on_finish: function(data) { handleSaveResult(data, 'second half'); }
     };
 
     var saveDemographics = {
@@ -282,7 +300,8 @@ function initStudy(stimuli) {
         experiment_id: experimentIdOSF,
         filename: getFilePrefix(jsPsych) + '_demographics.csv',
         data_string: () => formatDemographics(jsPsych),
-        wait_message: saveMsg
+        wait_message: saveMsg,
+        on_finish: function(data) { handleSaveResult(data, 'demographics'); }
     };
 
     var completion = {

@@ -35,18 +35,23 @@ function toCSV(rows) {
     return lines.join('\n');
 }
 
+function getBaseSaveFields(d) {
+    return {
+        trial_type:  'whyask-trial',
+        subjectID:   d.subjectID,
+        prolificID:  d.prolificID,
+        studyID:     d.studyID,
+        sessionID:   d.sessionID,
+        DEBUG:       TEST ? 1 : 0,
+        sliderOrder: d.sliderOrder
+    };
+}
+
 function formatFirstHalf(jsPsych) {
     var d = jsPsych.data.dataProperties;
     var trials = d.trialResponses.slice(0, Math.floor(N_TRIALS_PER_PARTICIPANT / 2));
     var rows = trials.map(function(t) {
-        return Object.assign({
-            trial_type:  'whyask-trial',
-            subjectID:   d.subjectID,
-            prolificID:  d.prolificID,
-            studyID:     d.studyID,
-            sessionID:   d.sessionID,
-            DEBUG:       TEST ? 1 : 0,
-            sliderOrder: d.sliderOrder,
+        return Object.assign(getBaseSaveFields(d), {
             half:        1
         }, t);
     });
@@ -57,27 +62,13 @@ function formatSecondHalf(jsPsych) {
     var d = jsPsych.data.dataProperties;
     var trials = d.trialResponses.slice(Math.floor(N_TRIALS_PER_PARTICIPANT / 2));
     var trialRows = trials.map(function(t) {
-        return Object.assign({
-            trial_type:  'whyask-trial',
-            subjectID:   d.subjectID,
-            prolificID:  d.prolificID,
-            studyID:     d.studyID,
-            sessionID:   d.sessionID,
-            DEBUG:       TEST ? 1 : 0,
-            sliderOrder: d.sliderOrder,
+        return Object.assign(getBaseSaveFields(d), {
             half:        2
         }, t);
     });
     // append attention check rows
     var attnRows = (d.attentionChecks || []).map(function(c) {
-        return {
-            trial_type:  'whyask-trial',
-            subjectID:   d.subjectID,
-            prolificID:  d.prolificID,
-            studyID:     d.studyID,
-            sessionID:   d.sessionID,
-            DEBUG:       TEST ? 1 : 0,
-            sliderOrder: d.sliderOrder,
+        return Object.assign(getBaseSaveFields(d), {
             half:        'attn',
             trialIndex:  c.checkID,
             itemID:      c.checkID,
@@ -92,7 +83,7 @@ function formatSecondHalf(jsPsych) {
             suspicious:  !c.passed,
             targetValue: c.targetValue,
             passed:      c.passed
-        };
+        });
     });
     return toCSV(trialRows.concat(attnRows));
 }
@@ -100,11 +91,21 @@ function formatSecondHalf(jsPsych) {
 function formatDemographics(jsPsych) {
     var d = jsPsych.data.dataProperties;
     var demo = d.demographics || {};
-    var row = {
-        trial_type:  'whyask-trial',
-        subjectID:         d.subjectID,
-        prolificID:        d.prolificID,
-        DEBUG:             TEST ? 1 : 0,
+    var row = Object.assign(getBaseSaveFields(d), {
+        half:              'demographics',
+        trialIndex:        '',
+        itemID:            '',
+        actionPhrase:      '',
+        abilityResponse:   '',
+        abilityRT:         '',
+        abilityDragged:    '',
+        willingnessResponse: '',
+        willingnessRT:     '',
+        willingnessDragged: '',
+        trialRT:           '',
+        suspicious:        '',
+        targetValue:       '',
+        passed:            '',
         age:               demo.age || '',
         gender:            demo.gender || '',
         race:              (demo.race || []).join(';'),
@@ -114,7 +115,7 @@ function formatDemographics(jsPsych) {
         feedback:          d.feedback || '',
         visibilityChanges: (d.visibilityChanges || []).length,
         totalDurationMs:   Date.now() - d.startTime
-    };
+    });
     return toCSV([row]);
 }
 
