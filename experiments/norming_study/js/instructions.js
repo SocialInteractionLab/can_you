@@ -1,4 +1,3 @@
-// instruction pages (text only) — passed to jsPsychInstructions
 // sliderOrder: "AW" (able on top) or "WA" (willing on top) — bullets match trial order
 function getInstructionPages(sliderOrder) {
     var firstDim  = sliderOrder === 'AW' ? 'able'    : 'willing';
@@ -7,7 +6,7 @@ function getInstructionPages(sliderOrder) {
     return [
         // page 1
         `<div class='prevent-select content-box'>
-            <p>In this study, we'll show you a series of everyday questions — things like <em>"Can you make a sandwich?"</em> or <em>"Can you drive me to the airport?"</em></p>
+            <p>In this study, we'll show you a series of everyday questions — things like <em>"Can you solve a Rubik's cube?"</em></p>
             <p>For each question, imagine we asked 100 random people from the general population</p>
             <p>Your job will be to estimate how those 100 people would respond</p>
         </div>`,
@@ -32,7 +31,7 @@ function getDemoHTML(sliderOrder) {
             <p>Here's an example of what each trial will look like. Try moving the sliders!</p>
             <div class='trial-box' style='margin: 0 auto; box-shadow: none; border: 1px solid #ddd;'>
                 <p class='trial-preamble'>We asked 100 people:</p>
-                <p class='trial-question'><em><b>"Can you make a sandwich?"</b></em></p>
+                <p class='trial-question'><em><b>"Can you solve a Rubik's cube?"</b></em></p>
                 <div class='slider-section'>
                     <div class='slider-question'>
                         <p class='question-text'>How many of the 100 people said that they were <em>${topDim}</em> to?</p>
