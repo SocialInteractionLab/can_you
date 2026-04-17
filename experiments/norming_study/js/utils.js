@@ -63,7 +63,9 @@ function formatSecondHalf(jsPsych) {
     var trials = d.trialResponses.slice(Math.floor(N_TRIALS_PER_PARTICIPANT / 2));
     var trialRows = trials.map(function(t) {
         return Object.assign(getBaseSaveFields(d), {
-            half:        2
+            half:        2,
+            targetValue: '',
+            passed:      ''
         }, t);
     });
     // append attention check rows

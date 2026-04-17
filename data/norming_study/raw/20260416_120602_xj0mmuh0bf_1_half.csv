@@ -1,0 +1,6 @@
+trial_type,subjectID,prolificID,studyID,sessionID,DEBUG,sliderOrder,half,itemID,actionPhrase,abilityResponse,abilityRT,abilityDragged,willingnessResponse,willingnessRT,willingnessDragged,trialRT,trialIndex,suspicious
+whyask-trial,xj0mmuh0bf,,,,0,WA,1,89,move your bag so someone can sit down,96,23480,true,90,20000,true,31637,1,false
+whyask-trial,xj0mmuh0bf,,,,0,WA,1,3,do a backflip,12,10170,true,6,4034,true,14383,2,false
+whyask-trial,xj0mmuh0bf,,,,0,WA,1,49,help a friend practice a presentation,91,13536,true,77,6352,true,15964,3,false
+whyask-trial,xj0mmuh0bf,,,,0,WA,1,8,speak conversational Mandarin,18,11415,true,26,2787,true,18670,4,false
+whyask-trial,xj0mmuh0bf,,,,0,WA,1,10,fix a car engine,16,8223,true,16,4398,true,10993,5,false
