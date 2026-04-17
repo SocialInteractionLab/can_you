@@ -137,18 +137,18 @@ function initStudy(stimuli) {
 
     var shuffledStimuli = jsPsych.randomization.shuffle([...stimuli]).slice(0, N_TRIALS_PER_PARTICIPANT);
 
-    var attnPositions = [];
-    while (attnPositions.length < N_ATTENTION_CHECKS) {
-        var pos = jsPsych.randomization.randomInt(1, shuffledStimuli.length - 1);
-        if (!attnPositions.includes(pos)) attnPositions.push(pos);
-    }
-    attnPositions.sort((a, b) => a - b);
+    // var attnPositions = [];
+    // while (attnPositions.length < N_ATTENTION_CHECKS) {
+    //     var pos = jsPsych.randomization.randomInt(1, shuffledStimuli.length - 1);
+    //     if (!attnPositions.includes(pos)) attnPositions.push(pos);
+    // }
+    // attnPositions.sort((a, b) => a - b);
 
     var trialSequence = shuffledStimuli.map(s => ({ type: 'stimulus', data: s }));
-    attnPositions.forEach(function(pos, i) {
-        // pos + i accounts for index shift from prior insertions
-        trialSequence.splice(pos + i, 0, { type: 'attn', data: attnConfigs[i] });
-    });
+    // attnPositions.forEach(function(pos, i) {
+    //     // pos + i accounts for index shift from prior insertions
+    //     trialSequence.splice(pos + i, 0, { type: 'attn', data: attnConfigs[i] });
+    // });
 
     var trialOrder = trialSequence.map(t => t.type === 'attn' ? t.data.checkID : t.data.itemID);
     jsPsych.data.addProperties({ trialOrder: trialOrder });
@@ -255,9 +255,9 @@ function initStudy(stimuli) {
                     on_finish: function(data) { handleSaveResult(data, 'first half'); }
                 });
             }
-        } else {
-            trialBlock.push(buildAttentionCheck(item.data, sliderOrder, jsPsych));
-        }
+        // } else {
+        //     trialBlock.push(buildAttentionCheck(item.data, sliderOrder, jsPsych));
+        // }
     });
 
     var demographics = {

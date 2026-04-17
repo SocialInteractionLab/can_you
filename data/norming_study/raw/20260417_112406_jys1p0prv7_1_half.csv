@@ -1,0 +1,11 @@
+trial_type,subjectID,prolificID,studyID,sessionID,DEBUG,sliderOrder,half,itemID,actionPhrase,abilityResponse,abilityRT,abilityDragged,willingnessResponse,willingnessRT,willingnessDragged,trialRT,trialIndex,suspicious
+whyask-trial,jys1p0prv7,,,,0,AW,1,65,send someone an article you read recently,70,6173,true,40,13589,true,18581,1,false
+whyask-trial,jys1p0prv7,,,,0,AW,1,39,drive someone to the airport at 5am,40,20034,true,15,90490,true,94465,2,false
+whyask-trial,jys1p0prv7,,,,0,AW,1,5,recite the first 50 digits of pi from memory,5,6282,true,5,13190,true,15798,3,false
+whyask-trial,jys1p0prv7,,,,0,AW,1,88,text someone when you get home safe,75,3949,true,65,18082,true,34190,4,false
+whyask-trial,jys1p0prv7,,,,0,AW,1,37,let a classmate copy your exam answers,96,23340,true,60,57933,true,64490,5,false
+whyask-trial,jys1p0prv7,,,,0,AW,1,41,stay late at work on a Friday night,90,27733,true,20,93213,true,100269,6,false
+whyask-trial,jys1p0prv7,,,,0,AW,1,4,juggle five balls at once,2,4655,true,15,19123,true,31397,7,false
+whyask-trial,jys1p0prv7,,,,0,AW,1,96,pass the salt,95,12247,false,93,16497,false,18948,8,false
+whyask-trial,jys1p0prv7,,,,0,AW,1,100,say hello to someone,95,4289,true,80,7988,true,17947,9,false
+whyask-trial,jys1p0prv7,,,,0,AW,1,32,perform the Heimlich maneuver on someone choking,75,6707,true,60,16340,true,23565,10,false

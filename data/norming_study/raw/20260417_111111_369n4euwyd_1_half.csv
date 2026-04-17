@@ -1,0 +1,11 @@
+trial_type,subjectID,prolificID,studyID,sessionID,DEBUG,sliderOrder,half,itemID,actionPhrase,abilityResponse,abilityRT,abilityDragged,willingnessResponse,willingnessRT,willingnessDragged,trialRT,trialIndex,suspicious
+whyask-trial,369n4euwyd,,,,0,WA,1,35,give fifty dollars to an acquaintance,93,22968,true,45,12182,true,25801,1,false
+whyask-trial,369n4euwyd,,,,0,WA,1,48,pick a friend up from the airport,30,13744,true,90,6471,true,18776,2,false
+whyask-trial,369n4euwyd,,,,0,WA,1,25,change a flat tire,20,4239,true,70,7340,true,11306,3,false
+whyask-trial,369n4euwyd,,,,0,WA,1,28,bake a cake from scratch,50,12060,true,89,5448,true,13960,4,false
+whyask-trial,369n4euwyd,,,,0,WA,1,61,forward a controversial email to your whole team,100,8073,true,10,4606,true,10051,5,false
+whyask-trial,369n4euwyd,,,,0,WA,1,44,pick up groceries for a friend on the way over,100,8848,true,50,10849,true,12168,6,false
+whyask-trial,369n4euwyd,,,,0,WA,1,2,hold your breath for five minutes,5,8448,true,30,4490,true,11631,7,false
+whyask-trial,369n4euwyd,,,,0,WA,1,69,tell someone what time it is,100,11552,true,95,6457,true,12844,8,false
+whyask-trial,369n4euwyd,,,,0,WA,1,43,call a friend to talk late at night,100,9473,true,70,3007,true,11244,9,false
+whyask-trial,369n4euwyd,,,,0,WA,1,94,wish someone a happy birthday,95,7023,true,90,3515,true,10417,10,false

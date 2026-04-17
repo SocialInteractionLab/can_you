@@ -1,0 +1,3 @@
+trial_type,subjectID,prolificID,studyID,sessionID,DEBUG,sliderOrder,half,trialIndex,itemID,actionPhrase,abilityResponse,abilityRT,abilityDragged,willingnessResponse,willingnessRT,willingnessDragged,trialRT,suspicious,targetValue,passed,age,gender,race,education,strategy,technicalIssues,feedback,visibilityChanges,totalDurationMs
+whyask-trial,jys1p0prv7,,,,0,AW,demographics,,,,,,,,,,,,,,,,,,"i asked misha what these questions meant, received no answer, and tied myself into knots about the presuppositions",no,"can i answer this? 
+will i?",0,917739
