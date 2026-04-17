@@ -255,7 +255,8 @@ function initStudy(stimuli) {
                     on_finish: function(data) { handleSaveResult(data, 'first half'); }
                 });
             }
-        // } else {
+        }
+        // else {
         //     trialBlock.push(buildAttentionCheck(item.data, sliderOrder, jsPsych));
         // }
     });
