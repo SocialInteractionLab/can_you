@@ -35,8 +35,8 @@ function getDemoHTML(sliderOrder) {
     // dimSpan is defined in trials.js — safe to use here since getDemoHTML is called at runtime
     var demoTopQ = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
     var demoBottomQ = sliderOrder === 'AW'
-        ? `Assuming they were ${dimSpan('able')} to, how many would be ${dimSpan('willing')} to?`
-        : `Assuming they were ${dimSpan('willing')} to, how many would be ${dimSpan('able')} to?`;
+        ? `Assuming all 100 were ${dimSpan('able')} to, how many would be ${dimSpan('willing')} to?`
+        : `Assuming all 100 were ${dimSpan('willing')} to, how many of those 100 would be ${dimSpan('able')} to?`;
 
     return `
         <div class='prevent-select content-box'>
