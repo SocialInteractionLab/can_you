@@ -3,20 +3,26 @@ function getInstructionPages(sliderOrder) {
     var firstDim  = sliderOrder === 'AW' ? 'able'    : 'willing';
     var secondDim = sliderOrder === 'AW' ? 'willing' : 'able';
 
+    // conditional phrasing for slider 2 explanation
+    var conditionalClause = sliderOrder === 'AW'
+        ? 'assuming they <em>were</em> able to, how many would be willing to?'
+        : 'assuming they <em>were</em> willing to, how many would be able to?';
+
     return [
-        // page 1
+        // page 1 — introduce the task + vignette framing
         `<div class='prevent-select content-box'>
-            <p>In this study, we'll show you a series of everyday questions — things like <em>"Can you solve a Rubik's cube?"</em></p>
-            <p>For each question, imagine we asked 100 random people from the general population</p>
-            <p>Your job will be to estimate how those 100 people would respond</p>
+            <p>In this study, you'll see a series of short everyday scenarios and a question about that scenario, for example:</p>
+            <p style='font-style:italic; color:#555; margin: 4px 0 2px;'>You're hanging out with a group of friends. Someone pulls out a scrambled Rubik's cube and passes it around. Eventually they hand it to you and say:</p>
+            <p style='margin: 2px 0 12px;'><em><b>"Can you solve a Rubik's cube?"</b></em></p>
+            <p>For each one, imagine <b>100 different random people</b> are all in that situation. Your job is to estimate how many of them would be able to do what's being asked — and how many would be willing to.</p>
         </div>`,
 
-        // page 2
+        // page 2 — explain the two sliders with conditional framing
         `<div class='prevent-select content-box'>
-            <p>For each question, you will be asked to rate two things:</p>
-            <p style='margin-top:20px;'>1) How many of the 100 people said they were <em>${firstDim}</em> to?</p>
-            <p style='margin-bottom:20px;'>2) How many of the 100 people said they were <em>${secondDim}</em> to?</p>
-            <p><b>There are no right or wrong answers</b> — all we are interested in is what you think!</p>
+            <p>For each question, you will use two sliders:</p>
+            <p style='margin-top:20px;'>1) How many of the 100 people would be <em>${firstDim}</em> to?</p>
+            <p style='margin-bottom:20px;'>2) And ${conditionalClause}</p>
+            <p><b>There are no right or wrong answers</b> — all we're interested in is what you think!</p>
         </div>`
     ];
 }
@@ -26,15 +32,22 @@ function getDemoHTML(sliderOrder) {
     var topDim    = sliderOrder === 'AW' ? 'able'    : 'willing';
     var bottomDim = sliderOrder === 'AW' ? 'willing' : 'able';
 
+    // dimSpan is defined in trials.js — safe to use here since getDemoHTML is called at runtime
+    var demoTopQ = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
+    var demoBottomQ = sliderOrder === 'AW'
+        ? `Assuming they were ${dimSpan('able')} to, how many would be ${dimSpan('willing')} to?`
+        : `Assuming they were ${dimSpan('willing')} to, how many would be ${dimSpan('able')} to?`;
+
     return `
         <div class='prevent-select content-box'>
             <p>Here's an example of what each trial will look like. Try moving the sliders!</p>
             <div class='trial-box' style='margin: 0 auto; box-shadow: none; border: 1px solid #ddd;'>
-                <p class='trial-preamble'>We asked 100 people:</p>
+                <p class='trial-preamble'>We asked 100 people to imagine the following situation:</p>
+                <p class='trial-vignette'>You're hanging out with a group of friends. Someone pulls out a scrambled Rubik's cube and passes it around. Eventually they hand it to you and say:</p>
                 <p class='trial-question'><em><b>"Can you solve a Rubik's cube?"</b></em></p>
                 <div class='slider-section'>
                     <div class='slider-question'>
-                        <p class='question-text'>How many of the 100 people said that they were <em>${topDim}</em> to?</p>
+                        <p class='question-text'>${demoTopQ}</p>
                         <input type='range' class='demo-slider' id='demo-slider-1' min='0' max='100' step='1' value='50'>
                         <div class='slider-footer'>
                             <span class='slider-label-min'>0 people</span>
@@ -43,7 +56,7 @@ function getDemoHTML(sliderOrder) {
                         </div>
                     </div>
                     <div class='slider-question'>
-                        <p class='question-text'>How many of the 100 people said that they were <em>${bottomDim}</em> to?</p>
+                        <p class='question-text'>${demoBottomQ}</p>
                         <input type='range' class='demo-slider' id='demo-slider-2' min='0' max='100' step='1' value='50'>
                         <div class='slider-footer'>
                             <span class='slider-label-min'>0 people</span>

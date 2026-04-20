@@ -1,7 +1,7 @@
 // hover tooltips for able/willing
 var DIM_TIPS = {
-    able:    'Could they physically do it?',
-    willing: 'Would they agree to do it?'
+    able:    'Whether they have the skill or physical capacity to do it',
+    willing: 'Whether they would agree or choose to do it'
 };
 
 function dimSpan(dim) {
@@ -13,14 +13,23 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
     var topDim    = sliderOrder === 'AW' ? 'able'    : 'willing';
     var bottomDim = sliderOrder === 'AW' ? 'willing' : 'able';
 
+    // slider 1: unconditional estimate
+    var topQuestion = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
+
+    // slider 2: conditional on slider 1
+    var bottomQuestion = sliderOrder === 'AW'
+        ? `Assuming they were ${dimSpan('able')} to, how many would be ${dimSpan('willing')} to?`
+        : `Assuming they were ${dimSpan('willing')} to, how many would be ${dimSpan('able')} to?`;
+
     var trialHTML = `
         <div class='prevent-select trial-box'>
             <div class='item-counter'>${mainTrialIndex} / ${N_TRIALS_PER_PARTICIPANT}</div>
-            <p class='trial-preamble'>We asked 100 people:</p>
+            <p class='trial-preamble'>We asked 100 people to imagine the following situation:</p>
+            <p class='trial-vignette'>${stimulus.vignette}</p>
             <p class='trial-question'><em><b>"Can you ${stimulus.actionPhrase}?"</b></em></p>
             <div class='slider-section'>
                 <div class='slider-question'>
-                    <p class='question-text'>How many of the 100 people said that they were ${dimSpan(topDim)} to?</p>
+                    <p class='question-text'>${topQuestion}</p>
                     <input type='range' class='trial-slider' id='slider-top' min='0' max='100' step='1' value='50'>
                     <div class='slider-footer'>
                         <span class='slider-label-min'>0 people</span>
@@ -29,7 +38,7 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
                     </div>
                 </div>
                 <div class='slider-question'>
-                    <p class='question-text'>How many of the 100 people said that they were ${dimSpan(bottomDim)} to?</p>
+                    <p class='question-text'>${bottomQuestion}</p>
                     <input type='range' class='trial-slider' id='slider-bottom' min='0' max='100' step='1' value='50'>
                     <div class='slider-footer'>
                         <span class='slider-label-min'>0 people</span>
@@ -127,6 +136,7 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
                 var trialData = {
                     itemID:              stimulus.itemID,
                     actionPhrase:        stimulus.actionPhrase,
+                    vignette:            stimulus.vignette,
                     abilityResponse:     abilityResponse,
                     abilityRT:           abilityRT,
                     abilityDragged:      abilityDragged,
@@ -153,12 +163,18 @@ function buildAttentionCheck(checkConfig, sliderOrder, jsPsych) {
     var topDim    = sliderOrder === 'AW' ? 'able'    : 'willing';
     var bottomDim = sliderOrder === 'AW' ? 'willing' : 'able';
 
+    // match main trial wording for consistency
+    var attnTopQ = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
+    var attnBottomQ = sliderOrder === 'AW'
+        ? `Assuming they were ${dimSpan('able')} to, how many would be ${dimSpan('willing')} to?`
+        : `Assuming they were ${dimSpan('willing')} to, how many would be ${dimSpan('able')} to?`;
+
     var html = `
         <div class='prevent-select trial-box'>
             <p class='trial-question' style='margin-bottom:28px;'>Please move both sliders to exactly <b>${N} people</b>.</p>
             <div class='slider-section'>
                 <div class='slider-question'>
-                    <p class='question-text'>How many of the 100 people said that they were ${dimSpan(topDim)} to?</p>
+                    <p class='question-text'>${attnTopQ}</p>
                     <input type='range' class='trial-slider' id='attn-slider-top' min='0' max='100' step='1' value='50'>
                     <div class='slider-footer'>
                         <span class='slider-label-min'>0 people</span>
@@ -167,7 +183,7 @@ function buildAttentionCheck(checkConfig, sliderOrder, jsPsych) {
                     </div>
                 </div>
                 <div class='slider-question'>
-                    <p class='question-text'>How many of the 100 people said that they were ${dimSpan(bottomDim)} to?</p>
+                    <p class='question-text'>${attnBottomQ}</p>
                     <input type='range' class='trial-slider' id='attn-slider-bottom' min='0' max='100' step='1' value='50'>
                     <div class='slider-footer'>
                         <span class='slider-label-min'>0 people</span>

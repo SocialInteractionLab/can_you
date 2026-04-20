@@ -97,6 +97,17 @@ p, li, label {
   margin-bottom: 6px;
 }
 
+.trial-vignette {
+  font-style: italic;
+  font-size: 17px;
+  color: #555;
+  text-align: left !important;
+  line-height: 1.7;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  padding: 0 4px;
+}
+
 .trial-question {
   font-size: 22px;
   font-weight: 600;
