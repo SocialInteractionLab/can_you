@@ -79,8 +79,9 @@ p, li, label {
   padding: 32px 48px 36px 48px;
   margin: 20px auto;
   box-sizing: border-box;
-  min-width: 860px;
+  width: 1000px;
   max-width: 88vw;
+  min-height: 600px;
 }
 
 .item-counter {
