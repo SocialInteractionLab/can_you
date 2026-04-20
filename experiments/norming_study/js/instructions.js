@@ -5,8 +5,8 @@ function getInstructionPages(sliderOrder) {
 
     // conditional phrasing for slider 2 explanation
     var conditionalClause = sliderOrder === 'AW'
-        ? 'assuming they <em>were</em> able to, how many would be willing to?'
-        : 'assuming they <em>were</em> willing to, how many would be able to?';
+        ? 'assuming all 100 <em>were</em> able to, how many of those 100 would be willing to?'
+        : 'assuming all 100 <em>were</em> willing to, how many of those 100 would be able to?';
 
     return [
         // page 1 — introduce the task + vignette framing
