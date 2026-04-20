@@ -37,7 +37,7 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
                         <span class='slider-label-max'>100 people</span>
                     </div>
                 </div>
-                <div class='slider-question'>
+                <div class='slider-question' id='bottom-slider-wrap' style='display:none; opacity:0; transition:opacity 0.25s ease;'>
                     <p class='question-text'>${bottomQuestion}</p>
                     <input type='range' class='trial-slider' id='slider-bottom' min='0' max='100' step='1' value='50'>
                     <div class='slider-footer'>
@@ -65,14 +65,24 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
             var topPointerDown = false, bottomPointerDown = false;
             var topDragged = false, bottomDragged = false;
 
-            var sliderTop    = document.getElementById('slider-top');
-            var sliderBottom = document.getElementById('slider-bottom');
-            var valTop       = document.getElementById('val-top');
-            var valBottom    = document.getElementById('val-bottom');
-            var submitBtn    = document.getElementById('trial-submit-btn');
+            var sliderTop      = document.getElementById('slider-top');
+            var sliderBottom   = document.getElementById('slider-bottom');
+            var valTop         = document.getElementById('val-top');
+            var valBottom      = document.getElementById('val-bottom');
+            var submitBtn      = document.getElementById('trial-submit-btn');
+            var bottomWrap     = document.getElementById('bottom-slider-wrap');
+            var topRevealed    = false;
+
+            function revealBottom() {
+                if (!topRevealed) {
+                    topRevealed = true;
+                    bottomWrap.style.display = '';
+                    requestAnimationFrame(function() { bottomWrap.style.opacity = '1'; });
+                    updateSliderGradient(sliderBottom);
+                }
+            }
 
             updateSliderGradient(sliderTop);
-            updateSliderGradient(sliderBottom);
 
             sliderTop.addEventListener('input', function() {
                 updateSliderGradient(sliderTop);
@@ -113,9 +123,12 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
             sliderBottom.addEventListener('pointerdown', function() { bottomPointerDown = true; });
             sliderBottom.addEventListener('pointermove', function() { if (bottomPointerDown) bottomDragged = true; });
             document.addEventListener('pointerup', function() {
+                if (topPointerDown) revealBottom();
                 topPointerDown = false;
                 bottomPointerDown = false;
             });
+            sliderTop.addEventListener('touchend', revealBottom);
+            sliderTop.addEventListener('keyup', revealBottom);
 
             submitBtn.addEventListener('click', function() {
                 var totalRT = Math.round(performance.now() - trialStart);
@@ -182,7 +195,7 @@ function buildAttentionCheck(checkConfig, sliderOrder, jsPsych) {
                         <span class='slider-label-max'>100 people</span>
                     </div>
                 </div>
-                <div class='slider-question'>
+                <div class='slider-question' id='attn-bottom-wrap' style='display:none; opacity:0; transition:opacity 0.25s ease;'>
                     <p class='question-text'>${attnBottomQ}</p>
                     <input type='range' class='trial-slider' id='attn-slider-bottom' min='0' max='100' step='1' value='50'>
                     <div class='slider-footer'>
@@ -209,12 +222,22 @@ function buildAttentionCheck(checkConfig, sliderOrder, jsPsych) {
             var valTop       = document.getElementById('attn-val-top');
             var valBottom    = document.getElementById('attn-val-bottom');
             var submitBtn    = document.getElementById('attn-submit-btn');
+            var bottomWrap   = document.getElementById('attn-bottom-wrap');
             var topTouched = false, bottomTouched = false;
             var topPointerDown = false, bottomPointerDown = false;
             var topDragged = false, bottomDragged = false;
+            var topRevealed = false;
+
+            function revealBottom() {
+                if (!topRevealed) {
+                    topRevealed = true;
+                    bottomWrap.style.display = '';
+                    requestAnimationFrame(function() { bottomWrap.style.opacity = '1'; });
+                    updateSliderGradient(sliderBottom);
+                }
+            }
 
             updateSliderGradient(sliderTop);
-            updateSliderGradient(sliderBottom);
 
             sliderTop.addEventListener('input', function() {
                 updateSliderGradient(sliderTop);
@@ -252,9 +275,12 @@ function buildAttentionCheck(checkConfig, sliderOrder, jsPsych) {
             sliderBottom.addEventListener('pointerdown', function() { bottomPointerDown = true; });
             sliderBottom.addEventListener('pointermove', function() { if (bottomPointerDown) bottomDragged = true; });
             document.addEventListener('pointerup', function() {
+                if (topPointerDown) revealBottom();
                 topPointerDown = false;
                 bottomPointerDown = false;
             });
+            sliderTop.addEventListener('touchend', revealBottom);
+            sliderTop.addEventListener('keyup', revealBottom);
 
             submitBtn.addEventListener('click', function() {
                 var topVal    = parseInt(sliderTop.value);
