@@ -5,14 +5,14 @@ function getInstructionPages(sliderOrder) {
 
     // conditional phrasing for slider 2 explanation
     var conditionalClause = sliderOrder === 'AW'
-        ? 'assuming all 100 <em>were</em> able to, how many of those 100 would be willing to?'
-        : 'assuming all 100 <em>were</em> willing to, how many of those 100 would be able to?';
+        ? 'assuming all 100 <em>were</em> able to, how many of the 100 would be willing to?'
+        : 'assuming all 100 <em>were</em> willing to, how many of the 100 would be able to?';
 
     return [
         // page 1 — introduce the task + vignette framing
         `<div class='prevent-select content-box'>
             <p>In this study, you'll see a series of short everyday scenarios and a question about each one. For example:</p>
-            <p style='font-style:italic; color:#555; margin: 4px 0 2px;'>You're hanging out with a group of friends. Someone pulls out a scrambled Rubik's cube and passes it around. Eventually they hand it to you and say:</p>
+            <p style='font-style:italic; font-weight:700; color:#555; margin: 4px 0 2px;'>You're hanging out with a group of friends. Someone pulls out a scrambled Rubik's cube and passes it around. Eventually they hand it to you and say:</p>
             <p style='margin: 2px 0 12px;'><em><b>"Can you solve a Rubik's cube?"</b></em></p>
             <p>For each one, imagine <b>100 random people</b> are all in that situation. Your job is to estimate how many of them would be able to do what's being asked — and how many would be willing to.</p>
         </div>`,
@@ -35,8 +35,8 @@ function getDemoHTML(sliderOrder) {
     // dimSpan is defined in trials.js — safe to use here since getDemoHTML is called at runtime
     var demoTopQ = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
     var demoBottomQ = sliderOrder === 'AW'
-        ? `Assuming all 100 were ${dimSpan('able')} to, how many would be ${dimSpan('willing')} to?`
-        : `Assuming all 100 were ${dimSpan('willing')} to, how many of those 100 would be ${dimSpan('able')} to?`;
+        ? `Assuming all 100 were ${dimSpan('able')} to, how many of the 100 would be ${dimSpan('willing')} to?`
+        : `Assuming all 100 were ${dimSpan('willing')} to, how many of the 100 would be ${dimSpan('able')} to?`;
 
     return `
         <div class='prevent-select content-box'>

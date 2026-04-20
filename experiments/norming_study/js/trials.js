@@ -18,8 +18,8 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
 
     // slider 2: conditional on slider 1
     var bottomQuestion = sliderOrder === 'AW'
-        ? `Assuming they were ${dimSpan('able')} to, how many would be ${dimSpan('willing')} to?`
-        : `Assuming they were ${dimSpan('willing')} to, how many would be ${dimSpan('able')} to?`;
+        ? `Assuming all 100 were ${dimSpan('able')} to, how many of the 100 would be ${dimSpan('willing')} to?`
+        : `Assuming all 100 were ${dimSpan('willing')} to, how many of the 100 would be ${dimSpan('able')} to?`;
 
     var trialHTML = `
         <div class='prevent-select trial-box'>
@@ -179,8 +179,8 @@ function buildAttentionCheck(checkConfig, sliderOrder, jsPsych) {
     // match main trial wording for consistency
     var attnTopQ = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
     var attnBottomQ = sliderOrder === 'AW'
-        ? `Assuming they were ${dimSpan('able')} to, how many would be ${dimSpan('willing')} to?`
-        : `Assuming they were ${dimSpan('willing')} to, how many would be ${dimSpan('able')} to?`;
+        ? `Assuming all 100 were ${dimSpan('able')} to, how many of the 100 would be ${dimSpan('willing')} to?`
+        : `Assuming all 100 were ${dimSpan('willing')} to, how many of the 100 would be ${dimSpan('able')} to?`;
 
     var html = `
         <div class='prevent-select trial-box'>
