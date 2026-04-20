@@ -7,7 +7,7 @@ var STIMULI_DATA = {
     {
       "itemID": 1,
       "actionPhrase": "run 50 miles without stopping",
-      "vignette": "You are sitting at a restaurant with a friend who is not a runner. Out of the blue, your friend says:"
+      "vignette": "You are sitting at a restaurant with a friend. Out of the blue, your friend says:"
     },
     {
       "itemID": 2,
@@ -39,7 +39,7 @@ var STIMULI_DATA = {
     {
       "itemID": 7,
       "actionPhrase": "speak to this person in Mandarin",
-      "vignette": "You are traveling abroad with a friend who does not speak Mandarin. You encounter a shopkeeper. Your friend turns to you and says:"
+      "vignette": "You are traveling abroad with a friend who does not speak Mandarin. You encounter a vendor on the street. Your friend turns to you and says:"
     },
     {
       "itemID": 8,
