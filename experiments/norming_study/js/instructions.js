@@ -15,7 +15,6 @@ function getInstructionPages(sliderOrder) {
             <p style='font-style:italic; font-weight:700; font-size:22px; color:#222; margin: 4px 0 2px;'>You're hanging out with a group of friends. Someone pulls out a scrambled Rubik's cube and passes it around. Eventually they hand it to you and say:</p>
             <p style='font-size:22px; color:#222; margin: 2px 0 12px;'><em><b>"Can you solve the Rubik's cube?"</b></em></p>
             <p>For each one, imagine <b>100 random people</b> are all in that situation — people with all kinds of different backgrounds, skills, and personalities. Your job is to estimate how many of them would be able to do what's being asked — and how many would be willing to.</p>
-            <p>The scenario may include details about who's asking or why — that's just to help set the scene. The 100 people you're imagining are always just random people from the general public, not any particular type of person.</p>
         </div>`,
 
         // page 2 — explain the two sliders with conditional framing
