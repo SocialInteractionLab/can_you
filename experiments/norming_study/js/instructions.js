@@ -12,7 +12,7 @@ function getInstructionPages(sliderOrder) {
         // page 1 — introduce the task + vignette framing
         `<div class='prevent-select content-box'>
             <p>In this study, you'll see a series of short everyday scenarios and a question about each one. For example:</p>
-            <p style='font-style:italic; font-weight:700; color:#555; margin: 4px 0 2px;'>You're hanging out with a group of friends. Someone pulls out a scrambled Rubik's cube and passes it around. Eventually they hand it to you and say:</p>
+            <p style='font-style:italic; font-weight:700; font-size:22px; color:#222; margin: 4px 0 2px;'>You're hanging out with a group of friends. Someone pulls out a scrambled Rubik's cube and passes it around. Eventually they hand it to you and say:</p>
             <p style='margin: 2px 0 12px;'><em><b>"Can you solve a Rubik's cube?"</b></em></p>
             <p>For each one, imagine <b>100 random people</b> are all in that situation. Your job is to estimate how many of them would be able to do what's being asked — and how many would be willing to.</p>
         </div>`,
