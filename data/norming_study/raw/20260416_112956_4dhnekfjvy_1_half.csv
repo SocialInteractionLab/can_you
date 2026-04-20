@@ -1,8 +1,0 @@
-trial_type,subjectID,prolificID,studyID,sessionID,DEBUG,sliderOrder,half,itemID,actionPhrase,abilityResponse,abilityRT,abilityDragged,willingnessResponse,willingnessRT,willingnessDragged,trialRT,trialIndex,suspicious
-whyask-trial,4dhnekfjvy,,,,0,AW,1,98,hold something for someone for a moment,65,1081,false,61,1866,false,2309,1,false
-whyask-trial,4dhnekfjvy,,,,0,AW,1,78,help someone pick up something they dropped,73,787,true,59,1634,false,2520,2,false
-whyask-trial,4dhnekfjvy,,,,0,AW,1,37,let a classmate copy your exam answers,78,959,true,59,1748,true,2244,3,false
-whyask-trial,4dhnekfjvy,,,,0,AW,1,76,scoot over on a bench to make room,79,853,true,65,1529,true,2078,4,false
-whyask-trial,4dhnekfjvy,,,,0,AW,1,55,lend your car to an acquaintance for the weekend,81,560,false,64,1223,true,1617,5,false
-whyask-trial,4dhnekfjvy,,,,0,AW,1,14,sing a very high note in an opera,87,1936,false,66,2852,true,3712,6,false
-whyask-trial,4dhnekfjvy,,,,0,AW,1,69,tell someone what time it is,77,861,false,61,1372,true,1849,7,false

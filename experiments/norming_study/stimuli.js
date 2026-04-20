@@ -43,7 +43,7 @@ var STIMULI_DATA = {
     },
     {
       "itemID": 8,
-      "actionPhrase": "play that piano piece from memory",
+      "actionPhrase": "play something on the piano from memory",
       "vignette": "You are at a friend's house and there is a piano in the room. Your friend points to it and says:"
     },
     {
@@ -55,7 +55,7 @@ var STIMULI_DATA = {
     {
       "itemID": 10,
       "actionPhrase": "reach that item on the top shelf for me",
-      "vignette": "You are helping a short elderly relative do some shopping. The item they want is on a very high shelf that neither of you can reach. Your relative says:"
+      "vignette": "You are helping a short elderly relative do some shopping. The item they want is on a very high shelf they cannot reach. Your relative looks up at you and says:"
     },
     {
       "itemID": 11,
@@ -75,7 +75,7 @@ var STIMULI_DATA = {
     },
     {
       "itemID": 14,
-      "actionPhrase": "perform CPR on him",
+      "actionPhrase": "perform CPR on them",
       "vignette": "You are at a park and someone collapses nearby. A panicked bystander turns to you and says:"
     },
 
@@ -519,7 +519,7 @@ var STIMULI_DATA = {
     {
       "itemID": 96,
       "actionPhrase": "help me move into my new apartment this weekend",
-      "vignette": "A close friend just got the keys to a new place and needs all hands on deck for moving day. They text the group:"
+      "vignette": "A close friend just got the keys to a new place and needs all hands on deck for moving day. They text you:"
     },
 
     {
@@ -569,7 +569,7 @@ var STIMULI_DATA = {
     {
       "itemID": 106,
       "actionPhrase": "help me paint my new bedroom this weekend",
-      "vignette": "A close friend is freshening up their new apartment before fully moving in. They message the group:"
+      "vignette": "A close friend is freshening up their new apartment before fully moving in. They message you:"
     },
 
     {
@@ -629,7 +629,7 @@ var STIMULI_DATA = {
     {
       "itemID": 117,
       "actionPhrase": "look at this contract and tell me if this clause is okay",
-      "vignette": "A close friend is reviewing a lease or work agreement and spots some confusing language. They send it over and say:"
+      "vignette": "A close friend is reviewing a lease and spots some confusing language. They send it over and say:"
     },
     {
       "itemID": 121,
@@ -645,7 +645,7 @@ var STIMULI_DATA = {
     {
       "itemID": 119,
       "actionPhrase": "help me clean out my entire garage this weekend",
-      "vignette": "An acquaintance knows you're organized and asks if you'll help with their years-of-accumulated garage. They say:"
+      "vignette": "An acquaintance knows you're organized and asks if you'll help clean out their garage, which hasn't been touched in years. They say:"
     },
     {
       "itemID": 120,
@@ -682,48 +682,48 @@ var STIMULI_DATA = {
     {
       "itemID": 127,
       "actionPhrase": "pick up some milk from the store on your way home",
-      "vignette": "Your partner texts you while you are finishing up at the grocery store. They just realized you are out of milk and need some for dinner. They say:"
+      "vignette": "Your partner texts you while you are finishing up at the grocery store. They just realized you are out of milk at home and need some for dinner. They say:"
     },
 
     {
       "itemID": 128,
-      "actionPhrase": "tell the police you were with a friend last night when you weren't",
+      "actionPhrase": "tell the police you were with me last night when you weren't",
       "vignette": "A close friend calls you in a panic, saying the police are asking where they were last night and they need an alibi. Your friend says:"
     },
     {
       "itemID": 129,
-      "actionPhrase": "cover for a friend by telling their partner you were all together last night",
+      "actionPhrase": "cover for me by telling my partner you were with me last night",
       "vignette": "A friend calls you in a tense whisper, explaining they were somewhere they shouldn't have been and their partner is now asking questions. They say:"
     },
     {
       "itemID": 130,
-      "actionPhrase": "forge a supervisor's signature on a time sheet for a coworker",
+      "actionPhrase": "forge my supervisor's signature on my time sheet",
       "vignette": "A coworker confides they missed the submission deadline for their time sheet and the supervisor is unreachable for a week. They say the signature is just a formality and ask:"
     },
 
     {
       "itemID": 131,
-      "actionPhrase": "repair a burst water pipe before the basement floods",
+      "actionPhrase": "repair the burst water pipe before the basement floods",
       "vignette": "A close friend calls you in a panic — water is spraying from a pipe and the basement floor is already wet. They know you are somewhat handy and say:"
     },
     {
       "itemID": 132,
-      "actionPhrase": "code a basic app from scratch for a new business",
+      "actionPhrase": "code a basic app from scratch for my new business",
       "vignette": "A close friend is launching a small business and has a specific app idea they can't afford to hire a developer for. They know you have done a bit of coding before and say:"
     },
     {
       "itemID": 133,
-      "actionPhrase": "bake a professional three-tier wedding cake for a sibling's wedding",
+      "actionPhrase": "bake a professional three-tier wedding cake for my sibling's wedding",
       "vignette": "A friend's sibling is getting married and the hired baker just cancelled a week before the event. Your friend knows you enjoy baking and calls you in a panic:"
     },
     {
       "itemID": 134,
-      "actionPhrase": "perform a cello solo at a wedding ceremony tomorrow",
+      "actionPhrase": "perform a cello solo at my wedding ceremony tomorrow",
       "vignette": "A friend who is getting married calls the night before: the musician they hired had an emergency cancellation. They know you played some string instruments as a kid and say:"
     },
     {
       "itemID": 135,
-      "actionPhrase": "talk this person down from a severe panic attack using the right technique",
+      "actionPhrase": "talk this person down from their panic attack",
       "vignette": "You and a friend are in a waiting room when someone nearby starts hyperventilating and shaking uncontrollably. Your friend turns to you since you once mentioned knowing some first-aid:"
     },
 
@@ -773,7 +773,7 @@ var STIMULI_DATA = {
     {
       "itemID": 144,
       "actionPhrase": "spend your whole weekend helping a near-stranger move into a fifth-floor walk-up",
-      "vignette": "A friend of a friend is moving into a new apartment with no elevator and barely any help. Your mutual friend mentions this and says they heard you might be free:"
+      "vignette": "A friend of a friend is moving into a new apartment with no elevator and barely any help. Your mutual friend calls you on their behalf and says:"
     },
     {
       "itemID": 145,
@@ -790,7 +790,7 @@ var STIMULI_DATA = {
     {
       "itemID": 147,
       "actionPhrase": "tell me which coworker told you in confidence that they're looking for another job",
-      "vignette": "A manager calls you into their office after hearing a rumor. They suspect someone on the team is job-hunting and you were told about it in confidence. The manager says:"
+      "vignette": "A coworker recently told you in confidence that they are looking for a new job. Now your manager calls you into their office — they have heard a rumor that someone on the team is job-hunting and suspect you might know who. The manager says:"
     },
 
     {
@@ -801,7 +801,7 @@ var STIMULI_DATA = {
     {
       "itemID": 149,
       "actionPhrase": "memorize a ten-minute monologue and perform it at the event tonight",
-      "vignette": "An actor in your friend group has dropped out of a small performance last minute. The event organizer is scrambling and turns to you since you mentioned once doing a drama class:"
+      "vignette": "An actor in your friend group has dropped out of a small performance last minute. The event organizer is scrambling and turns to you since you once mentioned taking a drama class:"
     },
 
     {

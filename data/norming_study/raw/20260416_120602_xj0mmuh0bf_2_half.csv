@@ -1,8 +1,0 @@
-trial_type,subjectID,prolificID,studyID,sessionID,DEBUG,sliderOrder,half,itemID,actionPhrase,abilityResponse,abilityRT,abilityDragged,willingnessResponse,willingnessRT,willingnessDragged,trialRT,trialIndex,suspicious
-whyask-trial,xj0mmuh0bf,,,,0,WA,2,88,text someone when you get home safe,100,24624,true,95,22403,true,25317,6,false
-whyask-trial,xj0mmuh0bf,,,,0,WA,2,46,cook dinner for a small group of friends,50,6027,false,50,3445,true,7147,7,false
-whyask-trial,xj0mmuh0bf,,,,0,WA,2,56,tell a group of people an embarrassing personal story,88,8552,true,50,2477,false,9734,8,false
-whyask-trial,xj0mmuh0bf,,,,0,WA,2,34,rescue someone from a burning building,22,7847,true,57,2973,true,8745,9,false
-whyask-trial,xj0mmuh0bf,,,,0,WA,2,100,say hello to someone,100,2787,true,83,1531,true,5665,10,false
-whyask-trial,xj0mmuh0bf,,,,0,WA,attn,ATTN_1,,79,,true,79,,true,,ATTN_1,false
-whyask-trial,xj0mmuh0bf,,,,0,WA,attn,ATTN_2,,43,,true,43,,true,,ATTN_2,false
