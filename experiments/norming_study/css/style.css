@@ -90,8 +90,15 @@ p, li, label {
   margin-bottom: 8px;
 }
 
+.trial-stimulus {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 .trial-preamble {
-  font-size: 15px !important;
+  font-size: 22px !important;
   text-align: center !important;
   color: #999 !important;
   margin-bottom: 6px;

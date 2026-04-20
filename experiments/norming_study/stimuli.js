@@ -655,28 +655,28 @@ var STIMULI_DATA = {
 
     {
       "itemID": 122,
-      "actionPhrase": "carry a stroller up a short flight of stairs",
+      "actionPhrase": "help me carry this stroller up the stairs",
       "vignette": "A parent arrives at a subway station entrance and finds the elevator is out of order. Struggling with a heavy stroller while holding a baby, the parent spots you at the top of the stairs and calls out:"
     },
     {
       "itemID": 123,
-      "actionPhrase": "help an older neighbor carry their groceries inside",
+      "actionPhrase": "help me carry these groceries inside",
       "vignette": "You are walking into your apartment building and see an elderly neighbor at the entrance, arms full of heavy grocery bags and fumbling with their keys. They look up at you and say:"
     },
     {
       "itemID": 124,
-      "actionPhrase": "bring a home-cooked meal to a close friend who has been sick",
+      "actionPhrase": "bring me a home-cooked meal",
       "vignette": "A close friend has been stuck in bed with the flu for several days and hasn't been able to cook. They text you saying they haven't eaten much, and then add:"
     },
 
     {
       "itemID": 125,
-      "actionPhrase": "give someone directions to the nearest pharmacy",
+      "actionPhrase": "give me directions to the nearest pharmacy",
       "vignette": "You are walking through your neighborhood when a confused-looking person stops you. They explain they are new to the area and someone in their family needs medicine urgently. They say:"
     },
     {
       "itemID": 126,
-      "actionPhrase": "lend a phone charger for twenty minutes",
+      "actionPhrase": "lend me your charger for twenty minutes",
       "vignette": "You are waiting at an airport gate when the person next to you notices your charger plugged into the outlet. Their phone is about to die before an important call they need to make. They say:"
     },
     {
@@ -756,7 +756,7 @@ var STIMULI_DATA = {
     },
     {
       "itemID": 141,
-      "actionPhrase": "let a stranger stay in your apartment for one night",
+      "actionPhrase": "let me stay in your apartment for one night",
       "vignette": "You are coming home late when a traveler stops you outside your building, explaining that every nearby hotel is full and their next bus isn't until morning. They look desperate and say:"
     },
     {
@@ -767,7 +767,7 @@ var STIMULI_DATA = {
 
     {
       "itemID": 143,
-      "actionPhrase": "co-sign a car loan for a coworker you don't know very well",
+      "actionPhrase": "co-sign my car loan",
       "vignette": "A coworker you are friendly with explains that poor credit is preventing them from getting a car they need to keep their job. In the breakroom, they lower their voice and say:"
     },
     {
@@ -777,13 +777,13 @@ var STIMULI_DATA = {
     },
     {
       "itemID": 145,
-      "actionPhrase": "spend your day off helping a neighbor sort through all their belongings to donate",
+      "actionPhrase": "spend your day off helping me sort through all my stuff",
       "vignette": "A neighbor is overwhelmed trying to clear out years of accumulated belongings before a move. They knock on your door on a Saturday morning and say:"
     },
 
     {
       "itemID": 146,
-      "actionPhrase": "sit and listen to a long complaint from an acquaintance without cutting them off",
+      "actionPhrase": "just hear me out for a few minutes without cutting me off",
       "vignette": "An acquaintance corners you at a gathering and launches into a detailed, repetitive account of a problem in their life. They pause briefly and say:"
     },
 
@@ -795,7 +795,7 @@ var STIMULI_DATA = {
 
     {
       "itemID": 148,
-      "actionPhrase": "knit a scarf for someone by the end of the week",
+      "actionPhrase": "knit a scarf for my parent's birthday by the end of the week",
       "vignette": "A friend mentions that their parent's birthday is coming up in a few days and they'd love a handmade gift. Knowing you've tried knitting before, they say:"
     },
     {

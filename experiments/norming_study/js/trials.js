@@ -24,9 +24,11 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
     var trialHTML = `
         <div class='prevent-select trial-box'>
             <div class='item-counter'>${mainTrialIndex} / ${N_TRIALS_PER_PARTICIPANT}</div>
-            <p class='trial-preamble'>We asked 100 people to imagine the following situation:</p>
-            <p class='trial-vignette'>${stimulus.vignette}</p>
-            <p class='trial-question'><em><b>"Can you ${stimulus.actionPhrase}?"</b></em></p>
+            <div class='trial-stimulus'>
+                <p class='trial-preamble'>We asked 100 people to imagine the following situation:</p>
+                <p class='trial-vignette'>${stimulus.vignette}</p>
+                <p class='trial-question'><em><b>"Can you ${stimulus.actionPhrase}?"</b></em></p>
+            </div>
             <div class='slider-section'>
                 <div class='slider-question'>
                     <p class='question-text'>${topQuestion}</p>
