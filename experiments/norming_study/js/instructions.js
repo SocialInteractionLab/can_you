@@ -5,8 +5,8 @@ function getInstructionPages(sliderOrder) {
 
     // conditional phrasing for slider 2 explanation
     var conditionalClause = sliderOrder === 'AW'
-        ? 'Imagine all 100 people were <em>able to</em> — how many would be <em>willing to</em>?'
-        : 'Imagine all 100 people were <em>willing to</em> — how many would be <em>able to</em>?';
+        ? 'Imagine all 100 people were able to — how many would be <em>willing to</em>?'
+        : 'Imagine all 100 people were willing to — how many would be <em>able to</em>?';
 
     return [
         // page 1 — introduce the task + vignette framing
@@ -14,7 +14,7 @@ function getInstructionPages(sliderOrder) {
             <p>In this study, you'll see a series of short everyday scenarios and a question about each one. For example:</p>
             <p style='font-style:italic; font-weight:700; font-size:22px; color:#222; margin: 4px 0 2px;'>You're hanging out with a group of friends. Someone pulls out a scrambled Rubik's cube and passes it around. Eventually they hand it to you and say:</p>
             <p style='font-size:22px; color:#222; margin: 2px 0 12px;'><em><b>"Can you solve the Rubik's cube?"</b></em></p>
-            <p>For each one, imagine <b>100 random people</b> are all in that situation</p>
+            <p>For each scenario, imagine <b>100 random people</b> are all in that situation</p>
         </div>`,
 
         // page 2 — explain the two sliders with conditional framing
