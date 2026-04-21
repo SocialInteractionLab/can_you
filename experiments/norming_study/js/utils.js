@@ -124,4 +124,10 @@ function formatDemographics(jsPsych) {
 function updateSliderGradient(slider) {
     const pct = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
     slider.style.background = `linear-gradient(to right, #028090 0%, #028090 ${pct}%, #e0e0e0 ${pct}%, #e0e0e0 100%)`;
+    // position value display under thumb (thumb = 22px wide, so center offset corrects for edge clamping)
+    var valEl = slider.parentElement && slider.parentElement.querySelector('.slider-value-display');
+    if (valEl) {
+        var offset = 11 - (pct / 100) * 22;
+        valEl.style.left = `calc(${pct}% + ${offset}px)`;
+    }
 }

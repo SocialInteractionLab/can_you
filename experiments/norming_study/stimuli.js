@@ -1,7 +1,7 @@
 var STIMULI_DATA = {
   "experimentName": "whyask_norming",
-  "version": "v3",
-  "nItems": 153,
+  "version": "v4",
+  "nItems": 160,
   "stimuli": [
 
     {
@@ -20,11 +20,6 @@ var STIMULI_DATA = {
       "vignette": "You are hanging out with a friend at home. Your friend suddenly says:"
     },
 
-    {
-      "itemID": 4,
-      "actionPhrase": "bench press 400 pounds",
-      "vignette": "You are at the gym with a friend. Your friend gestures toward a very heavily loaded barbell and says:"
-    },
     {
       "itemID": 5,
       "actionPhrase": "solve this multivariable differential equation in your head",
@@ -62,11 +57,6 @@ var STIMULI_DATA = {
       "actionPhrase": "translate this legal document from Korean",
       "vignette": "Your friend needs an urgent translation of a document for an immigration matter. They hand it to you and say:"
     },
-    {
-      "itemID": 12,
-      "actionPhrase": "sing the high note in this duet",
-      "vignette": "You are doing karaoke with friends and a vocally challenging song comes on. Your friend nudges you and says:"
-    },
 
     {
       "itemID": 13,
@@ -84,11 +74,7 @@ var STIMULI_DATA = {
       "actionPhrase": "give a speech in front of everyone right now",
       "vignette": "You are at a large company event. Your manager suddenly puts you on the spot and says:"
     },
-    {
-      "itemID": 16,
-      "actionPhrase": "eat the rest of this food so it doesn't go to waste",
-      "vignette": "You are at a dinner party and already very full. The host pushes a large plate of leftovers toward you and says:"
-    },
+
     {
       "itemID": 17,
       "actionPhrase": "jump into the lake right now",
@@ -104,11 +90,6 @@ var STIMULI_DATA = {
       "itemID": 19,
       "actionPhrase": "cook dinner for twelve people tonight",
       "vignette": "Your friend is hosting a dinner party and it got bigger than expected. They call you in a panic and say:"
-    },
-    {
-      "itemID": 20,
-      "actionPhrase": "write a poem and read it at the open mic",
-      "vignette": "You are at a bar with friends and an open mic night starts. A friend elbows you and says:"
     },
 
     {
@@ -128,19 +109,9 @@ var STIMULI_DATA = {
     },
 
     {
-      "itemID": 24,
-      "actionPhrase": "help me carry this couch up the stairs",
-      "vignette": "Your close friend is moving into a third-floor walk-up apartment. They gesture at a heavy couch and say:"
-    },
-    {
       "itemID": 25,
       "actionPhrase": "drive us home safely",
       "vignette": "You are at a party where your close friend has been drinking. They hand you their keys and say:"
-    },
-    {
-      "itemID": 26,
-      "actionPhrase": "proofread my cover letter before I send it",
-      "vignette": "Your close friend is applying for a dream job. They email you a draft and say:"
     },
 
     {
@@ -180,28 +151,18 @@ var STIMULI_DATA = {
       "actionPhrase": "help me move all my furniture this weekend",
       "vignette": "A coworker you're somewhat friendly with mentions they're moving. They say:"
     },
-    {
-      "itemID": 34,
-      "actionPhrase": "stay late tonight to finish this project with me",
-      "vignette": "Your boss comes by your desk at 5pm on a Friday evening. They say:"
-    },
 
     {
       "itemID": 35,
       "actionPhrase": "call me later tonight to talk",
       "vignette": "A friend mentions they've been going through a hard time. As you part ways, they say:"
     },
-    {
-      "itemID": 36,
-      "actionPhrase": "pick up some groceries on your way over",
-      "vignette": "A friend invites you for dinner and texts you a short shopping list. They say:"
-    },
+
     {
       "itemID": 37,
       "actionPhrase": "look over my resume this week and give me feedback",
       "vignette": "A friend is job searching and asks for help. They send their resume and say:"
     },
-
     {
       "itemID": 38,
       "actionPhrase": "pick me up from the airport tonight",
@@ -211,11 +172,6 @@ var STIMULI_DATA = {
       "itemID": 39,
       "actionPhrase": "help me practice my presentation before tomorrow",
       "vignette": "Your close friend has a big talk at work tomorrow and is nervous. They say:"
-    },
-    {
-      "itemID": 40,
-      "actionPhrase": "water my plants while I'm on vacation next week",
-      "vignette": "A good friend is leaving for a week-long trip. They hand you their apartment key and say:"
     },
 
     {
@@ -234,11 +190,7 @@ var STIMULI_DATA = {
       "actionPhrase": "lend me your car for the whole weekend",
       "vignette": "An acquaintance you rarely hang out with asks to borrow your car for a weekend trip. They say:"
     },
-    {
-      "itemID": 44,
-      "actionPhrase": "introduce me to your ex so I can ask them out",
-      "vignette": "A friend who has been interested in your recent ex-partner asks you:"
-    },
+
     {
       "itemID": 45,
       "actionPhrase": "tell everyone here what really happened last night",
@@ -266,11 +218,7 @@ var STIMULI_DATA = {
       "actionPhrase": "drive me to the grocery store",
       "vignette": "Your roommate needs a few things from the store and you have your car. They say:"
     },
-    {
-      "itemID": 50,
-      "actionPhrase": "explain how this works to me",
-      "vignette": "A coworker is stuck on something you understand well. They come to your desk and say:"
-    },
+
     {
       "itemID": 51,
       "actionPhrase": "send me that article you were telling me about",
@@ -297,26 +245,11 @@ var STIMULI_DATA = {
       "actionPhrase": "hand me that towel please",
       "vignette": "You are at the pool and your friend just got out of the water, dripping wet. The towel is right next to you. They say:"
     },
-    {
-      "itemID": 56,
-      "actionPhrase": "scoot over so I can sit down",
-      "vignette": "You are sitting on a bench with extra space and a friend walks up. They say:"
-    },
 
-    {
-      "itemID": 57,
-      "actionPhrase": "give me your phone number",
-      "vignette": "A stranger at a bar who has been making you uncomfortable leans in and says:"
-    },
     {
       "itemID": 58,
       "actionPhrase": "tell me how much money you make",
       "vignette": "An acquaintance at a dinner party turns to you and bluntly asks:"
-    },
-    {
-      "itemID": 59,
-      "actionPhrase": "let me try a bite of your food",
-      "vignette": "A stranger sitting next to you at a restaurant counter gestures at your plate and says:"
     },
 
     {
@@ -336,53 +269,22 @@ var STIMULI_DATA = {
     },
 
     {
-      "itemID": 63,
-      "actionPhrase": "open this jar for me",
-      "vignette": "A coworker in the office kitchen is struggling with a tight jar lid. They hold it out to you and say:"
-    },
-    {
       "itemID": 64,
       "actionPhrase": "text me when you get home safe",
       "vignette": "A friend says goodbye after a late-night hangout. As you leave, they say:"
     },
-    {
-      "itemID": 65,
-      "actionPhrase": "move your bag so I can sit here",
-      "vignette": "On a crowded bus, a tired-looking person gestures at the seat your bag is occupying and says:"
-    },
 
-    {
-      "itemID": 66,
-      "actionPhrase": "close the window please",
-      "vignette": "You are sitting nearest the window in a chilly office. A coworker shivers and says:"
-    },
     {
       "itemID": 67,
       "actionPhrase": "turn the music down a little",
       "vignette": "Your roommate is trying to sleep and your music is pretty loud. They poke their head in and say:"
     },
-    {
-      "itemID": 68,
-      "actionPhrase": "grab me a glass of water while you're up",
-      "vignette": "You are already walking toward the kitchen and your friend on the couch says:"
-    },
 
-    {
-      "itemID": 69,
-      "actionPhrase": "pass me that pen right there",
-      "vignette": "You are in a meeting and a colleague needs to write something down. The pen is directly in front of you. They say:"
-    },
-    {
-      "itemID": 70,
-      "actionPhrase": "hold this for just one second",
-      "vignette": "Your friend is juggling shopping bags and needs to check their phone. They hold out a bag and say:"
-    },
     {
       "itemID": 71,
       "actionPhrase": "flip the light switch on your way in",
       "vignette": "You are walking into a dark room and your hand is right by the switch. Someone already inside says:"
     },
-
     {
       "itemID": 72,
       "actionPhrase": "come to the gym with me at 6am tomorrow",
@@ -414,11 +316,6 @@ var STIMULI_DATA = {
       "actionPhrase": "lend me your car for a weekend road trip",
       "vignette": "A friend without a car wants to get out of the city for the weekend. They've been hinting at it for a while and finally say:"
     },
-    {
-      "itemID": 80,
-      "actionPhrase": "store some of my furniture at your place for a few months",
-      "vignette": "A friend is between apartments and is scrambling to find temporary storage for their belongings. They say:"
-    },
 
     {
       "itemID": 75,
@@ -436,11 +333,6 @@ var STIMULI_DATA = {
       "vignette": "A close friend has been dating someone new and you have some reservations. After you all spent time together, your friend pulls you aside and says:"
     },
 
-    {
-      "itemID": 81,
-      "actionPhrase": "taste this and tell me if it's still good",
-      "vignette": "Your roommate pulls out a container of questionable leftovers from the back of the fridge. They hold out a fork toward you and say:"
-    },
     {
       "itemID": 82,
       "actionPhrase": "come to my improv show even though you're not into improv",
@@ -501,11 +393,6 @@ var STIMULI_DATA = {
     },
 
     {
-      "itemID": 93,
-      "actionPhrase": "come sit with me at the hospital while I wait",
-      "vignette": "A close friend has to go in for a procedure and doesn't want to be alone. They text you that morning:"
-    },
-    {
       "itemID": 94,
       "actionPhrase": "remind me to call my mom when we get back",
       "vignette": "You and a close friend are heading out for an errand. They keep forgetting to call their mom and say:"
@@ -515,11 +402,6 @@ var STIMULI_DATA = {
       "itemID": 95,
       "actionPhrase": "help me practice a really hard conversation I have to have",
       "vignette": "A close friend needs to confront someone important in their life and is anxious about saying the right things. They ask if you can role-play it with them:"
-    },
-    {
-      "itemID": 96,
-      "actionPhrase": "help me move into my new apartment this weekend",
-      "vignette": "A close friend just got the keys to a new place and needs all hands on deck for moving day. They text you:"
     },
 
     {
@@ -532,7 +414,6 @@ var STIMULI_DATA = {
       "actionPhrase": "quit your job and come work at my startup for equity",
       "vignette": "A friend is launching a company and pitches you on leaving your current job to join them. They slide a term sheet across the table and say:"
     },
-
     {
       "itemID": 99,
       "actionPhrase": "run the 10K race with me this Saturday",
@@ -548,39 +429,6 @@ var STIMULI_DATA = {
       "itemID": 102,
       "actionPhrase": "write a short story for my literary magazine by tomorrow morning",
       "vignette": "A friend who runs a small literary magazine has a last-minute gap to fill. They reach out to you the evening before the deadline:"
-    },
-
-    {
-      "itemID": 103,
-      "actionPhrase": "help me assemble my new IKEA furniture",
-      "vignette": "A close friend just got a delivery of flat-pack furniture and is dreading the assembly. They call you:"
-    },
-    {
-      "itemID": 104,
-      "actionPhrase": "plan out the whole route for our road trip next month",
-      "vignette": "You and a close friend have agreed to do a road trip but no one has planned the logistics yet. They sit back and say:"
-    },
-
-    {
-      "itemID": 105,
-      "actionPhrase": "spot me for this lift",
-      "vignette": "You are at the gym with a friend who is attempting a heavy barbell lift. They turn to you before getting under the bar:"
-    },
-    {
-      "itemID": 106,
-      "actionPhrase": "help me paint my new bedroom this weekend",
-      "vignette": "A close friend is freshening up their new apartment before fully moving in. They message you:"
-    },
-
-    {
-      "itemID": 107,
-      "actionPhrase": "pick me up from the mechanic when my car is ready",
-      "vignette": "A close friend's car is being repaired across town and they need a ride back afterward. They text you:"
-    },
-    {
-      "itemID": 108,
-      "actionPhrase": "be listed as my emergency contact at the doctor",
-      "vignette": "A close friend who lives far from family needs to list an emergency contact at their new doctor's office. They look at you and say:"
     },
 
     {
@@ -621,11 +469,7 @@ var STIMULI_DATA = {
       "actionPhrase": "watch my dog for the whole weekend",
       "vignette": "A close friend is going away for the weekend and their usual dog-sitter fell through last minute. They call:"
     },
-    {
-      "itemID": 116,
-      "actionPhrase": "help me put together my resume",
-      "vignette": "A close friend is starting their job search and hasn't updated their resume in years. They share their screen and say:"
-    },
+
     {
       "itemID": 117,
       "actionPhrase": "look at this contract and tell me if this clause is okay",
@@ -642,22 +486,13 @@ var STIMULI_DATA = {
       "actionPhrase": "rewrite my whole essay from scratch, it's due tomorrow",
       "vignette": "A friend has badly procrastinated on a major assignment and calls you in a panic the night before it's due:"
     },
-    {
-      "itemID": 119,
-      "actionPhrase": "help me clean out my entire garage this weekend",
-      "vignette": "An acquaintance knows you're organized and asks if you'll help clean out their garage, which hasn't been touched in years. They say:"
-    },
+
     {
       "itemID": 120,
       "actionPhrase": "ghostwrite my blog posts for the next few months",
       "vignette": "A coworker is launching a personal blog as a side project and wants regular content but doesn't like writing. They pitch you:"
     },
 
-    {
-      "itemID": 122,
-      "actionPhrase": "help me carry this stroller up the stairs",
-      "vignette": "A parent arrives at a subway station entrance and finds the elevator is out of order. Struggling with a heavy stroller while holding a baby, the parent spots you at the top of the stairs and calls out:"
-    },
     {
       "itemID": 123,
       "actionPhrase": "help me carry these groceries inside",
@@ -670,11 +505,6 @@ var STIMULI_DATA = {
     },
 
     {
-      "itemID": 125,
-      "actionPhrase": "give me directions to the nearest pharmacy",
-      "vignette": "You are walking through your neighborhood when a confused-looking person stops you. They explain they are new to the area and someone in their family needs medicine urgently. They say:"
-    },
-    {
       "itemID": 126,
       "actionPhrase": "lend me your charger for twenty minutes",
       "vignette": "You are waiting at an airport gate when the person next to you notices your charger plugged into the outlet. Their phone is about to die before an important call they need to make. They say:"
@@ -684,17 +514,12 @@ var STIMULI_DATA = {
       "actionPhrase": "pick up some milk from the store on your way home",
       "vignette": "Your partner texts you while you are finishing up at the grocery store. They just realized you are out of milk at home and need some for dinner. They say:"
     },
-
     {
       "itemID": 128,
       "actionPhrase": "tell the police you were with me last night when you weren't",
       "vignette": "A close friend calls you in a panic, saying the police are asking where they were last night and they need an alibi. Your friend says:"
     },
-    {
-      "itemID": 129,
-      "actionPhrase": "cover for me by telling my partner you were with me last night",
-      "vignette": "A friend calls you in a tense whisper, explaining they were somewhere they shouldn't have been and their partner is now asking questions. They say:"
-    },
+
     {
       "itemID": 130,
       "actionPhrase": "forge my supervisor's signature on my time sheet",
@@ -766,19 +591,9 @@ var STIMULI_DATA = {
     },
 
     {
-      "itemID": 143,
-      "actionPhrase": "co-sign my car loan",
-      "vignette": "A coworker you are friendly with explains that poor credit is preventing them from getting a car they need to keep their job. In the breakroom, they lower their voice and say:"
-    },
-    {
       "itemID": 144,
       "actionPhrase": "spend your whole weekend helping a near-stranger move into a fifth-floor walk-up",
       "vignette": "A friend of a friend is moving into a new apartment with no elevator and barely any help. Your mutual friend calls you on their behalf and says:"
-    },
-    {
-      "itemID": 145,
-      "actionPhrase": "spend your day off helping me sort through all my stuff",
-      "vignette": "A neighbor is overwhelmed trying to clear out years of accumulated belongings before a move. They knock on your door on a Saturday morning and say:"
     },
 
     {
@@ -805,11 +620,6 @@ var STIMULI_DATA = {
     },
 
     {
-      "itemID": 150,
-      "actionPhrase": "break this concrete block in half with your bare hand",
-      "vignette": "You and some friends are watching a martial arts demonstration at a local festival. Your friend turns to you after the performer splits a stack of concrete blocks and says:"
-    },
-    {
       "itemID": 151,
       "actionPhrase": "swim across the English Channel right now",
       "vignette": "You and a friend are standing at the cliffs overlooking the Channel on a trip to the coast. Your friend peers across at the faint outline of France and says:"
@@ -824,6 +634,245 @@ var STIMULI_DATA = {
       "itemID": 153,
       "actionPhrase": "join my trivia team for tonight's game — we need one more person",
       "vignette": "A friend is competing in a weekly pub trivia night and their fourth teammate just bailed last minute. They call you an hour before it starts and say:"
+    },
+
+    {
+      "itemID": 154,
+      "actionPhrase": "drill the burr hole",
+      "vignette": "You are in a remote mountain cabin when your friend suddenly collapses and loses consciousness. A nurse on an emergency call says your friend has dangerously elevated pressure in their skull and that a small relief hole is the only option. They walk you through it and say:"
+    },
+    {
+      "itemID": 155,
+      "actionPhrase": "do the needle decompression",
+      "vignette": "You are at a family gathering when an elderly relative suddenly struggles to breathe and turns blue. A bystander recognizes the signs of a collapsed lung and says a needle decompression is the only immediate option. They hand you the kit and say:"
+    },
+    {
+      "itemID": 156,
+      "actionPhrase": "administer the antivenom injection",
+      "vignette": "You are hiking when a fellow hiker is bitten by a rattlesnake and begins going into shock. The first aid kit has antivenom but requires a precise injection. A panicked companion looks at you and says:"
+    },
+    {
+      "itemID": 157,
+      "actionPhrase": "operate the crane to lift the beam off them",
+      "vignette": "You are at a construction site when a worker becomes trapped under a collapsed beam and cannot be pulled free. The only way to lift it is a specialized industrial crane. A foreman runs up to you and says:"
+    },
+    {
+      "itemID": 158,
+      "actionPhrase": "pop the toddler's elbow back into place",
+      "vignette": "You are at a playground when a toddler falls and their elbow visibly pops out of the socket. They are screaming in pain and the nearest hospital is a long drive away. Someone who has seen it done before says the joint needs to be manually reduced, and they look at you:"
+    },
+
+    {
+      "itemID": 159,
+      "actionPhrase": "figure out what's wrong with the engine from my description",
+      "vignette": "A close friend's car is making a strange knocking sound and they can't afford a mechanic right now. Knowing you sometimes watch car repair videos online, they call you and describe the noise:"
+    },
+    {
+      "itemID": 160,
+      "actionPhrase": "write a letter to my relative in French for me",
+      "vignette": "A family member wants to reach out to a long-lost relative overseas but doesn't speak French. You took two semesters of French in high school and they say you're their only option:"
+    },
+
+    {
+      "itemID": 161,
+      "actionPhrase": "fill in on bass guitar for the show tonight",
+      "vignette": "Your friend's band is performing tonight and their bassist just called in sick an hour before the show. You've played a little guitar before. In desperation your friend calls you and says:"
+    },
+    {
+      "itemID": 162,
+      "actionPhrase": "draft a formal legal response to the court for me",
+      "vignette": "A close friend has received a lawsuit notice and needs to file a written response to the court within 48 hours. They cannot afford a lawyer and know you're a strong writer. Desperately, they say:"
+    },
+    {
+      "itemID": 163,
+      "actionPhrase": "recover the corrupted donor database before the campaign launches",
+      "vignette": "Your friend runs a small nonprofit and their donor database just got corrupted right before a major fundraising campaign. They know you've done some coding before and call you in a panic:"
+    },
+    {
+      "itemID": 164,
+      "actionPhrase": "translate this old diary for me",
+      "vignette": "A family member has found a diary written in an archaic dialect of a language you once studied briefly. The entries seem to describe significant family history. They hand it to you and say:"
+    },
+
+    {
+      "itemID": 165,
+      "actionPhrase": "throw a centered vase on the wheel for the video",
+      "vignette": "You are at a friend's house and they have a pottery wheel they just got. They want to film someone using it for their social media. You once took a single beginner's class. They point to the wheel and say:"
+    },
+    {
+      "itemID": 166,
+      "actionPhrase": "do a beatbox solo for the crowd",
+      "vignette": "You are at a karaoke bar with friends when someone dares the group to show off a skill. Your friends have voted you to do a beatbox solo in front of the whole bar. The host holds out the mic and says:"
+    },
+    {
+      "itemID": 167,
+      "actionPhrase": "walk across the slackline for a bit",
+      "vignette": "You are at a street fair where someone has set up a slackline between two trees for passersby to try. A small crowd has gathered. An organizer singles you out and says:"
+    },
+    {
+      "itemID": 168,
+      "actionPhrase": "be our volunteer for the waltz demonstration",
+      "vignette": "You are attending a local dance studio open house where they need an audience volunteer to demonstrate a waltz routine with an instructor. A staff member spots you standing near the dance floor and says:"
+    },
+    {
+      "itemID": 169,
+      "actionPhrase": "fill in and do the palm readings for the booth",
+      "vignette": "You are helping at a friend's community fair booth. The person who was supposed to do novelty palm readings hasn't shown up and the booth is already open. Your friend looks at you and says:"
+    },
+
+    {
+      "itemID": 170,
+      "actionPhrase": "dive down and get my retainer from the drain",
+      "vignette": "A person at a public pool realizes their retainer fell into the drain at the bottom of the deep end. There's no pool staff available and they can't swim well enough to reach it. They look around at the other swimmers and say:"
+    },
+    {
+      "itemID": 171,
+      "actionPhrase": "crawl under there and pull the dead animal out",
+      "vignette": "Your neighbor has a dead animal decomposing somewhere in their crawlspace and the smell is becoming unbearable. Animal control has a week-long wait. Knowing you have coveralls and a flashlight, they say:"
+    },
+    {
+      "itemID": 172,
+      "actionPhrase": "slaughter and clean the chicken for dinner",
+      "vignette": "You are visiting a relative who raises backyard chickens and wants to prepare one fresh for a family dinner. They know you grew up around farms and hand you the bird:"
+    },
+    {
+      "itemID": 173,
+      "actionPhrase": "pop this blister for me",
+      "vignette": "You are at a house party when a guest shows you an enormous, painful blister on their heel from new shoes. They've heard you have some basic first aid knowledge and say:"
+    },
+
+    {
+      "itemID": 174,
+      "actionPhrase": "replace the leaking fitting under the sink",
+      "vignette": "A close friend has a dripping pipe under their bathroom sink and is worried about water damage. They know you've done some home repairs before and call you over:"
+    },
+    {
+      "itemID": 175,
+      "actionPhrase": "install the new ceiling light fixture for me",
+      "vignette": "A close friend just moved into a new place and one of the light fixtures needs to be replaced. The new one is sitting in a box. They know you're handy and say:"
+    },
+    {
+      "itemID": 176,
+      "actionPhrase": "help me change the brake pads on my car",
+      "vignette": "A close friend's car needs new brake pads and they've watched a tutorial but are nervous doing it alone. They ask if you'll come over and help them work through it:"
+    },
+    {
+      "itemID": 177,
+      "actionPhrase": "fix my sewing machine",
+      "vignette": "Your elderly neighbor's sewing machine keeps jamming and she hasn't been able to use it for months. Knowing you've repaired small appliances before, she asks:"
+    },
+    {
+      "itemID": 178,
+      "actionPhrase": "take apart my laptop and swap in the new screen",
+      "vignette": "A close friend cracked their laptop screen and has ordered a replacement panel online. They need someone to carefully disassemble the laptop to install it. They ask:"
+    },
+
+    {
+      "itemID": 179,
+      "actionPhrase": "break the car window to get that child out",
+      "vignette": "You are in a parking lot when you notice a toddler alone in a hot car, clearly distressed. The windows are up and you cannot find the owner. A bystander looks at you and says:"
+    },
+    {
+      "itemID": 180,
+      "actionPhrase": "do the Heimlich maneuver on them",
+      "vignette": "You are at a restaurant when the person at the next table suddenly starts choking and cannot speak or breathe. Their companion is frozen in panic. A bystander shouts:"
+    },
+    {
+      "itemID": 181,
+      "actionPhrase": "use the EpiPen on them",
+      "vignette": "You are on a crowded subway platform when someone nearby goes into anaphylactic shock. A bystander pulls out the person's EpiPen from their bag and holds it out to you, saying:"
+    },
+    {
+      "itemID": 182,
+      "actionPhrase": "hold pressure on the cut until we can get help",
+      "vignette": "You are at a friend's house when their child cuts their hand badly on broken glass and is bleeding heavily. Your friend is shaking too hard to help and says:"
+    },
+    {
+      "itemID": 183,
+      "actionPhrase": "help improvise a splint so we can move them",
+      "vignette": "You are on a hiking trail when a hiker trips and lands badly, unable to bear weight on their leg. The group agrees it looks broken and they need to be carried out. Someone turns to you and says:"
+    },
+
+    {
+      "itemID": 184,
+      "actionPhrase": "come help me reset the circuit breaker",
+      "vignette": "Your neighbor's power has gone out during a storm and they have never touched their circuit breaker panel. They knock on your door looking flustered and say:"
+    },
+    {
+      "itemID": 185,
+      "actionPhrase": "take the big dog in kennel 7 out for a walk",
+      "vignette": "You are volunteering at an animal shelter when a staff member says all the regular handlers are occupied. One large, anxious dog hasn't been out all day. The staff member turns to you and says:"
+    },
+    {
+      "itemID": 186,
+      "actionPhrase": "help me change this tire",
+      "vignette": "Your neighbor comes to your door looking stressed: their car has a flat tire and they have an important medical appointment soon. They say:"
+    },
+    {
+      "itemID": 187,
+      "actionPhrase": "take over the raffle table for the first hour",
+      "vignette": "You arrive early to a community fundraiser and the organizer is overwhelmed — a volunteer didn't show up and the raffle table is unstaffed. They look at you and say:"
+    },
+
+    {
+      "itemID": 188,
+      "actionPhrase": "read through my letter to my ex and tell me what you think",
+      "vignette": "A coworker you barely know comes to your desk and asks you to read a long, emotional letter they wrote to their ex-partner asking for another chance. They say:"
+    },
+    {
+      "itemID": 189,
+      "actionPhrase": "hold on to my gym shirt while I run to the bathroom",
+      "vignette": "You are waiting in a long line at a coffee shop when the person in front of you — who has clearly just come from the gym — says they need to use the restroom. They hold out their damp shirt and say:"
+    },
+    {
+      "itemID": 190,
+      "actionPhrase": "go through my medications and tell me which ones to throw out",
+      "vignette": "A neighbor you barely know knocks on your door and asks you to look through their medicine cabinet and help identify which prescriptions are expired or unnecessary. They say:"
+    },
+
+    {
+      "itemID": 191,
+      "actionPhrase": "watch my kids for a couple hours while I'm out",
+      "vignette": "Your upstairs neighbor — someone you've only met briefly a couple of times — knocks on your door in a rush and says they have an unexpected errand and need someone to watch their two young children. They say:"
+    },
+    {
+      "itemID": 192,
+      "actionPhrase": "take me all the way home even though it's way out of your way",
+      "vignette": "After a late evening work event, a coworker asks if you can give them a ride home. When you agree, they tell you their apartment is about forty minutes in the opposite direction from yours. They say:"
+    },
+
+    {
+      "itemID": 193,
+      "actionPhrase": "hold my place in line while I grab one thing",
+      "vignette": "You are in a long checkout line at a grocery store when an exhausted parent with a crying baby realizes they forgot one item. They look at you desperately and say:"
+    },
+    {
+      "itemID": 194,
+      "actionPhrase": "help me cross the street",
+      "vignette": "You are waiting at a busy intersection when you notice a visually impaired person standing at the corner, hesitating as traffic is heavy. They tap their cane, turn toward you, and say:"
+    },
+
+    {
+      "itemID": 195,
+      "actionPhrase": "sign for my package at the door when it comes",
+      "vignette": "You are in the middle of cooking dinner at home when your neighbor texts: a package they've been waiting for is being delivered shortly and they won't be home in time. They say:"
+    },
+    {
+      "itemID": 196,
+      "actionPhrase": "take about twenty photos of me in different poses",
+      "vignette": "You are relaxing in a park when a stranger approaches and asks if you can take a series of photos of them in various poses for their social media. They hand you their phone and say:"
+    },
+
+    {
+      "itemID": 197,
+      "actionPhrase": "give me your home Wi-Fi password",
+      "vignette": "A stranger sitting next to you at a café explains they live in the building next door and their internet is down. They lean over and say:"
+    },
+    {
+      "itemID": 198,
+      "actionPhrase": "let me scroll through your phone for a second",
+      "vignette": "You have just met someone at a networking event. After a brief chat they say they think you might know a mutual contact and want to check a photo to confirm. They hold out their hand and say:"
     }
+
   ]
 };
