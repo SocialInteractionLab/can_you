@@ -19,7 +19,7 @@ function getInstructionPages(sliderOrder) {
 
         // page 2 — explain the two sliders with conditional framing
         `<div class='prevent-select content-box'>
-            <p>For each question, you will use two sliders:</p>
+            <p>For each question, you will be asked to answer two questions:</p>
             <p style='margin-top:20px;'>1) How many of the 100 people would be <em>${firstDim}</em> to?</p>
             <p style='margin-bottom:20px;'>2) ${conditionalClause}</p>
             <p><b>There are no right or wrong answers</b> — all we're interested in is what you think!</p>
