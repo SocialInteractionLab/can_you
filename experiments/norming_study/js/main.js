@@ -190,6 +190,8 @@ function initStudy(stimuli) {
         }
     };
 
+    // delegate to document so listener survives button DOM replacements across pages
+    var _instrNavHandler = null;
     var instructions = {
         type: jsPsychInstructions,
         pages: getInstructionPages(sliderOrder),
@@ -198,10 +200,18 @@ function initStudy(stimuli) {
         allow_backward: true,
         on_load: function() {
             lockInstructionsNext(8);
-            var btn = document.getElementById('jspsych-instructions-next');
-            if (btn) btn.addEventListener('click', function() {
-                setTimeout(function() { lockInstructionsNext(8); }, 50);
-            });
+            _instrNavHandler = function(e) {
+                if (e.target && e.target.id === 'jspsych-instructions-next') {
+                    setTimeout(function() { lockInstructionsNext(8); }, 50);
+                }
+            };
+            document.addEventListener('click', _instrNavHandler);
+        },
+        on_finish: function() {
+            if (_instrNavHandler) {
+                document.removeEventListener('click', _instrNavHandler);
+                _instrNavHandler = null;
+            }
         }
     };
 

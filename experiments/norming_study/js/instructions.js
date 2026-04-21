@@ -25,9 +25,8 @@ function getInstructionPages(sliderOrder) {
 
         // page 3 — clarify that ability and willingness can come apart (order matches condition)
         `<div class='prevent-select content-box'>
-            <p>Keep in mind: being <em>${firstDim}</em> and being <em>${secondDim}</em> don't always go together.</p>
-            <p>Someone might be <em>${firstDim}</em> to do something but not <em>${secondDim}</em> — or vice versa.</p>
-            <p>In other words, your two answers don't need to match.</p>
+            <p>Keep in mind that being <em>${firstDim}</em> and being <em>${secondDim}</em> don't always go together.</p>
+            <p>In other words, two answers don't need to match.</p>
         </div>`,
 
     ];
