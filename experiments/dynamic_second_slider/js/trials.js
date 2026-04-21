@@ -16,10 +16,10 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
     // slider 1: unconditional estimate
     var topQuestion = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
 
-    // slider 2: out of 100, same as slider 1
+    // slider 2: conditional on slider 1 value (N updated dynamically on reveal)
     var bottomQuestion = sliderOrder === 'AW'
-        ? `Of those 100 people, how many would be ${dimSpan('willing')} to?`
-        : `Of those 100 people, how many would be ${dimSpan('able')} to?`;
+        ? `Of those <span id='cond-n'>?</span> people, how many would be ${dimSpan('willing')} to?`
+        : `Of those <span id='cond-n'>?</span> people, how many would be ${dimSpan('able')} to?`;
 
     var trialHTML = `
         <div class='prevent-select trial-box'>
@@ -78,7 +78,11 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
             function revealBottom() {
                 if (!topRevealed) {
                     topRevealed = true;
-                    sliderBottom.value = 50;
+                    var n = parseInt(sliderTop.value);
+                    document.getElementById('cond-n').textContent = n;
+                    sliderBottom.max = n;
+                    sliderBottom.value = Math.round(n / 2);
+                    document.getElementById('max-label-bottom').textContent = `${n} people`;
                     bottomWrap.style.display = '';
                     requestAnimationFrame(function() { bottomWrap.style.opacity = '1'; });
                     updateSliderGradient(sliderBottom);
@@ -90,6 +94,17 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
             sliderTop.addEventListener('input', function() {
                 updateSliderGradient(sliderTop);
                 if (topTouched) valTop.textContent = `${sliderTop.value} people`;
+                if (topRevealed) {
+                    var n = parseInt(sliderTop.value);
+                    document.getElementById('cond-n').textContent = n;
+                    sliderBottom.max = n;
+                    document.getElementById('max-label-bottom').textContent = `${n} people`;
+                    if (parseInt(sliderBottom.value) > n) {
+                        sliderBottom.value = n;
+                        if (bottomTouched) valBottom.textContent = `${n} people`;
+                    }
+                    updateSliderGradient(sliderBottom);
+                }
             });
             sliderBottom.addEventListener('input', function() {
                 updateSliderGradient(sliderBottom);
@@ -183,8 +198,8 @@ function buildAttentionCheck(checkConfig, sliderOrder, jsPsych) {
     // match main trial wording for consistency
     var attnTopQ = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
     var attnBottomQ = sliderOrder === 'AW'
-        ? `Of those 100 people, how many would be ${dimSpan('willing')} to?`
-        : `Of those 100 people, how many would be ${dimSpan('able')} to?`;
+        ? `Of those <span id='attn-cond-n'>?</span> people, how many would be ${dimSpan('willing')} to?`
+        : `Of those <span id='attn-cond-n'>?</span> people, how many would be ${dimSpan('able')} to?`;
 
     var html = `
         <div class='prevent-select trial-box'>
@@ -235,7 +250,11 @@ function buildAttentionCheck(checkConfig, sliderOrder, jsPsych) {
             function revealBottom() {
                 if (!topRevealed) {
                     topRevealed = true;
-                    sliderBottom.value = 50;
+                    var n = parseInt(sliderTop.value);
+                    document.getElementById('attn-cond-n').textContent = n;
+                    sliderBottom.max = n;
+                    sliderBottom.value = Math.round(n / 2);
+                    document.getElementById('attn-max-label-bottom').textContent = `${n} people`;
                     bottomWrap.style.display = '';
                     requestAnimationFrame(function() { bottomWrap.style.opacity = '1'; });
                     updateSliderGradient(sliderBottom);
@@ -247,6 +266,17 @@ function buildAttentionCheck(checkConfig, sliderOrder, jsPsych) {
             sliderTop.addEventListener('input', function() {
                 updateSliderGradient(sliderTop);
                 if (topTouched) valTop.textContent = `${sliderTop.value} people`;
+                if (topRevealed) {
+                    var n = parseInt(sliderTop.value);
+                    document.getElementById('attn-cond-n').textContent = n;
+                    sliderBottom.max = n;
+                    document.getElementById('attn-max-label-bottom').textContent = `${n} people`;
+                    if (parseInt(sliderBottom.value) > n) {
+                        sliderBottom.value = n;
+                        if (bottomTouched) valBottom.textContent = `${n} people`;
+                    }
+                    updateSliderGradient(sliderBottom);
+                }
             });
             sliderBottom.addEventListener('input', function() {
                 updateSliderGradient(sliderBottom);

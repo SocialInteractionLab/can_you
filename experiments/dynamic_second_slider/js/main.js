@@ -224,7 +224,17 @@ function initStudy(stimuli) {
             d2.addEventListener('keydown',    function() { d2touched = true; });
             d1.addEventListener('input', function() {
                 updateSliderGradient(d1);
-                if (d1touched) document.getElementById('demo-val-1').textContent = `${d1.value} people`;
+                var n = parseInt(d1.value);
+                if (d1touched) document.getElementById('demo-val-1').textContent = `${n} people`;
+                // sync slider 2 max and label to slider 1
+                document.getElementById('demo-cond-n').textContent = n;
+                document.getElementById('demo-max-label-2').textContent = `${n} people`;
+                d2.max = n;
+                if (parseInt(d2.value) > n) {
+                    d2.value = n;
+                    if (d2touched) document.getElementById('demo-val-2').textContent = `${n} people`;
+                }
+                updateSliderGradient(d2);
             });
             d2.addEventListener('input', function() {
                 updateSliderGradient(d2);

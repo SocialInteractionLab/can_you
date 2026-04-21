@@ -35,8 +35,8 @@ function getDemoHTML(sliderOrder) {
     // dimSpan is defined in trials.js — safe to use here since getDemoHTML is called at runtime
     var demoTopQ = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
     var demoBottomQ = sliderOrder === 'AW'
-        ? `Of those 100 people, how many would be ${dimSpan('willing')} to?`
-        : `Of those 100 people, how many would be ${dimSpan('able')} to?`;
+        ? `Of those <span id='demo-cond-n'>50</span> people, how many would be ${dimSpan('willing')} to?`
+        : `Of those <span id='demo-cond-n'>50</span> people, how many would be ${dimSpan('able')} to?`;
 
     return `
         <div class='prevent-select content-box'>
@@ -57,11 +57,11 @@ function getDemoHTML(sliderOrder) {
                     </div>
                     <div class='slider-question'>
                         <p class='question-text'>${demoBottomQ}</p>
-                        <input type='range' class='demo-slider' id='demo-slider-2' min='0' max='100' step='1' value='50'>
+                        <input type='range' class='demo-slider' id='demo-slider-2' min='0' max='50' step='1' value='25'>
                         <div class='slider-footer'>
                             <span class='slider-label-min'>0 people</span>
                             <span class='slider-value-display' id='demo-val-2'>?</span>
-                            <span class='slider-label-max'>100 people</span>
+                            <span class='slider-label-max' id='demo-max-label-2'>50 people</span>
                         </div>
                     </div>
                 </div>
