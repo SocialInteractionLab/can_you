@@ -16,10 +16,10 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
     // slider 1: unconditional estimate
     var topQuestion = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
 
-    // slider 2: out of 100, same as slider 1
+    // slider 2: counterfactual — imagine all 100 were [top dim], how many would be [bottom dim]
     var bottomQuestion = sliderOrder === 'AW'
-        ? `Of those 100 people, how many would be ${dimSpan('willing')} to?`
-        : `Of those 100 people, how many would be ${dimSpan('able')} to?`;
+        ? `Imagine all 100 people were ${dimSpan('able')} to — how many would be ${dimSpan('willing')} to?`
+        : `Imagine all 100 people were ${dimSpan('willing')} to — how many would be ${dimSpan('able')} to?`;
 
     var trialHTML = `
         <div class='prevent-select trial-box'>
@@ -183,8 +183,8 @@ function buildAttentionCheck(checkConfig, sliderOrder, jsPsych) {
     // match main trial wording for consistency
     var attnTopQ = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
     var attnBottomQ = sliderOrder === 'AW'
-        ? `Of those 100 people, how many would be ${dimSpan('willing')} to?`
-        : `Of those 100 people, how many would be ${dimSpan('able')} to?`;
+        ? `Imagine all 100 people were ${dimSpan('able')} to — how many would be ${dimSpan('willing')} to?`
+        : `Imagine all 100 people were ${dimSpan('willing')} to — how many would be ${dimSpan('able')} to?`;
 
     var html = `
         <div class='prevent-select trial-box'>

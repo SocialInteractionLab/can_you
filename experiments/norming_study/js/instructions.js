@@ -5,8 +5,8 @@ function getInstructionPages(sliderOrder) {
 
     // conditional phrasing for slider 2 explanation
     var conditionalClause = sliderOrder === 'AW'
-        ? 'Of those same 100 people, how many would be <em>willing to</em>?'
-        : 'Of those same 100 people, how many would be <em>able to</em>?';
+        ? 'Imagine all 100 people were <em>able to</em> — how many would be <em>willing to</em>?'
+        : 'Imagine all 100 people were <em>willing to</em> — how many would be <em>able to</em>?';
 
     return [
         // page 1 — introduce the task + vignette framing
@@ -35,8 +35,8 @@ function getDemoHTML(sliderOrder) {
     // dimSpan is defined in trials.js — safe to use here since getDemoHTML is called at runtime
     var demoTopQ = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
     var demoBottomQ = sliderOrder === 'AW'
-        ? `Of those 100 people, how many would be ${dimSpan('willing')} to?`
-        : `Of those 100 people, how many would be ${dimSpan('able')} to?`;
+        ? `Imagine all 100 people were ${dimSpan('able')} to — how many would be ${dimSpan('willing')} to?`
+        : `Imagine all 100 people were ${dimSpan('willing')} to — how many would be ${dimSpan('able')} to?`;
 
     return `
         <div class='prevent-select content-box'>
