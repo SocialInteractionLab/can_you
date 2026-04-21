@@ -34,7 +34,7 @@ var STIMULI_DATA = {
     {
       "itemID": 7,
       "actionPhrase": "speak to this person in Mandarin",
-      "vignette": "You are traveling abroad with a friend who does not speak Mandarin. You encounter a vendor on the street. Your friend turns to you and says:"
+      "vignette": "You are traveling abroad with a friend who does not speak Mandarin. You run into a vendor on the street. Your friend turns to you and says:"
     },
     {
       "itemID": 8,
@@ -570,7 +570,7 @@ var STIMULI_DATA = {
     },
     {
       "itemID": 139,
-      "actionPhrase": "do a few acupuncture points on my back — I am in so much pain",
+      "actionPhrase": "do a few acupuncture points on my back",
       "vignette": "A close friend has been dealing with chronic back pain and desperately wants some relief. They have heard you mention interest in alternative medicine and say:"
     },
 
@@ -691,7 +691,7 @@ var STIMULI_DATA = {
     {
       "itemID": 164,
       "actionPhrase": "translate this old diary for me",
-      "vignette": "A family member has found a diary written in an archaic dialect of a language you once studied briefly. The entries seem to describe significant family history. They hand it to you and say:"
+      "vignette": "A family member has found a diary written in Archaic English. The entries seem to describe your family's history. They hand it to you and say:"
     },
 
     {
@@ -865,13 +865,13 @@ var STIMULI_DATA = {
 
     {
       "itemID": 197,
-      "actionPhrase": "give me your home Wi-Fi password",
-      "vignette": "A stranger sitting next to you at a café explains they live in the building next door and their internet is down. They lean over and say:"
+      "actionPhrase": "let me connect to the Wi-Fi at your place for a bit",
+      "vignette": "A stranger sitting next to you at a bus stop explains that their internet back home is down. They lean over and say:"
     },
     {
       "itemID": 198,
       "actionPhrase": "let me scroll through your phone for a second",
-      "vignette": "You have just met someone at a networking event. After a brief chat they say they think you might know a mutual contact and want to check a photo to confirm. They hold out their hand and say:"
+      "vignette": "You are at a party when someone you just met mentions their phone died earlier in the evening and they missed the group photo. They heard you were taking pictures and reach their hand out:"
     }
 
   ]

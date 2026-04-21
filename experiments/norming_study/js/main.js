@@ -213,15 +213,37 @@ function initStudy(stimuli) {
         on_load: function() {
             var d1 = document.getElementById('demo-slider-1');
             var d2 = document.getElementById('demo-slider-2');
+            var d2wrap = document.getElementById('demo-bottom-wrap');
+            var continueBtn = document.getElementById('demo-continue-btn');
+            continueBtn.disabled = true;
             var d1touched = false, d2touched = false;
+            var d1PointerDown = false, d1Revealed = false;
             updateSliderGradient(d1);
-            updateSliderGradient(d2);
-            d1.addEventListener('mousedown', function() { d1touched = true; });
-            d1.addEventListener('touchstart', function() { d1touched = true; });
-            d1.addEventListener('keydown',    function() { d1touched = true; });
-            d2.addEventListener('mousedown', function() { d2touched = true; });
-            d2.addEventListener('touchstart', function() { d2touched = true; });
-            d2.addEventListener('keydown',    function() { d2touched = true; });
+
+            function checkEnable() { if (d1touched && d2touched) continueBtn.disabled = false; }
+
+            function revealD2() {
+                if (!d1Revealed) {
+                    d1Revealed = true;
+                    d2wrap.style.display = '';
+                    requestAnimationFrame(function() { d2wrap.style.opacity = '1'; });
+                    updateSliderGradient(d2);
+                }
+            }
+
+            d1.addEventListener('mousedown', function() { d1touched = true; d1PointerDown = true; checkEnable(); });
+            d1.addEventListener('touchstart', function() { d1touched = true; checkEnable(); });
+            d1.addEventListener('keydown',    function() { d1touched = true; checkEnable(); });
+            d2.addEventListener('mousedown', function() { d2touched = true; checkEnable(); });
+            d2.addEventListener('touchstart', function() { d2touched = true; checkEnable(); });
+            d2.addEventListener('keydown',    function() { d2touched = true; checkEnable(); });
+            document.addEventListener('pointerup', function() {
+                if (d1PointerDown) revealD2();
+                d1PointerDown = false;
+            });
+            d1.addEventListener('touchend', revealD2);
+            d1.addEventListener('keyup', revealD2);
+
             d1.addEventListener('input', function() {
                 updateSliderGradient(d1);
                 if (d1touched) document.getElementById('demo-val-1').textContent = `${d1.value} people`;
@@ -330,9 +352,19 @@ function initStudy(stimuli) {
         }
     };
 
+    var readyToStart = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: `
+            <div class='content-box' style='text-align:center;'>
+                <p style='font-size:20px; font-weight:600;'>You're all set!</p>
+                <p style='font-size:17px; color:#555;'>Click below when you're ready to start the experiment.</p>
+            </div>`,
+        choices: ['Start Experiment']
+    };
+
     // --- timeline (reorder vars here to change order) ---
-    var timeline = 
-        [consent, instructions, demo]
+    var timeline =
+        [consent, instructions, demo, readyToStart]
         .concat(trialBlock)
         .concat([demographics, strategy, technical, save2half, saveDemographics, completion]);
 

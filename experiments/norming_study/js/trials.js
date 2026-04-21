@@ -1,6 +1,6 @@
 // hover tooltips for able/willing
 var DIM_TIPS = {
-    able:    'Whether they have the skill or physical capacity to do it',
+    able:    'Whether they have the skill, physical capacity, and/or means to accomplish it',
     willing: 'Whether they would agree or choose to do it'
 };
 
@@ -16,10 +16,10 @@ function buildMainTrial(stimulus, sliderOrder, mainTrialIndex, jsPsych) {
     // slider 1: unconditional estimate
     var topQuestion = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
 
-    // slider 2: counterfactual — imagine all 100 were [top dim], how many would be [bottom dim]
+    // slider 2: counterfactual — assuming all 100 were [top dim], how many would be [bottom dim]
     var bottomQuestion = sliderOrder === 'AW'
-        ? `Imagine all 100 people were ${dimSpan('able')} to — how many would be ${dimSpan('willing')} to?`
-        : `Imagine all 100 people were ${dimSpan('willing')} to — how many would be ${dimSpan('able')} to?`;
+        ? `Assuming all 100 were ${dimSpan('able')} to, how many of them would be ${dimSpan('willing')} to do it?`
+        : `Assuming all 100 were ${dimSpan('willing')} to, how many of them would be ${dimSpan('able')} to do it?`;
 
     var trialHTML = `
         <div class='prevent-select trial-box'>
@@ -183,8 +183,8 @@ function buildAttentionCheck(checkConfig, sliderOrder, jsPsych) {
     // match main trial wording for consistency
     var attnTopQ = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
     var attnBottomQ = sliderOrder === 'AW'
-        ? `Imagine all 100 people were ${dimSpan('able')} to — how many would be ${dimSpan('willing')} to?`
-        : `Imagine all 100 people were ${dimSpan('willing')} to — how many would be ${dimSpan('able')} to?`;
+        ? `Assuming all 100 were ${dimSpan('able')} to, how many of them would be ${dimSpan('willing')} to do it?`
+        : `Assuming all 100 were ${dimSpan('willing')} to, how many of them would be ${dimSpan('able')} to do it?`;
 
     var html = `
         <div class='prevent-select trial-box'>

@@ -5,25 +5,24 @@ function getInstructionPages(sliderOrder) {
 
     // conditional phrasing for slider 2 explanation
     var conditionalClause = sliderOrder === 'AW'
-        ? 'Imagine all 100 people were able to — how many would be <em>willing to</em>?'
-        : 'Imagine all 100 people were willing to — how many would be <em>able to</em>?';
+        ? 'Assuming all 100 were able to do it, how many of them would be <em>willing</em> to do it?'
+        : 'Assuming all 100 were willing to do it, how many of them would be <em>able</em> to do it?';
 
     return [
         // page 1 — introduce the task + vignette framing
         `<div class='prevent-select content-box'>
-            <p>In this study, you'll see a series of short everyday scenarios and a question about each one. For example:</p>
-            <p style='font-style:italic; font-weight:700; font-size:22px; color:#222; margin: 4px 0 2px;'>You're hanging out with a group of friends. Someone pulls out a scrambled Rubik's cube and passes it around. Eventually they hand it to you and say:</p>
-            <p style='font-size:22px; color:#222; margin: 2px 0 12px;'><em><b>"Can you solve the Rubik's cube?"</b></em></p>
-            <p>For each scenario, imagine <b>100 random people</b> are all in that situation</p>
+            <p>In this study, you'll see a series of everyday scenarios and a question about each one.</p>
+            <p>For each scenario, imagine <b>100 random people</b> are all in that situation.</p>
         </div>`,
 
         // page 2 — explain the two sliders with conditional framing
         `<div class='prevent-select content-box'>
-            <p>For each question, you will be asked to answer two questions:</p>
-            <p style='margin-top:20px;'>1) How many of the 100 people would be <em>${firstDim}</em> to?</p>
+            <p>For each scenario, you will be asked to answer two questions:</p>
+            <p style='margin-top:20px;'>1) How many of the 100 people would be <em>${firstDim}</em> to do it?</p>
             <p style='margin-bottom:20px;'>2) ${conditionalClause}</p>
             <p><b>There are no right or wrong answers</b> — all we're interested in is what you think!</p>
-        </div>`
+        </div>`,
+
     ];
 }
 
@@ -35,8 +34,8 @@ function getDemoHTML(sliderOrder) {
     // dimSpan is defined in trials.js — safe to use here since getDemoHTML is called at runtime
     var demoTopQ = `How many of the 100 people would be ${dimSpan(topDim)} to?`;
     var demoBottomQ = sliderOrder === 'AW'
-        ? `Imagine all 100 people were ${dimSpan('able')} to — how many would be ${dimSpan('willing')} to?`
-        : `Imagine all 100 people were ${dimSpan('willing')} to — how many would be ${dimSpan('able')} to?`;
+        ? `Assuming all 100 were ${dimSpan('able')} to, how many of them would be ${dimSpan('willing')} to do it?`
+        : `Assuming all 100 were ${dimSpan('willing')} to, how many of them would be ${dimSpan('able')} to do it?`;
 
     return `
         <div class='prevent-select content-box'>
@@ -55,7 +54,7 @@ function getDemoHTML(sliderOrder) {
                             <span class='slider-label-max'>100 people</span>
                         </div>
                     </div>
-                    <div class='slider-question'>
+                    <div class='slider-question' id='demo-bottom-wrap' style='display:none; opacity:0; transition:opacity 0.25s ease;'>
                         <p class='question-text'>${demoBottomQ}</p>
                         <input type='range' class='demo-slider' id='demo-slider-2' min='0' max='100' step='1' value='50'>
                         <div class='slider-footer'>
@@ -67,7 +66,7 @@ function getDemoHTML(sliderOrder) {
                 </div>
             </div>
             <div style='text-align:center; margin-top:20px;'>
-                <button id='demo-continue-btn' class='jspsych-btn'>Start Experiment</button>
+                <button id='demo-continue-btn' class='jspsych-btn'>Continue</button>
             </div>
         </div>
     `;

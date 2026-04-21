@@ -1,27 +1,12 @@
 var STIMULI_DATA = {
   "experimentName": "whyask_norming",
   "version": "v4_unseen",
-  "nItems": 85,
+  "nItems": 70,
   "stimuli": [
     {
       "itemID": 7,
       "actionPhrase": "speak to this person in Mandarin",
       "vignette": "You are traveling abroad with a friend who does not speak Mandarin. You encounter a vendor on the street. Your friend turns to you and says:"
-    },
-    {
-      "itemID": 11,
-      "actionPhrase": "translate this legal document from Korean",
-      "vignette": "Your friend needs an urgent translation of a document for an immigration matter. They hand it to you and say:"
-    },
-    {
-      "itemID": 13,
-      "actionPhrase": "fly us to the hospital in that helicopter",
-      "vignette": "A friend is having a medical emergency in a remote area. There is a helicopter nearby but no pilot. Your friend gasps:"
-    },
-    {
-      "itemID": 15,
-      "actionPhrase": "give a speech in front of everyone right now",
-      "vignette": "You are at a large company event. Your manager suddenly puts you on the spot and says:"
     },
     {
       "itemID": 17,
@@ -64,11 +49,6 @@ var STIMULI_DATA = {
       "vignette": "You are walking into a building and someone right behind you is carrying heavy bags. They call out:"
     },
     {
-      "itemID": 60,
-      "actionPhrase": "share your class notes with me",
-      "vignette": "A classmate who almost never comes to class asks you right before the exam:"
-    },
-    {
       "itemID": 64,
       "actionPhrase": "text me when you get home safe",
       "vignette": "A friend says goodbye after a late-night hangout. As you leave, they say:"
@@ -102,11 +82,6 @@ var STIMULI_DATA = {
       "itemID": 91,
       "actionPhrase": "help me write an apology to someone I really hurt",
       "vignette": "A close friend made a serious mistake in an important relationship and wants to make it right. They sit down with you and say:"
-    },
-    {
-      "itemID": 109,
-      "actionPhrase": "give me your honest take on my business idea",
-      "vignette": "A friend has been working on a business idea they're very excited about and wants your real opinion. They pitch it enthusiastically and then say:"
     },
     {
       "itemID": 113,
@@ -144,24 +119,9 @@ var STIMULI_DATA = {
       "vignette": "A close friend has been stuck in bed with the flu for several days and hasn't been able to cook. They text you saying they haven't eaten much, and then add:"
     },
     {
-      "itemID": 130,
-      "actionPhrase": "forge my supervisor's signature on my time sheet",
-      "vignette": "A coworker confides they missed the submission deadline for their time sheet and the supervisor is unreachable for a week. They say the signature is just a formality and ask:"
-    },
-    {
       "itemID": 134,
       "actionPhrase": "perform a cello solo at my wedding ceremony tomorrow",
       "vignette": "A friend who is getting married calls the night before: the musician they hired had an emergency cancellation. They know you played some string instruments as a kid and say:"
-    },
-    {
-      "itemID": 135,
-      "actionPhrase": "talk this person down from their panic attack",
-      "vignette": "You and a friend are in a waiting room when someone nearby starts hyperventilating and shaking uncontrollably. Your friend turns to you since you once mentioned knowing some first-aid:"
-    },
-    {
-      "itemID": 136,
-      "actionPhrase": "land this small plane safely — the pilot just passed out",
-      "vignette": "You are a passenger in a small charter plane when the pilot slumps forward and becomes unresponsive. The only other adult aboard grabs your arm and says:"
     },
     {
       "itemID": 137,
@@ -175,13 +135,8 @@ var STIMULI_DATA = {
     },
     {
       "itemID": 139,
-      "actionPhrase": "do a few acupuncture points on my back — I am in so much pain",
+      "actionPhrase": "do a few acupuncture points on my back",
       "vignette": "A close friend has been dealing with chronic back pain and desperately wants some relief. They have heard you mention interest in alternative medicine and say:"
-    },
-    {
-      "itemID": 141,
-      "actionPhrase": "let me stay in your apartment for one night",
-      "vignette": "You are coming home late when a traveler stops you outside your building, explaining that every nearby hotel is full and their next bus isn't until morning. They look desperate and say:"
     },
     {
       "itemID": 142,
@@ -249,11 +204,6 @@ var STIMULI_DATA = {
       "vignette": "A close friend has received a lawsuit notice and needs to file a written response to the court within 48 hours. They cannot afford a lawyer and know you're a strong writer. Desperately, they say:"
     },
     {
-      "itemID": 163,
-      "actionPhrase": "recover the corrupted donor database before the campaign launches",
-      "vignette": "Your friend runs a small nonprofit and their donor database just got corrupted right before a major fundraising campaign. They know you've done some coding before and call you in a panic:"
-    },
-    {
       "itemID": 164,
       "actionPhrase": "translate this old diary for me",
       "vignette": "A family member has found a diary written in an archaic dialect of a language you once studied briefly. The entries seem to describe significant family history. They hand it to you and say:"
@@ -279,24 +229,9 @@ var STIMULI_DATA = {
       "vignette": "You are attending a local dance studio open house where they need an audience volunteer to demonstrate a waltz routine with an instructor. A staff member spots you standing near the dance floor and says:"
     },
     {
-      "itemID": 169,
-      "actionPhrase": "fill in and do the palm readings for the booth",
-      "vignette": "You are helping at a friend's community fair booth. The person who was supposed to do novelty palm readings hasn't shown up and the booth is already open. Your friend looks at you and says:"
-    },
-    {
-      "itemID": 170,
-      "actionPhrase": "dive down and get my retainer from the drain",
-      "vignette": "A person at a public pool realizes their retainer fell into the drain at the bottom of the deep end. There's no pool staff available and they can't swim well enough to reach it. They look around at the other swimmers and say:"
-    },
-    {
       "itemID": 171,
       "actionPhrase": "crawl under there and pull the dead animal out",
       "vignette": "Your neighbor has a dead animal decomposing somewhere in their crawlspace and the smell is becoming unbearable. Animal control has a week-long wait. Knowing you have coveralls and a flashlight, they say:"
-    },
-    {
-      "itemID": 172,
-      "actionPhrase": "slaughter and clean the chicken for dinner",
-      "vignette": "You are visiting a relative who raises backyard chickens and wants to prepare one fresh for a family dinner. They know you grew up around farms and hand you the bird:"
     },
     {
       "itemID": 173,
@@ -322,11 +257,6 @@ var STIMULI_DATA = {
       "itemID": 177,
       "actionPhrase": "fix my sewing machine",
       "vignette": "Your elderly neighbor's sewing machine keeps jamming and she hasn't been able to use it for months. Knowing you've repaired small appliances before, she asks:"
-    },
-    {
-      "itemID": 178,
-      "actionPhrase": "take apart my laptop and swap in the new screen",
-      "vignette": "A close friend cracked their laptop screen and has ordered a replacement panel online. They need someone to carefully disassemble the laptop to install it. They ask:"
     },
     {
       "itemID": 179,
@@ -372,11 +302,6 @@ var STIMULI_DATA = {
       "itemID": 187,
       "actionPhrase": "take over the raffle table for the first hour",
       "vignette": "You arrive early to a community fundraiser and the organizer is overwhelmed — a volunteer didn't show up and the raffle table is unstaffed. They look at you and say:"
-    },
-    {
-      "itemID": 188,
-      "actionPhrase": "read through my letter to my ex and tell me what you think",
-      "vignette": "A coworker you barely know comes to your desk and asks you to read a long, emotional letter they wrote to their ex-partner asking for another chance. They say:"
     },
     {
       "itemID": 189,
@@ -426,7 +351,7 @@ var STIMULI_DATA = {
     {
       "itemID": 198,
       "actionPhrase": "let me scroll through your phone for a second",
-      "vignette": "You have just met someone at a networking event. After a brief chat they say they think you might know a mutual contact and want to check a photo to confirm. They hold out their hand and say:"
+      "vignette": "You are at a party when someone you just met mentions their phone died earlier in the evening and they missed the group photo. They heard you were taking pictures and reach their hand out:"
     }
   ]
 };
