@@ -3,5 +3,4 @@ __pycache__/
 *.pyc
 model/ke_version.ipynb
 data/
-results/
 /writeup/
