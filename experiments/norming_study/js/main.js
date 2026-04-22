@@ -153,7 +153,7 @@ function initStudy(stimuli) {
     var trialOrder = trialSequence.map(t => t.type === 'attn' ? t.data.checkID : t.data.itemID);
     jsPsych.data.addProperties({ trialOrder: trialOrder });
 
-    var saveMsg = "<p style='text-align:center; color:#555; font-family:Helvetica Neue,Arial,sans-serif;'>You are now halfway done -- saving your data — please don't close this page...</p>";
+    var saveMsg = "<p style='text-align:center; color:#555; font-family:Helvetica Neue,Arial,sans-serif;'>Saving your data — please don't close this page...</p>";
 
     function handleSaveResult(data, label) {
         if (data.success) return;
