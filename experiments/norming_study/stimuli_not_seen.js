@@ -1,7 +1,7 @@
 var STIMULI_DATA = {
   "experimentName": "whyask_norming",
   "version": "v4_unseen",
-  "nItems": 55,
+  "nItems": 40,
   "stimuli": [
     {
       "itemID": 7,
@@ -49,11 +49,6 @@ var STIMULI_DATA = {
       "vignette": "A friend with limited credit history found an apartment they really want but can't qualify on their own. They come to you with the paperwork and say:"
     },
     {
-      "itemID": 77,
-      "actionPhrase": "tell me what you really think of my new partner",
-      "vignette": "A close friend has been dating someone new and you have some reservations. After you all spent time together, your friend pulls you aside and says:"
-    },
-    {
       "itemID": 83,
       "actionPhrase": "leave a five-star review for my business",
       "vignette": "A friend who runs a small business asks for your help online after you had an average experience with it. They message you:"
@@ -62,11 +57,6 @@ var STIMULI_DATA = {
       "itemID": 84,
       "actionPhrase": "write and perform a song at my wedding ceremony",
       "vignette": "A close friend is getting married and asks if you'd compose and perform an original piece for their ceremony. They know you play a little music and say:"
-    },
-    {
-      "itemID": 87,
-      "actionPhrase": "help me do my taxes this year",
-      "vignette": "A close friend who has never filed their own taxes is panicking close to the deadline. They call you in a mild panic:"
     },
     {
       "itemID": 113,
@@ -79,34 +69,14 @@ var STIMULI_DATA = {
       "vignette": "A friend is struggling with a dense paper for a class and knows you've studied something related. They slide it over and say:"
     },
     {
-      "itemID": 117,
-      "actionPhrase": "look at this contract and tell me if this clause is okay",
-      "vignette": "A close friend is reviewing a lease and spots some confusing language. They send it over and say:"
-    },
-    {
-      "itemID": 121,
-      "actionPhrase": "help me find an apartment in the city I'm moving to",
-      "vignette": "A close friend is relocating for work and is overwhelmed by the rental market in an unfamiliar city. They reach out for help:"
-    },
-    {
       "itemID": 123,
       "actionPhrase": "help me carry these groceries inside",
       "vignette": "You are walking into your apartment building and see an elderly neighbor at the entrance, arms full of heavy grocery bags and fumbling with their keys. They look up at you and say:"
     },
     {
-      "itemID": 124,
-      "actionPhrase": "bring me a home-cooked meal",
-      "vignette": "A close friend has been stuck in bed with the flu for several days and hasn't been able to cook. They text you saying they haven't eaten much, and then add:"
-    },
-    {
       "itemID": 134,
       "actionPhrase": "perform a cello solo at my wedding ceremony tomorrow",
       "vignette": "A friend who is getting married calls the night before: the musician they hired had an emergency cancellation. They know you played some string instruments as a kid and say:"
-    },
-    {
-      "itemID": 137,
-      "actionPhrase": "apply pressure and stop the bleeding until paramedics arrive",
-      "vignette": "You and a friend are at an outdoor event when someone nearby suffers a serious cut that is bleeding heavily. Your friend is already calling 911 and turns to you:"
     },
     {
       "itemID": 138,
@@ -119,24 +89,9 @@ var STIMULI_DATA = {
       "vignette": "An acquaintance corners you at a gathering and launches into a detailed, repetitive account of a problem in their life. They pause briefly and say:"
     },
     {
-      "itemID": 152,
-      "actionPhrase": "help me think of a name for my new business",
-      "vignette": "A close friend is launching a side project and has been stuck on what to call it for weeks. They pull out a notepad at dinner and say:"
-    },
-    {
-      "itemID": 155,
-      "actionPhrase": "do the needle decompression",
-      "vignette": "You are at a family gathering when an elderly relative suddenly struggles to breathe and turns blue. A bystander recognizes the signs of a collapsed lung and says a needle decompression is the only immediate option. They hand you the kit and say:"
-    },
-    {
       "itemID": 156,
       "actionPhrase": "administer the antivenom injection",
       "vignette": "You are hiking when a fellow hiker is bitten by a rattlesnake and begins going into shock. The first aid kit has antivenom but requires a precise injection. A panicked companion looks at you and says:"
-    },
-    {
-      "itemID": 157,
-      "actionPhrase": "operate the crane to lift the beam off them",
-      "vignette": "You are at a construction site when a worker becomes trapped under a collapsed beam and cannot be pulled free. The only way to lift it is a specialized industrial crane. A foreman runs up to you and says:"
     },
     {
       "itemID": 158,
@@ -147,11 +102,6 @@ var STIMULI_DATA = {
       "itemID": 159,
       "actionPhrase": "figure out what's wrong with the engine from my description",
       "vignette": "A close friend's car is making a strange knocking sound and they can't afford a mechanic right now. Knowing you sometimes watch car repair videos online, they call you and describe the noise:"
-    },
-    {
-      "itemID": 161,
-      "actionPhrase": "fill in on bass guitar for the show tonight",
-      "vignette": "Your friend's band is performing tonight and their bassist just called in sick an hour before the show. You've played a little guitar before. In desperation your friend calls you and says:"
     },
     {
       "itemID": 162,
@@ -199,11 +149,6 @@ var STIMULI_DATA = {
       "vignette": "A close friend just moved into a new place and one of the light fixtures needs to be replaced. The new one is sitting in a box. They know you're handy and say:"
     },
     {
-      "itemID": 176,
-      "actionPhrase": "help me change the brake pads on my car",
-      "vignette": "A close friend's car needs new brake pads and they've watched a tutorial but are nervous doing it alone. They ask if you'll come over and help them work through it:"
-    },
-    {
       "itemID": 177,
       "actionPhrase": "fix my sewing machine",
       "vignette": "Your elderly neighbor's sewing machine keeps jamming and she hasn't been able to use it for months. Knowing you've repaired small appliances before, she asks:"
@@ -249,21 +194,6 @@ var STIMULI_DATA = {
       "vignette": "A neighbor you barely know knocks on your door and asks you to look through their medicine cabinet and help identify which prescriptions are expired or unnecessary. They say:"
     },
     {
-      "itemID": 191,
-      "actionPhrase": "watch my kids for a couple hours while I'm out",
-      "vignette": "Your upstairs neighbor — someone you've only met briefly a couple of times — knocks on your door in a rush and says they have an unexpected errand and need someone to watch their two young children. They say:"
-    },
-    {
-      "itemID": 192,
-      "actionPhrase": "take me all the way home even though it's way out of your way",
-      "vignette": "After a late evening work event, a coworker asks if you can give them a ride home. When you agree, they tell you their apartment is about forty minutes in the opposite direction from yours. They say:"
-    },
-    {
-      "itemID": 193,
-      "actionPhrase": "hold my place in line while I grab one thing",
-      "vignette": "You are in a long checkout line at a grocery store when an exhausted parent with a crying baby realizes they forgot one item. They look at you desperately and say:"
-    },
-    {
       "itemID": 195,
       "actionPhrase": "sign for my package at the door when it comes",
       "vignette": "You are in the middle of cooking dinner at home when your neighbor texts: a package they've been waiting for is being delivered shortly and they won't be home in time. They say:"
@@ -272,11 +202,6 @@ var STIMULI_DATA = {
       "itemID": 196,
       "actionPhrase": "take about twenty photos of me in different poses",
       "vignette": "You are relaxing in a park when a stranger approaches and asks if you can take a series of photos of them in various poses for their social media. They hand you their phone and say:"
-    },
-    {
-      "itemID": 198,
-      "actionPhrase": "let me scroll through your phone for a second",
-      "vignette": "You are at a party when someone you just met mentions their phone died earlier in the evening and they missed the group photo. They heard you were taking pictures and reach their hand out:"
     }
   ]
 };
