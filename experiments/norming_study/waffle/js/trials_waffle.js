@@ -1,8 +1,8 @@
 // ---- geometry ----
 var W_CELL = 34, W_GAP = 4, W_SLOT = 38;
 var W_FIG_TOTAL  = 10 * W_CELL + 9 * W_GAP;  // 376px — figure grid
-var W_DRAG_TOTAL = 360;                        // drag square
-var INSTR_S      = 320;                        // instruction grid size
+var W_DRAG_TOTAL = 810;                        // drag square
+var INSTR_S      = 720;                        // instruction grid size
 
 
 // quadrant key from (col, row) given axis orientation
@@ -60,15 +60,13 @@ function wDragQuadBounds(key, sx, sy, axisOrder) {
 }
 
 
-// pill pixel positions for each quadrant (clamped to stay inside bounds)
+// pill pixel positions — centered in each quadrant, free to overflow grid bounds
 function wPillPositions(sx, sy, axisOrder, total, getPx) {
-    var PX = 72, PY = 32;
-    function cx(v) { return Math.max(PX, Math.min(total-PX, v)); }
-    function cy(v) { return Math.max(PY, Math.min(total-PY, v)); }
     var xSplit = getPx(sx), ySplit = getPx(sy);
-    var L = cx(xSplit/2), R = cx((xSplit+total)/2);
-    var T = cy(ySplit/2), B = cy((ySplit+total)/2);
-    // AW always top-left pixel region; ANW/NAW swap position based on axisOrder
+    var L = xSplit / 2;
+    var R = (xSplit + total) / 2;
+    var T = ySplit / 2;
+    var B = (ySplit + total) / 2;
     return axisOrder === 'AW'
         ? { AW:{x:L,y:T}, NAW:{x:R,y:T}, ANW:{x:L,y:B}, NANW:{x:R,y:B} }
         : { AW:{x:L,y:T}, ANW:{x:R,y:T}, NAW:{x:L,y:B}, NANW:{x:R,y:B} };
@@ -265,11 +263,9 @@ function _buildWaffleTrialInner(opts) {
                     var pill = pillEls[key];
                     var pos  = pills[key];
                     var n    = counts[key];
-                    pill.style.left  = pos.x + 'px';
-                    pill.style.top   = pos.y + 'px';
-                    pill.style.color = colorMap[key];
-                    // before interaction: show all 4 pills with ?
-                    // after interaction: hide pills for empty quadrants only
+                    pill.style.left    = pos.x + 'px';
+                    pill.style.top     = pos.y + 'px';
+                    pill.style.color   = colorMap[key];
                     pill.style.display = showCounts ? (n > 0 ? '' : 'none') : '';
                     var countText = showCounts ? n : '?';
                     var unitSpan  = showCounts ? ' <span class="wcount-unit">people</span>' : '';
@@ -498,9 +494,9 @@ function initInstrGrid(axisOrder, colorMap) {
             var pill = pillEls[key];
             var pos  = pills[key];
             var n    = counts[key];
-            pill.style.left  = pos.x + 'px';
-            pill.style.top   = pos.y + 'px';
-            pill.style.color = colorMap[key];
+            pill.style.left    = pos.x + 'px';
+            pill.style.top     = pos.y + 'px';
+            pill.style.color   = colorMap[key];
             pill.style.display = showCounts ? (n > 0 ? '' : 'none') : '';
             var unitSpan = showCounts ? ' <span class="wcount-unit">people</span>' : '';
             pill.innerHTML = '<span class="wcount-n">' + (showCounts ? n : '?') + '</span>'

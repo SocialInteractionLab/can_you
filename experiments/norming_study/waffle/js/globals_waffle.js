@@ -5,21 +5,21 @@ const SHOW_FIGURES = false;
 // assignment to quadrants is randomized per participant (see main_waffle.js)
 const WAFFLE_COLORS = ['#0077BB', '#009988', '#EE7733', '#CC3311'];
 
-// pill label text per semantic quadrant — x-axis dimension listed first
+// pill label text per semantic quadrant
 function getQuadLabels(axisOrder) {
     if (axisOrder === 'AW') {
         return {
-            AW:   'able + willing',
-            ANW:  'able, not willing',
-            NAW:  'not able, willing',
-            NANW: 'not able or willing'
+            AW:   'are able and willing',
+            ANW:  'are able, but not willing',
+            NAW:  'are willing, but not able',
+            NANW: 'are not able or willing'
         };
     } else {  // WA: x=willing, y=able
         return {
-            AW:   'willing + able',
-            ANW:  'not willing, able',
-            NAW:  'willing, not able',
-            NANW: 'not willing or able'
+            AW:   'are willing and able',
+            ANW:  'are able, but not willing',
+            NAW:  'are willing, but not able',
+            NANW: 'are not able or willing'
         };
     }
 }

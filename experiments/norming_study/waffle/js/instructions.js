@@ -50,7 +50,7 @@ function getInstructionPagesWaffle(axisOrder) {
 
         // page 2 — what you'll do (updated for grid, no two-question framing)
         `<div class='prevent-select content-box'>
-            <p>For each scenario, you'll estimate how many of the 100 people would be <em>${xDim}</em> to do it, and how many would be <em>${yDim}</em>.</p>
+            <p>For each scenario, you'll estimate how many of the 100 people would be <em>${xDim}</em> and <em>${yDim}</em> to do it.</p>
             <p><b>There are no right or wrong answers</b> — all we're interested in is what you think!</p>
         </div>`,
 
@@ -59,15 +59,15 @@ function getInstructionPagesWaffle(axisOrder) {
             <p style='text-align:left;'>You will respond with a grid like this one, where you can move the point to show how many of the 100 people fall into each group.</p>
             <div style='display:inline-flex; flex-direction:column; align-items:center; margin:16px 0;'>
                 <div style='display:flex; margin-left:56px;'>
-                    <div id='instr-lbl-xpos' style='width:160px; text-align:center; font-size:14px; font-weight:700; color:#444; padding-bottom:6px; white-space:nowrap; overflow:visible;'>${xPos}</div>
-                    <div id='instr-lbl-xneg' style='width:160px; text-align:center; font-size:14px; font-weight:700; color:#444; padding-bottom:6px; white-space:nowrap; overflow:visible;'>${xNeg}</div>
+                    <div id='instr-lbl-xpos' style='width:360px; text-align:center; font-size:14px; font-weight:700; color:#444; padding-bottom:6px; white-space:nowrap; overflow:visible;'>${xPos}</div>
+                    <div id='instr-lbl-xneg' style='width:360px; text-align:center; font-size:14px; font-weight:700; color:#444; padding-bottom:6px; white-space:nowrap; overflow:visible;'>${xNeg}</div>
                 </div>
                 <div style='display:flex; align-items:center;'>
                     <div style='width:56px; display:flex; flex-direction:column;'>
-                        <div id='instr-lbl-ypos' style='height:160px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#444; text-align:center; line-height:1.3; white-space:nowrap; overflow:visible;'>${yPos}</div>
-                        <div id='instr-lbl-yneg' style='height:160px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#444; text-align:center; line-height:1.3; white-space:nowrap; overflow:visible;'>${yNeg}</div>
+                        <div id='instr-lbl-ypos' style='height:360px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#444; text-align:center; line-height:1.3; white-space:nowrap; overflow:visible;'>${yPos}</div>
+                        <div id='instr-lbl-yneg' style='height:360px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#444; text-align:center; line-height:1.3; white-space:nowrap; overflow:visible;'>${yNeg}</div>
                     </div>
-                    <div id='instr-interactive' style='position:relative; width:320px; height:320px; border:1.5px solid #ccc; border-radius:4px; cursor:crosshair; user-select:none; -webkit-user-select:none; overflow:visible;'>
+                    <div id='instr-interactive' style='position:relative; width:720px; height:720px; border:1.5px solid #ccc; border-radius:4px; cursor:crosshair; user-select:none; -webkit-user-select:none; overflow:visible;'>
                         <div id='instr-q-AW'   style='position:absolute; pointer-events:none;'></div>
                         <div id='instr-q-ANW'  style='position:absolute; pointer-events:none;'></div>
                         <div id='instr-q-NAW'  style='position:absolute; pointer-events:none;'></div>

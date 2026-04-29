@@ -122,6 +122,6 @@
     text-align: center;
     line-height: 1;
 }
-.wcount-n    { display: inline; font-size: 20px; font-weight: 800; }
-.wcount-unit { display: inline; font-size: 13px; font-weight: 600; opacity: 0.75; }
-.wcount-lbl  { display: block; font-size: 10px; font-weight: 600; opacity: 0.8; margin-top: 4px; }
+.wcount-n    { display: inline; font-size: 17px; font-weight: 700; }
+.wcount-unit { display: inline; font-size: 17px; font-weight: 700; }
+.wcount-lbl  { display: block; font-size: 15px; font-weight: 600; margin-top: 3px; }
