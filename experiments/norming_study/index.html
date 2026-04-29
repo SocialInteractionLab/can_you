@@ -15,9 +15,9 @@
     // Must be a separate DataPipe experiment with n_conditions set to ASSIGNMENT_LIST.length.
     // Run generate_conditions.py to regenerate ASSIGNMENT_LIST for a new sample size.
     const DATAPIPE_ID     = 'YOUR_ROUTING_DATAPIPE_ID';   // TODO: set before launch
-    const CONDITIONS      = ['slider', 'waffle'];
+    const CONDITIONS      = ['slider', 'grid'];
     const ASSIGNMENT_LIST = [1,0,1,0,0,1,1,0,1,0,1,0,1,0,1,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,0,1,0,1,1,0,1,0,0,1,1,0,1,0,0,1,1,0,0,1,0,1,0,1,1,0,0,1,1,0,0,1,1,0,0,1,0,1,1,0,1,0,1,0,1,0,0,1,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,0,1,0,1,1,0,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,1,0,0,1,1,0,1,0,1,0,0,1,0,1,0,1,1,0,1,0,0,1,1,0,0,1,0,1,0,1,1,0,0,1,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,0,1,1,0,1,0,1,0,1,0,1,0,0,1,1,0,0,1,0,1,0,1,0,1,1,0,1,0,0,1,0,1,1,0,0,1,0,1,1,0,0,1,1,0,0,1,1,0,1,0,0,1,1,0,1,0,0,1,1,0,1,0,0,1,0,1,1,0,1,0,0,1,0,1,1,0,1,0,1,0,1,0,1,0,0,1,1,0,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,0,1,0,1,0,1,0,1,1,0,1,0];
-    // ASSIGNMENT_LIST.length = 300 (150 slider, 150 waffle) — update DataPipe n_conditions to match
+    // ASSIGNMENT_LIST.length = 300 (150 slider, 150 grid) — update DataPipe n_conditions to match
 
     (async () => {
       const params = new URLSearchParams(window.location.search);
