@@ -119,5 +119,6 @@
     text-align: center;
     line-height: 1;
 }
-.wcount-n   { display: block; font-size: 20px; font-weight: 800; line-height: 1; }
-.wcount-lbl { display: block; font-size: 10px; font-weight: 600; opacity: 0.8; margin-top: 3px; }
+.wcount-n    { display: block; font-size: 20px; font-weight: 800; line-height: 1; }
+.wcount-unit { display: block; font-size: 11px; font-weight: 600; opacity: 0.7; margin-top: 1px; margin-bottom: 2px; }
+.wcount-lbl  { display: block; font-size: 10px; font-weight: 600; opacity: 0.8; margin-top: 3px; }

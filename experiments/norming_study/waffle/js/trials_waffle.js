@@ -127,42 +127,45 @@ function _buildWaffleTrialInner(opts) {
     var btnLabel = isDemo ? 'Continue' : 'Submit';
     var btnID    = isDemo ? 'demo-waffle-btn' : 'waffle-submit-btn';
 
-    // stimulus section: hidden at start for demo, immediately visible for main trials
-    var stimStyle = isDemo ? "style='display:none; opacity:0; transition:opacity 0.4s ease;'" : '';
+    // stimulus: opacity:0 keeps layout for measuring; demo also display:none until pre-text done
+    var stimStyle = isDemo ? "style='display:none; opacity:0;'" : "style='opacity:0;'";
 
     var trialHTML = `
         <div class='prevent-select trial-box'>
             ${counter}
-            ${preText ? `<div id='w-pre-text'>${preText}</div>` : ''}
-            <div id='w-stimulus-section' ${stimStyle}>
-                <p class='trial-preamble'>Imagine 100 random people are given the following situation:</p>
-                <p class='trial-vignette'>${stimulus.vignette}</p>
-                <p class='trial-question'><em><b>"Can you ${stimulus.actionPhrase}?"</b></em></p>
-            </div>
-            <div id='w-grid-section' style='display:none; opacity:0; transition:opacity 0.5s ease;'>
-                <p class='waffle-instr'>Drag the crosshair to show how many of the 100 people fall into each group.</p>
-                <div class='waffle-section'>
-                    <div class='waffle-outer'>
-                        <div class='waffle-top-row'>
-                            <div class='waffle-axis-spacer'></div>
-                            <div class='waffle-axis-top-labels' style='width:${sqPx};'>
-                                <div class='waffle-axis-top-label' id='wlbl-xpos'>${lbl.xPos}</div>
-                                <div class='waffle-axis-top-label' id='wlbl-xneg'>${lbl.xNeg}</div>
+            <div id='w-stage' style='display:flex; flex-direction:column; min-height:460px;'>
+                ${preText ? `<div id='w-pre-text' style='margin-top:auto; margin-bottom:auto; text-align:center;'>${preText}</div>` : ''}
+                <div id='w-center-spacer' style='height:0; flex-shrink:0;'></div>
+                <div id='w-stimulus-section' ${stimStyle}>
+                    <p class='trial-preamble'>Imagine 100 random people are given the following situation:</p>
+                    <p class='trial-vignette'>${stimulus.vignette}</p>
+                    <p class='trial-question'><em><b>"Can you ${stimulus.actionPhrase}?"</b></em></p>
+                </div>
+                <div id='w-grid-section' style='display:none; opacity:0; transform:translateY(20px); transition:opacity 0.7s ease, transform 0.7s ease;'>
+                    <p class='waffle-instr'>Drag the crosshair to show how many of the 100 people fall into each group.</p>
+                    <div class='waffle-section'>
+                        <div class='waffle-outer'>
+                            <div class='waffle-top-row'>
+                                <div class='waffle-axis-spacer'></div>
+                                <div class='waffle-axis-top-labels' style='width:${sqPx};'>
+                                    <div class='waffle-axis-top-label' id='wlbl-xpos'>${lbl.xPos}</div>
+                                    <div class='waffle-axis-top-label' id='wlbl-xneg'>${lbl.xNeg}</div>
+                                </div>
+                                <div class='waffle-axis-spacer'></div>
                             </div>
-                            <div class='waffle-axis-spacer'></div>
-                        </div>
-                        <div class='waffle-mid-row'>
-                            <div class='waffle-axis-side' style='height:${sqPx};'>
-                                <div class='waffle-axis-side-label' id='wlbl-ypos'>${lbl.yPos}</div>
-                                <div class='waffle-axis-side-label' id='wlbl-yneg'>${lbl.yNeg}</div>
+                            <div class='waffle-mid-row'>
+                                <div class='waffle-axis-side' style='height:${sqPx};'>
+                                    <div class='waffle-axis-side-label' id='wlbl-ypos'>${lbl.yPos}</div>
+                                    <div class='waffle-axis-side-label' id='wlbl-yneg'>${lbl.yNeg}</div>
+                                </div>
+                                ${interiorHTML}
+                                <div class='waffle-axis-spacer'></div>
                             </div>
-                            ${interiorHTML}
-                            <div class='waffle-axis-spacer'></div>
                         </div>
                     </div>
-                </div>
-                <div style='text-align:center; margin-top:20px;'>
-                    <button id='${btnID}' class='jspsych-btn' disabled>${btnLabel}</button>
+                    <div style='text-align:center; margin-top:20px;'>
+                        <button id='${btnID}' class='jspsych-btn' disabled>${btnLabel}</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -178,9 +181,12 @@ function _buildWaffleTrialInner(opts) {
             var firstInteractionRT  = null;
             var hasInteracted       = false;
             var showCounts          = false;
+            var vignetteMinPassed   = false;
             var gridMinPassed       = false;
             var dragging            = false;
 
+            var stageEl         = document.getElementById('w-stage');
+            var spacerEl        = document.getElementById('w-center-spacer');
             var stimulusSection = document.getElementById('w-stimulus-section');
             var gridSection     = document.getElementById('w-grid-section');
             var preTextEl       = preText ? document.getElementById('w-pre-text') : null;
@@ -267,7 +273,9 @@ function _buildWaffleTrialInner(opts) {
                     // after interaction: hide pills for empty quadrants only
                     pill.style.display = showCounts ? (n > 0 ? '' : 'none') : '';
                     var countText = showCounts ? n : '?';
+                    var unitSpan  = showCounts ? '<span class="wcount-unit">people</span>' : '';
                     pill.innerHTML = '<span class="wcount-n">'+countText+'</span>'
+                                   + unitSpan
                                    +'<span class="wcount-lbl">'+quadLabels[key]+'</span>';
                 });
 
@@ -290,17 +298,19 @@ function _buildWaffleTrialInner(opts) {
             }
 
             function tryEnableSubmit() {
-                if (hasInteracted && gridMinPassed) {
+                if (hasInteracted && gridMinPassed && vignetteMinPassed) {
                     submitBtn.disabled = false;
                 }
             }
 
-            // fade in the grid; start 3s minimum timer
+            // slide vignette up (spacer → 0), fade+slide grid in; start 3s minimum timer
             function revealGrid() {
+                spacerEl.style.height = '0px';
                 gridSection.style.display = '';
                 requestAnimationFrame(function() {
                     requestAnimationFrame(function() {
-                        gridSection.style.opacity = '1';
+                        gridSection.style.opacity   = '1';
+                        gridSection.style.transform = 'translateY(0)';
                     });
                 });
                 setTimeout(function() {
@@ -310,19 +320,25 @@ function _buildWaffleTrialInner(opts) {
                 render();  // initial render: crosshair at center, ? marks
             }
 
-            // fade in stimulus then schedule grid reveal (used for demo)
+            // center stimulus, fade in, schedule grid reveal + 5s vignette min (used for demo)
             function revealStimulus() {
                 stimulusSection.style.display = '';
                 requestAnimationFrame(function() {
-                    requestAnimationFrame(function() {
-                        stimulusSection.style.opacity = '1';
-                    });
+                    var stageH = stageEl.offsetHeight;
+                    var stimH  = stimulusSection.offsetHeight;
+                    spacerEl.style.height = Math.max(0, (stageH - stimH) / 2) + 'px';
+                    setTimeout(function() {
+                        spacerEl.style.transition = 'height 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    }, 80);
+                    stimulusSection.style.transition = 'opacity 0.4s ease';
+                    stimulusSection.style.opacity = '1';
+                    setTimeout(function() { vignetteMinPassed = true; tryEnableSubmit(); }, 5000);
+                    setTimeout(revealGrid, 3000);
                 });
-                setTimeout(revealGrid, 3000);
             }
 
             if (isDemo && preTextEl) {
-                // phase 1: pre-text for 2.5s, then fade out and reveal stimulus
+                // phase 1: pre-text for 3.5s, then fade out and reveal stimulus
                 setTimeout(function() {
                     preTextEl.style.transition = 'opacity 0.3s ease';
                     preTextEl.style.opacity = '0';
@@ -330,10 +346,23 @@ function _buildWaffleTrialInner(opts) {
                         preTextEl.style.display = 'none';
                         revealStimulus();
                     }, 300);
-                }, 2500);
+                }, 3500);
             } else {
-                // main trial: stimulus already visible, reveal grid after 3s
-                setTimeout(revealGrid, 3000);
+                // main trial: center vignette synchronously, then fade in + schedule timers
+                (function() {
+                    var stageH = stageEl.offsetHeight;
+                    var stimH  = stimulusSection.offsetHeight;
+                    spacerEl.style.height = Math.max(0, (stageH - stimH) / 2) + 'px';
+                    setTimeout(function() {
+                        spacerEl.style.transition = 'height 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    }, 80);
+                    requestAnimationFrame(function() {
+                        stimulusSection.style.transition = 'opacity 0.4s ease';
+                        stimulusSection.style.opacity = '1';
+                    });
+                    setTimeout(function() { vignetteMinPassed = true; tryEnableSubmit(); }, 5000);
+                    setTimeout(revealGrid, 3000);
+                })();
             }
 
             function snapVal(frac) { return Math.max(0, Math.min(10, Math.round(frac * 10))); }
@@ -474,7 +503,9 @@ function initInstrGrid(axisOrder, colorMap) {
             pill.style.top   = pos.y + 'px';
             pill.style.color = colorMap[key];
             pill.style.display = showCounts ? (n > 0 ? '' : 'none') : '';
+            var unitSpan = showCounts ? '<span class="wcount-unit">people</span>' : '';
             pill.innerHTML = '<span class="wcount-n">' + (showCounts ? n : '?') + '</span>'
+                           + unitSpan
                            + '<span class="wcount-lbl">' + quadLabels[key] + '</span>';
 
             var b = iQuadBounds(key, sx, sy);
