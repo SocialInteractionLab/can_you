@@ -1,4 +1,4 @@
-// linear (1D grid) instruction pages — 3 pages, page 2 has interactive demo
+// linear (1D slider) instruction pages — 3 pages, page 2 has interactive demo
 function getInstructionPagesWaffle(axisOrder) {
     var dim1 = axisOrder === 'AW' ? 'able'    : 'willing';
     var dim2 = axisOrder === 'AW' ? 'willing' : 'able';
@@ -61,7 +61,7 @@ function getInstructionPagesWaffle(axisOrder) {
 
 
 // ---- per-page gate times (ms) ----
-var INSTR_GATES = [2500, 25000, 3000];
+var INSTR_GATES = [2500, 22000, 3000];
 var _instrDemoCleanup = null;
 
 // called from main.js on_load + nav handler
@@ -92,9 +92,9 @@ function setupInstrPage(page, axisOrder, colorMap) {
         }
 
         if (nextBtn) {
-            nextBtn.className  = 'w-btn-primary';
+            nextBtn.className   = 'w-btn-primary';
             nextBtn.textContent = page === 2 ? 'Start the study' : 'Continue';
-            nextBtn.disabled   = true;
+            nextBtn.disabled    = true;
         }
         if (backBtn) {
             backBtn.className = 'w-btn-ghost';
@@ -122,7 +122,7 @@ function setupInstrPage(page, axisOrder, colorMap) {
 }
 
 
-// ---- 1D demo grid choreography ----
+// ---- slider demo choreography ----
 function initInstrDemoGrid(axisOrder, colorMap) {
     var container = document.getElementById('w-demo-grid-container');
     var captionEl = document.getElementById('w-demo-caption');
@@ -132,27 +132,15 @@ function initInstrDemoGrid(axisOrder, colorMap) {
     var SIZE    = W_LINEAR_DEMO_SIZE;
     var palette = colorMap || PALETTES[PALETTE_NAME];
 
-    // demo grid uses grid1's color (first question = dim1 = ability or willingness)
-    var demoColor = axisOrder === 'AW' ? palette.AW : palette.NAW;
-    var demoDim   = axisOrder === 'AW' ? 'able'     : 'willing';
-    var demoDim2  = axisOrder === 'AW' ? 'willing'  : 'able';
+    var demoColor  = axisOrder === 'AW' ? palette.AW  : palette.NAW;
+    var demoDim    = axisOrder === 'AW' ? 'able'       : 'willing';
+    var noColor    = palette.NANW;
 
-    var grid = buildLinearGridVanilla(container, SIZE, SIZE, demoColor, {
-        snap: true,
-        hapticOnSnap: true,
-        hideCrosshair: true,
-        showCounts: false,
-        hidePills: true,
-        figuresRaining: true,
-    });
+    var grid = buildSliderGrid(container, SIZE, SIZE, demoColor, noColor, {});
 
-    // override figures to start grey (no yes-region color yet)
-    // setPos(0,10) already achieves this since count=0
-
-    var step         = 0;
     var hasInteracted = false;
-    var timers       = [];
-    var demoSx       = 0, demoSy = 10;
+    var demoCount     = 0;
+    var timers        = [];
 
     function schedule(delay, fn) {
         var t = setTimeout(fn, delay);
@@ -164,35 +152,34 @@ function initInstrDemoGrid(axisOrder, colorMap) {
         captionEl.style.opacity    = '0';
         captionEl.style.transition = 'opacity 250ms ease';
         setTimeout(function() {
-            captionEl.innerHTML   = html;
+            captionEl.innerHTML     = html;
             captionEl.style.opacity = '1';
         }, 250);
     }
 
-    // smooth drift between grid positions
-    function driftTo(tSx, tSy, durMs, afterFn) {
-        var steps   = Math.ceil(durMs / 40);
-        var curStep = 0;
-        var fSx = demoSx, fSy = demoSy;
+    // smooth drift between count values
+    function driftToCount(target, durMs, afterFn) {
+        var startCount = demoCount;
+        var steps      = Math.ceil(durMs / 40);
+        var curStep    = 0;
         function tick() {
             if (hasInteracted) { if (afterFn) afterFn(); return; }
             curStep++;
             var t    = Math.min(1, curStep / steps);
             var ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
-            var nx   = Math.round(fSx + (tSx - fSx) * ease);
-            var ny   = Math.round(fSy + (tSy - fSy) * ease);
-            if (nx !== demoSx || ny !== demoSy) { demoSx = nx; demoSy = ny; grid.setPos(nx, ny); }
+            var n    = Math.round(startCount + (target - startCount) * ease);
+            if (n !== demoCount) { demoCount = n; grid.setValue(n); }
             if (t < 1) { var tid = setTimeout(tick, 40); timers.push(tid); }
-            else { demoSx = tSx; demoSy = tSy; if (afterFn) afterFn(); }
+            else { demoCount = target; grid.setValue(target); if (afterFn) afterFn(); }
         }
         var t1 = setTimeout(tick, 0); timers.push(t1);
     }
 
-    // progress dots (steps 3–5 + invite)
+    // progress dots
     function updateDots(currentStep) {
         if (!dotsEl) return;
         dotsEl.innerHTML = '';
-        [3, 4, 5, 6].forEach(function(s) {
+        [2, 3, 4, 5].forEach(function(s) {
             var d = document.createElement('div');
             d.className = 'w-demo-dot';
             d.style.width      = currentStep >= s ? '18px' : '6px';
@@ -215,75 +202,67 @@ function initInstrDemoGrid(axisOrder, colorMap) {
         prog.appendChild(btn);
     }
 
+    // steps:
+    // 0 — all grey, '?', "100 random people"
+    // 1 — explain what slider does
+    // 2 — animate to ~65
+    // 3 — show count, pull back to ~30
+    // 4 — animate back to ~55, invite user to try
+    // 5 — user interacted
+
     function goStep(s) {
-        if (hasInteracted && s <= 5) return;
-        step = s;
+        if (hasInteracted && s <= 4) return;
         updateDots(s);
 
         switch (s) {
             case 0:
                 setCaption('<div style="animation:fadeIn 500ms ease both;">Imagine there are <b>100 random people</b>.</div>');
-                // all grey (sx=0, sy=10 already), crosshair hidden
                 break;
 
             case 1:
-                setCaption('<div style="animation:fadeIn 500ms ease both;">For each scenario, you\'ll estimate how many are <em>' + demoDim + '</em> and <em>' + demoDim2 + '</em> to do something.</div>');
+                setCaption('<div style="animation:fadeIn 500ms ease both;">For each question, drag the slider to show how many people are <em>' + demoDim + '</em> to do something.</div>');
                 break;
 
             case 2:
-                setCaption('<div style="animation:fadeIn 500ms ease both;">This grid lets you show how many.</div>');
-                grid.setHideCrosshair(false);
-                // figures become colored as crosshair moves away from corner
+                setCaption('<div style="animation:fadeIn 500ms ease both;">Drag right for more people…</div>');
+                grid.forceInteract();
+                driftToCount(65, 2200, null);
                 break;
 
             case 3:
-                setCaption('<div style="animation:fadeIn 500ms ease both;">Drag toward the top-right to include more people.</div>');
-                driftTo(7, 3, 2400, null);
+                setCaption('<div style="animation:fadeIn 500ms ease both;">…drag left for fewer.</div>');
+                driftToCount(28, 1800, null);
                 break;
 
             case 4:
-                grid.setHidePills(false);
-                grid.setShowCounts(true);
-                setCaption('<div style="animation:fadeIn 500ms ease both; font-size:15px; color:var(--muted);">The count tracks your estimate.</div>');
-                break;
-
-            case 5:
-                setCaption('<div style="animation:fadeIn 500ms ease both; font-size:15px; color:var(--muted);">Watch the count update — then try dragging yourself!</div>');
-                driftTo(3, 8, 2000, function() {
+                setCaption('<div style="animation:fadeIn 500ms ease both; font-size:15px; color:var(--muted);">Now try dragging the slider yourself!</div>');
+                driftToCount(40, 1200, function() {
                     if (!hasInteracted) {
-                        schedule(800, function() {
-                            grid.setInviteActive(true);
-                            setCaption('<div style="animation:fadeIn 400ms ease both; font-size:15px; color:var(--muted);">Drag the crosshair anywhere on the grid.</div>');
-                            updateDots(6);
-                            showReplayBtn();
-                        });
+                        grid.setInviteActive(true);
+                        showReplayBtn();
                     }
                 });
                 break;
         }
     }
 
-    // user interaction cancels auto-animation
+    // user takes over
     grid.onInteract = function() {
         if (hasInteracted) return;
         hasInteracted = true;
         timers.forEach(clearTimeout);
         timers = [];
         grid.setInviteActive(false);
-        grid.setHidePills(false);
-        grid.setShowCounts(true);
-        setCaption('<div style="animation:fadeIn 400ms ease both; font-size:15px; color:var(--muted);">Drag the crosshair anywhere on the grid.</div>');
-        updateDots(6);
+        setCaption('<div style="animation:fadeIn 400ms ease both; font-size:15px; color:var(--muted);">Drag the slider anywhere you like.</div>');
+        updateDots(5);
         showReplayBtn();
     };
 
-    // kick off sequence
     goStep(0);
     schedule(3000,  function() { goStep(1); });
-    schedule(6500,  function() { goStep(2); });
+    schedule(6000,  function() { goStep(2); });
     schedule(9500,  function() { goStep(3); });
     schedule(13000, function() { goStep(4); });
-    schedule(17000, function() { goStep(5); });
 
     function cleanup() {
         timers.forEach(clearTimeout);

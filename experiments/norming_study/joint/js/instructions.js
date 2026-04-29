@@ -174,10 +174,10 @@ function initInstrDemoGrid(axisOrder, colorMap) {
     }
 
     var QUADS = {
-        AW:   { label: 'Able & Willing',        sub: 'would do it',             color: palette.AW },
-        NAW:  { label: 'Not Able, but Willing', sub: 'want to but can\'t',      color: palette.NAW },
-        ANW:  { label: 'Able, but Not Willing', sub: 'could but don\'t want to',   color: palette.ANW },
-        NANW: { label: 'Neither',               sub: 'neither could nor would',  color: palette.NANW },
+        AW:   { label: 'Able and willing to',             color: palette.AW },
+        NAW:  { label: 'Not able, but willing to',        color: palette.NAW },
+        ANW:  { label: 'Able, but not willing to',        color: palette.ANW },
+        NANW: { label: 'Neither able nor willing to',     color: palette.NANW },
     };
 
     function hexA(hex, a) {
@@ -190,7 +190,7 @@ function initInstrDemoGrid(axisOrder, colorMap) {
         return '<div class="w-demo-caption-pill" style="background:' + hexA(q.color,0.10) + '; border:1px solid ' + hexA(q.color,0.28) + ';">'
              + '<div class="w-demo-caption-dot" style="background:' + q.color + ';"></div>'
              + '<span style="font-size:15px; font-weight:600; color:var(--ink);">' + q.label + '</span>'
-             + '<span style="font-size:14px; color:var(--muted);"> — ' + q.sub + '</span>'
+             + '<span style="font-size:14px; color:var(--muted);">'
              + '</div>';
     }
 

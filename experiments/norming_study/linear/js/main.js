@@ -395,15 +395,10 @@ function initStudyLinear(stimuli) {
         { label: 'Consent',              index: 0 },
         { label: 'Instructions',         index: 1 },
         { label: 'Trial 1',              index: 2 },
-        { label: 'Trial 3',              index: 4 },
-        { label: 'Trial ' + m,           index: 1 + m },
-        { label: 'Halfway checkpoint',   index: 2 + m },
-        { label: 'Trial ' + (m + 1),     index: 4 + m },
-        { label: 'Trial ' + N,           index: N + 3 },
+        { label: 'Trial 20',             index: 23 },
         { label: 'About you',            index: N + 4 },
         { label: 'How did you decide?',  index: N + 5 },
         { label: 'Last questions',       index: N + 6 },
-        { label: 'Saving screen',        index: N + 7 },
     ]);
 
     var skipIdx = IS_TESTING ? (parseInt(urlParams.get('skip'), 10) || 0) : 0;
