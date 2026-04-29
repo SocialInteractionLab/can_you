@@ -32,6 +32,66 @@ function getInstructionPages(sliderOrder) {
     ];
 }
 
+// waffle instruction pages — axes labeled by condition
+function getInstructionPagesWaffle(axisOrder) {
+    var xDim = axisOrder === 'AW' ? 'able'        : 'willing';
+    var yDim = axisOrder === 'AW' ? 'willing'     : 'able';
+    var xPos = axisOrder === 'AW' ? 'Able'        : 'Willing';
+    var xNeg = axisOrder === 'AW' ? 'Not able'    : 'Not willing';
+    var yPos = axisOrder === 'AW' ? 'Willing'     : 'Able';
+    var yNeg = axisOrder === 'AW' ? 'Not willing' : 'Not able';
+
+    return [
+        // page 1 — intro
+        `<div class='prevent-select content-box'>
+            <p>In this study, you'll see a series of everyday scenarios and a question about each one.</p>
+            <p>For each scenario, imagine <b>100 random people</b> are all in that situation.</p>
+        </div>`,
+
+        // page 2 — what you'll do (updated for grid, no two-question framing)
+        `<div class='prevent-select content-box'>
+            <p>For each scenario, you'll estimate how many of the 100 people would be <em>${xDim}</em> to do it, and how many would be <em>${yDim}</em>.</p>
+            <p><b>There are no right or wrong answers</b> — all we're interested in is what you think!</p>
+        </div>`,
+
+        // page 3 — interactive grid intro
+        `<div class='prevent-select content-box' style='text-align:center;'>
+            <p style='text-align:left;'>You will respond with a grid like this one, where you can move the point to show how many of the 100 people fall into each group.</p>
+            <div style='display:inline-flex; flex-direction:column; align-items:center; margin:16px 0;'>
+                <div style='display:flex; margin-left:56px;'>
+                    <div id='instr-lbl-xpos' style='width:160px; text-align:center; font-size:14px; font-weight:700; color:#444; padding-bottom:6px; overflow:hidden;'>${xPos}</div>
+                    <div id='instr-lbl-xneg' style='width:160px; text-align:center; font-size:14px; font-weight:700; color:#444; padding-bottom:6px; overflow:hidden;'>${xNeg}</div>
+                </div>
+                <div style='display:flex; align-items:center;'>
+                    <div style='width:56px; display:flex; flex-direction:column;'>
+                        <div id='instr-lbl-ypos' style='height:160px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#444; text-align:center; line-height:1.3; overflow:hidden;'>${yPos}</div>
+                        <div id='instr-lbl-yneg' style='height:160px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#444; text-align:center; line-height:1.3; overflow:hidden;'>${yNeg}</div>
+                    </div>
+                    <div id='instr-interactive' style='position:relative; width:320px; height:320px; border:1.5px solid #ccc; border-radius:4px; cursor:crosshair; user-select:none; -webkit-user-select:none; overflow:visible;'>
+                        <div id='instr-q-AW'   style='position:absolute; pointer-events:none;'></div>
+                        <div id='instr-q-ANW'  style='position:absolute; pointer-events:none;'></div>
+                        <div id='instr-q-NAW'  style='position:absolute; pointer-events:none;'></div>
+                        <div id='instr-q-NANW' style='position:absolute; pointer-events:none;'></div>
+                        <div class='wch-line wch-h'   id='instr-ch-h'></div>
+                        <div class='wch-line wch-v'   id='instr-ch-v'></div>
+                        <div class='wch-line wch-dot' id='instr-ch-dot'></div>
+                        <div class='wcount-pill' id='instr-pill-AW'></div>
+                        <div class='wcount-pill' id='instr-pill-ANW'></div>
+                        <div class='wcount-pill' id='instr-pill-NAW'></div>
+                        <div class='wcount-pill' id='instr-pill-NANW'></div>
+                    </div>
+                </div>
+            </div>
+        </div>`,
+
+        // page 4 — keep in mind
+        `<div class='prevent-select content-box'>
+            <p>Keep in mind that being <em>${xDim}</em> and being <em>${yDim}</em> don't always go together.</p>
+            <p>In other words, your answers don't need to match.</p>
+        </div>`,
+    ];
+}
+
 // demo trial HTML — sliderOrder passed so demo matches the real trial layout
 function getDemoHTML(sliderOrder) {
     var topDim    = sliderOrder === 'AW' ? 'able'    : 'willing';

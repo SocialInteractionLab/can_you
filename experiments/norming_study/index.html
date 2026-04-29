@@ -1,43 +1,67 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Thinking About Questions</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading experiment...</title>
+  <style>
+    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    p { font-size: 1.1em; color: #444; }
+  </style>
+</head>
+<body>
+  <p>Loading experiment, please wait...</p>
+  <script>
+    // Routing DataPipe ID — used only for sequential condition assignment (not data saving).
+    // Must be a separate DataPipe experiment with n_conditions set to ASSIGNMENT_LIST.length.
+    // Run generate_conditions.py to regenerate ASSIGNMENT_LIST for a new sample size.
+    const DATAPIPE_ID     = 'YOUR_ROUTING_DATAPIPE_ID';   // TODO: set before launch
+    const CONDITIONS      = ['slider', 'waffle'];
+    const ASSIGNMENT_LIST = [1,0,1,0,0,1,1,0,1,0,1,0,1,0,1,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,0,1,0,1,1,0,1,0,0,1,1,0,1,0,0,1,1,0,0,1,0,1,0,1,1,0,0,1,1,0,0,1,1,0,0,1,0,1,1,0,1,0,1,0,1,0,0,1,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,0,1,0,1,1,0,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,1,0,0,1,1,0,1,0,1,0,0,1,0,1,0,1,1,0,1,0,0,1,1,0,0,1,0,1,0,1,1,0,0,1,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,0,1,1,0,1,0,1,0,1,0,1,0,0,1,1,0,0,1,0,1,0,1,0,1,1,0,1,0,0,1,0,1,1,0,0,1,0,1,1,0,0,1,1,0,0,1,1,0,1,0,0,1,1,0,1,0,0,1,1,0,1,0,0,1,0,1,1,0,1,0,0,1,0,1,1,0,1,0,1,0,1,0,1,0,0,1,1,0,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,0,1,0,1,0,1,0,1,1,0,1,0];
+    // ASSIGNMENT_LIST.length = 300 (150 slider, 150 waffle) — update DataPipe n_conditions to match
 
-    <!-- jsPsych 8.1.0 — match priors_study version -->
-    <script src="https://unpkg.com/jspsych@8.1.0"></script>
-    <script src="https://unpkg.com/@jspsych/plugin-instructions@2.0.1"></script>
-    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.0.0"></script>
-    <script src="https://unpkg.com/@jspsych/plugin-html-slider-response@2.0.0"></script>
-    <script src="https://unpkg.com/@jspsych/plugin-survey-html-form@2.0.0"></script>
-    <!-- DataPipe -->
-    <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
+    (async () => {
+      const params = new URLSearchParams(window.location.search);
+      const pid = params.get('PROLIFIC_PID') || 'no_pid';
 
-    <!-- Stimuli — loaded as script (not fetch) so it works locally without a server -->
-    <script src="stimuli_full.js"></script>
+      // don't burn a slot on reload — reuse cached assignment
+      const condKey      = `condition_${DATAPIPE_ID}_${pid}`;
+      const idxKey       = `assignment_idx_${DATAPIPE_ID}_${pid}`;
+      let condition      = sessionStorage.getItem(condKey);
+      let assignment_idx = sessionStorage.getItem(idxKey);
 
-    <!-- Local scripts (load order matters) -->
-    <script src="js/globals.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/consent.js"></script>
-    <script src="js/instructions.js"></script>
-    <script src="js/trials.js"></script>
-    <script src="js/survey.js"></script>
-    <script src="js/main.js"></script>
+      if (!condition) {
+        try {
+          const res = await fetch('https://pipe.jspsych.org/api/condition/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: '*/*' },
+            body: JSON.stringify({ experimentID: DATAPIPE_ID })
+          });
+          if (!res.ok) throw new Error(`DataPipe returned ${res.status}`);
+          const data = await res.json();
+          const idx = data.condition;
+          if (idx < ASSIGNMENT_LIST.length) {
+            condition      = CONDITIONS[ASSIGNMENT_LIST[idx]];
+            assignment_idx = String(idx);
+          } else {
+            condition      = CONDITIONS[Math.floor(Math.random() * CONDITIONS.length)];
+            assignment_idx = 'rand';
+          }
+          sessionStorage.setItem(condKey, condition);
+          sessionStorage.setItem(idxKey, assignment_idx);
+        } catch (err) {
+          // fallback if DataPipe unreachable or routing not yet configured
+          console.warn('DataPipe condition routing failed, falling back to random:', err);
+          condition      = CONDITIONS[Math.floor(Math.random() * CONDITIONS.length)];
+          assignment_idx = 'rand';
+          sessionStorage.setItem(condKey, condition);
+          sessionStorage.setItem(idxKey, assignment_idx);
+        }
+      }
 
-    <!-- Styles -->
-    <link href="https://unpkg.com/jspsych@8.1.0/css/jspsych.css" rel="stylesheet" type="text/css" />
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-
-    <script>
-      window.onbeforeunload = function() {
-        return "Please do not refresh the page or go back, changes you made may not be saved!";
-      };
-      window.onload = function() {
-        initStudy(STIMULI_DATA.stimuli);
-      };
-    </script>
-  </head>
-  <body></body>
+      console.log('Assigned condition:', condition, '| assignment_idx:', assignment_idx);
+      params.set('assignment_idx', assignment_idx);
+      window.location.replace(`./${condition}/?${params.toString()}`);
+    })();
+  </script>
+</body>
 </html>
