@@ -1,9 +1,9 @@
 // developer toggle: true = person figures, false = colored square regions
-const SHOW_FIGURES = true;
+const SHOW_FIGURES = false;
 
 // 4 quadrant colors — edit to change the palette
 // assignment to quadrants is randomized per participant (see main_waffle.js)
-const WAFFLE_COLORS = ['#34a853', '#4285f4', '#fbbc04', '#ea4335'];
+const WAFFLE_COLORS = ['#0077BB', '#009988', '#EE7733', '#CC3311'];
 
 // pill label text per semantic quadrant — x-axis dimension listed first
 function getQuadLabels(axisOrder) {

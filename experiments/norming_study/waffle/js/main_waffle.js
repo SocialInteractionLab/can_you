@@ -99,13 +99,13 @@ function initStudyWaffle(stimuli) {
         allow_keys: false,
         allow_backward: true,
         on_load: function() {
-            lockInstructionsNext(5);
+            lockInstructionsNext(3);
             initInstrGrid(axisOrder, colorMap);  // try on first load (page 0 — no-op)
             _instrNavHandler = function(e) {
                 if (e.target && e.target.id === 'jspsych-instructions-next'
                  || e.target && e.target.id === 'jspsych-instructions-back') {
                     setTimeout(function() {
-                        lockInstructionsNext(5);
+                        lockInstructionsNext(3);
                         initInstrGrid(axisOrder, colorMap);  // init if grid page just loaded
                     }, 50);
                 }

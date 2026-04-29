@@ -96,7 +96,7 @@ function _buildWaffleTrialInner(opts) {
     var sqPx  = total + 'px';
 
     var interiorHTML = SHOW_FIGURES
-        ? `<div class='wfig-wrap' id='w-interactive'>
+        ? `<div class='wfig-wrap' id='w-interactive' style='width:${sqPx};height:${sqPx};'>
                <div class='wfig-grid' id='wfig-grid'
                     style='grid-template-columns:repeat(10,${W_CELL}px);grid-template-rows:repeat(10,${W_CELL}px);'></div>
                <div class='wch-line wch-h'  id='wch-h'></div>
@@ -137,7 +137,6 @@ function _buildWaffleTrialInner(opts) {
                 ${preText ? `<div id='w-pre-text' style='margin-top:auto; margin-bottom:auto; text-align:center;'>${preText}</div>` : ''}
                 <div id='w-center-spacer' style='height:0; flex-shrink:0;'></div>
                 <div id='w-stimulus-section' ${stimStyle}>
-                    <p class='trial-preamble'>Imagine 100 random people are given the following situation:</p>
                     <p class='trial-vignette'>${stimulus.vignette}</p>
                     <p class='trial-question'><em><b>"Can you ${stimulus.actionPhrase}?"</b></em></p>
                 </div>
@@ -273,7 +272,7 @@ function _buildWaffleTrialInner(opts) {
                     // after interaction: hide pills for empty quadrants only
                     pill.style.display = showCounts ? (n > 0 ? '' : 'none') : '';
                     var countText = showCounts ? n : '?';
-                    var unitSpan  = showCounts ? '<span class="wcount-unit">people</span>' : '';
+                    var unitSpan  = showCounts ? ' <span class="wcount-unit">people</span>' : '';
                     pill.innerHTML = '<span class="wcount-n">'+countText+'</span>'
                                    + unitSpan
                                    +'<span class="wcount-lbl">'+quadLabels[key]+'</span>';
@@ -333,7 +332,7 @@ function _buildWaffleTrialInner(opts) {
                     stimulusSection.style.transition = 'opacity 0.4s ease';
                     stimulusSection.style.opacity = '1';
                     setTimeout(function() { vignetteMinPassed = true; tryEnableSubmit(); }, 5000);
-                    setTimeout(revealGrid, 3000);
+                    setTimeout(revealGrid, 4000);
                 });
             }
 
@@ -503,7 +502,7 @@ function initInstrGrid(axisOrder, colorMap) {
             pill.style.top   = pos.y + 'px';
             pill.style.color = colorMap[key];
             pill.style.display = showCounts ? (n > 0 ? '' : 'none') : '';
-            var unitSpan = showCounts ? '<span class="wcount-unit">people</span>' : '';
+            var unitSpan = showCounts ? ' <span class="wcount-unit">people</span>' : '';
             pill.innerHTML = '<span class="wcount-n">' + (showCounts ? n : '?') + '</span>'
                            + unitSpan
                            + '<span class="wcount-lbl">' + quadLabels[key] + '</span>';
@@ -570,9 +569,8 @@ function buildWaffleDemo(axisOrder, colorMap, jsPsych) {
     };
     var preText = `
         <div style='text-align:center; padding:30px 0;'>
-            <p style='font-size:18px; font-weight:600; margin-bottom:12px;'>Example trial</p>
-            <p style='font-size:16px; color:#555; line-height:1.6; margin:0;'>
-                You'll see an example of what the study will look like.<br>
+            <p style='font-size:20px; line-height:1.6; margin:0;'>
+                You'll now see an example of what the study will look like.<br>
                 Feel free to try it out before starting.
             </p>
         </div>`;

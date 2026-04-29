@@ -59,13 +59,13 @@ function getInstructionPagesWaffle(axisOrder) {
             <p style='text-align:left;'>You will respond with a grid like this one, where you can move the point to show how many of the 100 people fall into each group.</p>
             <div style='display:inline-flex; flex-direction:column; align-items:center; margin:16px 0;'>
                 <div style='display:flex; margin-left:56px;'>
-                    <div id='instr-lbl-xpos' style='width:160px; text-align:center; font-size:14px; font-weight:700; color:#444; padding-bottom:6px; overflow:hidden;'>${xPos}</div>
-                    <div id='instr-lbl-xneg' style='width:160px; text-align:center; font-size:14px; font-weight:700; color:#444; padding-bottom:6px; overflow:hidden;'>${xNeg}</div>
+                    <div id='instr-lbl-xpos' style='width:160px; text-align:center; font-size:14px; font-weight:700; color:#444; padding-bottom:6px; white-space:nowrap; overflow:visible;'>${xPos}</div>
+                    <div id='instr-lbl-xneg' style='width:160px; text-align:center; font-size:14px; font-weight:700; color:#444; padding-bottom:6px; white-space:nowrap; overflow:visible;'>${xNeg}</div>
                 </div>
                 <div style='display:flex; align-items:center;'>
                     <div style='width:56px; display:flex; flex-direction:column;'>
-                        <div id='instr-lbl-ypos' style='height:160px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#444; text-align:center; line-height:1.3; overflow:hidden;'>${yPos}</div>
-                        <div id='instr-lbl-yneg' style='height:160px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#444; text-align:center; line-height:1.3; overflow:hidden;'>${yNeg}</div>
+                        <div id='instr-lbl-ypos' style='height:160px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#444; text-align:center; line-height:1.3; white-space:nowrap; overflow:visible;'>${yPos}</div>
+                        <div id='instr-lbl-yneg' style='height:160px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#444; text-align:center; line-height:1.3; white-space:nowrap; overflow:visible;'>${yNeg}</div>
                     </div>
                     <div id='instr-interactive' style='position:relative; width:320px; height:320px; border:1.5px solid #ccc; border-radius:4px; cursor:crosshair; user-select:none; -webkit-user-select:none; overflow:visible;'>
                         <div id='instr-q-AW'   style='position:absolute; pointer-events:none;'></div>
@@ -87,7 +87,6 @@ function getInstructionPagesWaffle(axisOrder) {
         // page 4 — keep in mind
         `<div class='prevent-select content-box'>
             <p>Keep in mind that being <em>${xDim}</em> and being <em>${yDim}</em> don't always go together.</p>
-            <p>In other words, your answers don't need to match.</p>
         </div>`,
     ];
 }

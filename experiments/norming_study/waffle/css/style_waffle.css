@@ -1,10 +1,11 @@
 /* ---- waffle trial layout ---- */
 
 .waffle-instr {
-    font-size: 13px;
-    color: #888;
+    font-size: 17px;
+    font-weight: 700;
+    color: #555;
     text-align: center;
-    margin: 0 0 12px;
+    margin: 28px 0 12px;
 }
 
 .waffle-section {
@@ -31,7 +32,8 @@
     color: #444;
     text-align: center;
     padding-bottom: 6px;
-    overflow: hidden;
+    white-space: nowrap;
+    overflow: visible;
 }
 
 .waffle-mid-row { display: flex; align-items: center; }
@@ -50,7 +52,8 @@
     color: #444;
     text-align: center;
     line-height: 1.2;
-    overflow: hidden;
+    white-space: nowrap;
+    overflow: visible;
 }
 
 /* drag-square mode (SHOW_FIGURES = false) */
@@ -119,6 +122,6 @@
     text-align: center;
     line-height: 1;
 }
-.wcount-n    { display: block; font-size: 20px; font-weight: 800; line-height: 1; }
-.wcount-unit { display: block; font-size: 11px; font-weight: 600; opacity: 0.7; margin-top: 1px; margin-bottom: 2px; }
-.wcount-lbl  { display: block; font-size: 10px; font-weight: 600; opacity: 0.8; margin-top: 3px; }
+.wcount-n    { display: inline; font-size: 20px; font-weight: 800; }
+.wcount-unit { display: inline; font-size: 13px; font-weight: 600; opacity: 0.75; }
+.wcount-lbl  { display: block; font-size: 10px; font-weight: 600; opacity: 0.8; margin-top: 4px; }
