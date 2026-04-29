@@ -136,6 +136,9 @@ function initInstrDemoGrid(axisOrder, colorMap) {
     var dotsEl    = document.getElementById('w-demo-dots');
     if (!container || !captionEl) return function() {};
 
+    // offset caption to center under the grid area (not y-axis col, which is 124+14=138px)
+    captionEl.style.paddingLeft = '138px';
+
     var SIZE = 400;
     var palette = colorMap || PALETTES[PALETTE_NAME];
 

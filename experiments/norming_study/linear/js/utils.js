@@ -75,8 +75,9 @@ function applyProductionProtections() {
     overlay.style.display = 'none';
     overlay.innerHTML = `
         <div class='fullscreen-overlay-box'>
-            <p style='font-size:18px; margin-bottom:20px;'>Please return to fullscreen to continue the study.</p>
-            <button class='jspsych-btn' onclick="document.documentElement.requestFullscreen()">Return to Fullscreen</button>
+            <h2>Please return to fullscreen</h2>
+            <p>The study needs to run in fullscreen mode. Click below to continue.</p>
+            <button class='w-btn-primary' onclick="document.documentElement.requestFullscreen()">Return to Fullscreen</button>
         </div>`;
     document.body.appendChild(overlay);
     document.addEventListener('fullscreenchange', function() {
@@ -103,7 +104,7 @@ function applyProductionProtections() {
 // ---- save formatters ----
 function getBaseSaveFields(d) {
     return {
-        trial_type:      'whyask-grid-trial',
+        trial_type:      'whyask-linear-trial',
         subjectID:       d.subjectID,
         prolificID:      d.prolificID,
         studyID:         d.studyID,

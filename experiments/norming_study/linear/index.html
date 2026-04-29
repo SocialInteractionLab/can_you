@@ -23,24 +23,24 @@
     <script src="../stimuli/stimuli_full.js"></script>
 
     <!-- Scripts -->
-    <script src="js/globals.js"></script>
+    <script src="../js/globals.js"></script>
     <script src="js/utils.js"></script>
-    <script src="js/consent.js"></script>
+    <script src="../js/consent.js"></script>
     <script src="js/instructions.js"></script>
-    <script src="js/survey.js"></script>
+    <script src="../js/survey.js"></script>
     <script src="js/trials.js"></script>
     <script src="js/main.js"></script>
 
     <!-- Styles -->
     <link href="https://unpkg.com/jspsych@8.1.0/css/jspsych.css" rel="stylesheet" type="text/css" />
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../css/style.css" rel="stylesheet" type="text/css" />
 
     <script>
       window.onbeforeunload = function() {
         return "Please do not refresh the page or go back, changes you made may not be saved!";
       };
       window.onload = function() {
-        initStudyWaffle(STIMULI_DATA.stimuli);
+        initStudyLinear(STIMULI_DATA.stimuli);
       };
     </script>
   </head>

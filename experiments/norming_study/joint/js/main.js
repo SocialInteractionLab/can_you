@@ -217,7 +217,7 @@ function initStudyWaffle(stimuli) {
                 experiment_id: experimentIdOSF,
                 filename: getFilePrefix(jsPsych) + '_grid_1_half.csv',
                 data_string: function() { return formatFirstHalf(jsPsych); },
-                wait_message: saveMsg,
+                wait_message: '',
                 on_finish: function(data) { handleSaveResult(data, 'first half'); }
             });
         }
@@ -265,6 +265,46 @@ function initStudyWaffle(stimuli) {
         });
     }
 
+    // ---- final save scene HTML + init ----
+    function getFinalSaveHTML() {
+        return `
+            <div class="w-scene">
+                ${getSectionTickerHTML('about')}
+                <div class="w-card" style="text-align:center; padding:56px 56px 48px;">
+                    <div class="w-halfway-overline">Finishing up</div>
+                    <h2 class="w-halfway-title">Saving your responses</h2>
+                    <p style="font-size:17px; color:var(--muted); line-height:1.6; max-width:520px; margin:0 auto 36px;">Hang tight while we save your data…</p>
+                    <div class="w-save-indicator">
+                        <div class="w-save-dot" id="w-save-dot-final">
+                            <span class="w-save-check">✓</span>
+                        </div>
+                        <span class="w-save-label" id="w-save-label-final">Saving…</span>
+                    </div>
+                    <div style="display:flex; flex-direction:column; align-items:center;">
+                        <button id="w-final-continue" class="w-btn-primary" disabled>Finish</button>
+                        <div class="w-btn-hint" id="w-final-hint">Just a moment</div>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    function initFinalSaveScene(jsPsych) {
+        var dot   = document.getElementById('w-save-dot-final');
+        var label = document.getElementById('w-save-label-final');
+        var btn   = document.getElementById('w-final-continue');
+        var hint  = document.getElementById('w-final-hint');
+
+        setTimeout(function() {
+            dot.classList.add('saved');
+            label.classList.add('saved');
+            label.textContent = 'Saved';
+            btn.disabled = false;
+            if (hint) hint.style.display = 'none';
+        }, 1400);
+
+        btn.addEventListener('click', function() { jsPsych.finishTrial(); });
+    }
+
     // ---- demographics ----
     var demographics = {
         type: jsPsychHtmlButtonResponse,
@@ -292,14 +332,22 @@ function initStudyWaffle(stimuli) {
         on_load: function() { initTechnicalScene(jsPsych); }
     };
 
-    // ---- save second half ----
+    // ---- final save card (shown to user) + silent pipe saves ----
+    var finalSaveCard = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: getFinalSaveHTML(),
+        choices: [],
+        response_ends_trial: false,
+        on_load: function() { initFinalSaveScene(jsPsych); }
+    };
+
     var save2half = {
         type: jsPsychPipe,
         action: 'save',
         experiment_id: experimentIdOSF,
         filename: getFilePrefix(jsPsych) + '_grid_2_half.csv',
         data_string: function() { return formatSecondHalf(jsPsych); },
-        wait_message: saveMsg,
+        wait_message: '',
         on_finish: function(data) { handleSaveResult(data, 'second half'); }
     };
 
@@ -309,7 +357,7 @@ function initStudyWaffle(stimuli) {
         experiment_id: experimentIdOSF,
         filename: getFilePrefix(jsPsych) + '_grid_demographics.csv',
         data_string: function() { return formatDemographics(jsPsych); },
-        wait_message: saveMsg,
+        wait_message: '',
         on_finish: function(data) { handleSaveResult(data, 'demographics'); }
     };
 
@@ -342,10 +390,28 @@ function initStudyWaffle(stimuli) {
         }
     };
 
-    // ---- timeline (no demo, no readyToStart) ----
+    // ---- timeline ----
     var timeline = [consent, instructions]
         .concat(trialBlock)
-        .concat([demographics, strategy, technical, save2half, saveDemographics, completion]);
+        .concat([demographics, strategy, technical, finalSaveCard, save2half, saveDemographics, completion]);
 
-    jsPsych.run(timeline);
+    // ---- dev panel + skip-to ----
+    var N = N_TRIALS_PER_PARTICIPANT, m = midpoint;
+    initDevPanel([
+        { label: 'Consent',              index: 0 },
+        { label: 'Instructions',         index: 1 },
+        { label: 'Trial 1',              index: 2 },
+        { label: 'Trial 3',              index: 4 },
+        { label: 'Trial ' + m,           index: 1 + m },
+        { label: 'Halfway checkpoint',   index: 2 + m },
+        { label: 'Trial ' + (m + 1),     index: 4 + m },
+        { label: 'Trial ' + N,           index: N + 3 },
+        { label: 'About you',            index: N + 4 },
+        { label: 'How did you decide?',  index: N + 5 },
+        { label: 'Last questions',       index: N + 6 },
+        { label: 'Saving screen',        index: N + 7 },
+    ]);
+
+    var skipIdx = IS_TESTING ? (parseInt(urlParams.get('skip'), 10) || 0) : 0;
+    jsPsych.run(skipIdx > 0 ? timeline.slice(skipIdx) : timeline);
 }

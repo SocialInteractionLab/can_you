@@ -120,7 +120,7 @@ function getStrategySceneHTML() {
     return `
         <div class="w-scene">
             ${getSectionTickerHTML('about')}
-            <div class="w-card">
+            <div class="w-card" style="max-width:1100px;">
                 <div class="w-instr-overline">Almost done</div>
                 <h2 class="w-instr-title" style="animation:none;">How did you decide?</h2>
                 <p style="color:var(--muted); font-size:15px; line-height:1.6; margin:0 0 24px;">
@@ -153,7 +153,7 @@ function getTechnicalSceneHTML() {
     return `
         <div class="w-scene">
             ${getSectionTickerHTML('about')}
-            <div class="w-card">
+            <div class="w-card" style="max-width:1100px;">
                 <h2 class="w-instr-title" style="animation:none;">Last questions</h2>
                 <div class="w-field">
                     <label class="w-field-label">Did you run into any technical issues?</label>

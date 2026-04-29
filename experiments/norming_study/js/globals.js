@@ -1,5 +1,6 @@
 // ---- study config ----
-const TESTING_MODE = false;      // true = local dev (no protections, no required fields)
+var IS_TESTING   = true;         // true = dev mode: panel visible, protections off
+var TESTING_MODE = IS_TESTING;   // alias used by main.js (applyProductionProtections gate)
 
 const experimentIdOSF       = 'H9cxh2VA14kV';
 const prolificCompletionURL = 'https://app.prolific.com/submissions/complete?cc=CEPHL0CF';
@@ -63,6 +64,54 @@ const TOKENS = {
     sans:         "'Inter', system-ui, sans-serif",
     mono:         "'JetBrains Mono', monospace",
 };
+
+// ---- dev panel (IS_TESTING only) ----
+// sections: [{ label, index }] where index is the timeline slice position
+function initDevPanel(sections) {
+    if (!IS_TESTING) return;
+
+    // allow free navigation without the "don't leave" prompt
+    window.onbeforeunload = null;
+
+    var params = new URLSearchParams(window.location.search);
+    var curSkip = params.get('skip') || '0';
+
+    var panel = document.createElement('div');
+    panel.id = 'w-dev-panel';
+
+    var lbl = document.createElement('span');
+    lbl.className = 'w-dev-label';
+    lbl.textContent = 'DEV';
+
+    var divider = document.createElement('div');
+    divider.className = 'w-dev-divider';
+
+    var select = document.createElement('select');
+    select.className = 'w-dev-select';
+    sections.forEach(function(s) {
+        var opt = document.createElement('option');
+        opt.value = String(s.index);
+        opt.textContent = s.label;
+        if (String(s.index) === curSkip) opt.selected = true;
+        select.appendChild(opt);
+    });
+
+    var btn = document.createElement('button');
+    btn.className = 'w-dev-go';
+    btn.textContent = 'Jump';
+    btn.addEventListener('click', function() {
+        var p = new URLSearchParams(window.location.search);
+        p.set('skip', select.value);
+        // keep axis param if present (for linear)
+        window.location.href = window.location.pathname + '?' + p.toString();
+    });
+
+    panel.appendChild(lbl);
+    panel.appendChild(divider);
+    panel.appendChild(select);
+    panel.appendChild(btn);
+    document.body.appendChild(panel);
+}
 
 // pill label text per semantic quadrant (fixed regardless of axis order)
 function getQuadLabels(axisOrder) {

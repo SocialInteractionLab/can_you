@@ -13,15 +13,40 @@
   <script>
     // Routing DataPipe ID — used only for sequential condition assignment (not data saving).
     // Must be a separate DataPipe experiment with n_conditions set to ASSIGNMENT_LIST.length.
-    // Run generate_conditions.py to regenerate ASSIGNMENT_LIST for a new sample size.
+    // Run generate_conditions.py with n_conditions=3 to regenerate ASSIGNMENT_LIST.
     const DATAPIPE_ID     = 'YOUR_ROUTING_DATAPIPE_ID';   // TODO: set before launch
-    const CONDITIONS      = ['slider', 'grid'];
-    const ASSIGNMENT_LIST = [1,0,1,0,0,1,1,0,1,0,1,0,1,0,1,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,0,1,0,1,1,0,1,0,0,1,1,0,1,0,0,1,1,0,0,1,0,1,0,1,1,0,0,1,1,0,0,1,1,0,0,1,0,1,1,0,1,0,1,0,1,0,0,1,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,0,1,0,1,1,0,0,1,1,0,1,0,1,0,1,0,0,1,0,1,0,1,1,0,0,1,1,0,1,0,1,0,0,1,0,1,0,1,1,0,1,0,0,1,1,0,0,1,0,1,0,1,1,0,0,1,1,0,1,0,0,1,0,1,0,1,0,1,1,0,1,0,0,1,1,0,1,0,1,0,1,0,1,0,0,1,1,0,0,1,0,1,0,1,0,1,1,0,1,0,0,1,0,1,1,0,0,1,0,1,1,0,0,1,1,0,0,1,1,0,1,0,0,1,1,0,1,0,0,1,1,0,1,0,0,1,0,1,1,0,1,0,0,1,0,1,1,0,1,0,1,0,1,0,1,0,0,1,1,0,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,0,1,0,1,0,1,0,1,1,0,1,0];
-    // ASSIGNMENT_LIST.length = 300 (150 slider, 150 grid) — update DataPipe n_conditions to match
+    const CONDITIONS      = ['joint', 'linear-aw', 'linear-wa'];
+    const ASSIGNMENT_LIST = [2,0,1,0,2,1,0,1,2,0,1,2,0,2,1,1,0,2,0,2,1,2,0,1,1,2,0,2,1,0,1,2,0,2,0,1,0,1,2,1,0,2,1,2,0,0,2,1,2,0,1,1,2,0,2,1,0,0,2,1,2,0,1,0,1,2,1,2,0,0,1,2,1,0,2,0,2,1,2,1,0,0,2,1,1,0,2,1,0,2,0,1,2,2,0,1,0,2,1,2,0,1,2,1,0,0,2,1,1,2,0,1,0,2,2,1,0,0,1,2,1,2,0,2,0,1,0,2,1,1,0,2,2,1,0,1,2,0,0,2,1,0,1,2,2,0,1,1,2,0,0,1,2,1,0,2,2,1,0,0,2,1,1,0,2,2,0,1,1,2,0,2,1,0,1,0,2,0,1,2,1,0,2,1,2,0,0,1,2,2,1,0,1,2,0,1,0,2,2,1,0,2,1,0,0,2,1,1,0,2,0,1,2,2,0,1,1,2,0,0,1,2,2,0,1,1,0,2,0,2,1,1,2,0,0,1,2,2,1,0,1,0,2,0,2,1,2,1,0,1,2,0,0,2,1,1,0,2,2,1,0,0,2,1,2,0,1,1,2,0,2,0,1,0,1,2,1,2,0,2,0,1,1,0,2,0,2,1,1,2,0,0,1,2,2,0,1,1,2,0];
+    // ASSIGNMENT_LIST.length = 300 (100 joint, 100 linear-aw, 100 linear-wa)
+    // Update DataPipe n_conditions to match ASSIGNMENT_LIST.length
+
+    // condition → subfolder + extra query params
+    function conditionToURL(condition, params) {
+      if (condition === 'joint') {
+        return `./joint/?${params.toString()}`;
+      } else if (condition === 'linear-aw') {
+        params.set('axis', 'AW');
+        return `./linear/?${params.toString()}`;
+      } else if (condition === 'linear-wa') {
+        params.set('axis', 'WA');
+        return `./linear/?${params.toString()}`;
+      }
+      // fallback
+      return `./joint/?${params.toString()}`;
+    }
 
     (async () => {
       const params = new URLSearchParams(window.location.search);
-      const pid = params.get('PROLIFIC_PID') || 'no_pid';
+      const pid    = params.get('PROLIFIC_PID') || 'no_pid';
+
+      // dev shortcut: ?type=joint|linear-aw|linear-wa bypasses DataPipe entirely
+      const devType = params.get('type');
+      if (devType && CONDITIONS.includes(devType)) {
+        params.delete('type');
+        console.log('Dev override — routing to:', devType);
+        window.location.replace(conditionToURL(devType, params));
+        return;
+      }
 
       // don't burn a slot on reload — reuse cached assignment
       const condKey      = `condition_${DATAPIPE_ID}_${pid}`;
@@ -49,7 +74,6 @@
           sessionStorage.setItem(condKey, condition);
           sessionStorage.setItem(idxKey, assignment_idx);
         } catch (err) {
-          // fallback if DataPipe unreachable or routing not yet configured
           console.warn('DataPipe condition routing failed, falling back to random:', err);
           condition      = CONDITIONS[Math.floor(Math.random() * CONDITIONS.length)];
           assignment_idx = 'rand';
@@ -60,7 +84,7 @@
 
       console.log('Assigned condition:', condition, '| assignment_idx:', assignment_idx);
       params.set('assignment_idx', assignment_idx);
-      window.location.replace(`./${condition}/?${params.toString()}`);
+      window.location.replace(conditionToURL(condition, params));
     })();
   </script>
 </body>

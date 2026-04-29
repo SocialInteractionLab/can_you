@@ -337,11 +337,10 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 138px; /* offset for y-axis label column */
   font-size: 16px;
   color: var(--ink);
   text-align: center;
-  max-width: 680px;
+  max-width: 420px;
   line-height: 1.5;
 }
 .w-demo-caption-pill {
@@ -432,6 +431,16 @@ html, body {
 /* trial card — tighter padding to avoid scroll */
 #w-trial-card {
   padding: 28px 44px 28px;
+  max-width: 1400px;
+}
+
+/* vignette/question span full card width in trial card */
+#w-trial-card .w-vignette,
+#w-trial-card .w-question {
+  max-width: none;
+}
+#w-trial-card .w-question {
+  text-align: center;
 }
 
 /* ---- trial vignette ---- */
@@ -671,7 +680,7 @@ html, body {
 .w-save-label.saved { color: var(--ink); }
 
 /* ---- demographics ---- */
-.w-field { margin-bottom: 24px; }
+.w-field { margin-bottom: 24px; text-align: left; }
 .w-field-label {
   display: block;
   font-size: 14px;
@@ -693,7 +702,7 @@ html, body {
   box-sizing: border-box;
 }
 .w-number-input:focus { border-color: var(--accent); }
-.w-seg-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.w-seg-group { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-start; }
 .w-seg-btn {
   font-family: var(--sans);
   font-size: 14px;
@@ -793,5 +802,140 @@ html, body {
   max-width: 480px;
   text-align: center;
   font-family: var(--sans);
+}
+
+/* ---- fullscreen overlay ---- */
+#fullscreen-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  background: rgba(248, 245, 240, 0.90);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.fullscreen-overlay-box {
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  padding: 44px 56px;
+  max-width: 480px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 8px 32px rgba(0,0,0,0.06);
+}
+.fullscreen-overlay-box h2 {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+.fullscreen-overlay-box p {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 0 28px;
+}
+
+/* ---- dev panel (IS_TESTING only) ---- */
+#w-dev-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #1F1A14;
+  border-radius: 12px;
+  padding: 10px 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.28), 0 1px 3px rgba(0,0,0,0.12);
+  font-family: var(--sans);
+}
+.w-dev-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  white-space: nowrap;
+}
+.w-dev-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255,255,255,0.12);
+  flex-shrink: 0;
+}
+.w-dev-select {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.88);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 7px;
+  padding: 6px 10px;
+  outline: none;
+  cursor: pointer;
+  min-width: 190px;
+}
+.w-dev-select option {
+  background: #2A2520;
+  color: #F0EDE8;
+}
+.w-dev-go {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  background: var(--accent);
+  border: none;
+  border-radius: 7px;
+  padding: 7px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 120ms ease;
+}
+.w-dev-go:hover { opacity: 0.82; }
+.w-dev-go:active { opacity: 0.65; }
+
+/* ---- linear grid wrapper ---- */
+.wl-wrapper {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
+/* ---- two-grid trial layout ---- */
+.w-grids-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;   /* pin grid bottoms together regardless of label height */
+  gap: 28px;
+  margin: 36px 0 8px;
+  overflow: visible;
+}
+
+.w-grid-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+}
+
+.w-grid-label {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.45;
+  margin: 0 0 10px;
+  max-width: 560px;
+  text-align: center;
 }
 
