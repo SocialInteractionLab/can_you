@@ -222,6 +222,12 @@ function buildSliderGrid(parentEl, gW, gH, yesColor, baseColor, opts) {
         sliderEl.classList.toggle('wl-slider--invite', active);
     };
 
+    ctrl.setSliderVisible = function(visible) {
+        sliderWrap.style.transition  = 'opacity 400ms ease';
+        sliderWrap.style.opacity     = visible ? '1' : '0';
+        sliderWrap.style.pointerEvents = visible ? '' : 'none';
+    };
+
     ctrl.setPointerEvents = function(enabled) {
         sliderEl.style.pointerEvents = enabled ? '' : 'none';
         sliderEl.style.opacity       = enabled ? '' : '0.55';

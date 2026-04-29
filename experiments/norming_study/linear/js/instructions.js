@@ -13,7 +13,7 @@ function getInstructionPagesWaffle(axisOrder) {
                 <div class="w-instr-body">
                     <p style="animation: fadeUp 600ms cubic-bezier(.2,.8,.2,1) 300ms both;">In this study, you'll see a series of everyday scenarios.</p>
                     <p style="animation: fadeUp 600ms cubic-bezier(.2,.8,.2,1) 650ms both;">For each scenario, imagine <b>100 random people</b> are all in that situation.</p>
-                    <p style="animation: fadeUp 600ms cubic-bezier(.2,.8,.2,1) 1000ms both;">You'll estimate how many of them would be <em>${dim1}</em> to do the thing being asked — then how many of those would be <em>${dim2}</em> to do it.</p>
+                    <p style="animation: fadeUp 600ms cubic-bezier(.2,.8,.2,1) 1000ms both;">You'll estimate how many of them would be <em>${dim1}</em> and <em>${dim2}</em> to do the thing being asked — then how many of those would be <em>${dim2}</em> to do it.</p>
                 </div>
                 <hr class="w-hr">
                 <div class="w-instr-footer"></div>
@@ -61,7 +61,7 @@ function getInstructionPagesWaffle(axisOrder) {
 
 
 // ---- per-page gate times (ms) ----
-var INSTR_GATES = [2500, 22000, 3000];
+var INSTR_GATES = [2500, 24000, 3000];
 var _instrDemoCleanup = null;
 
 // called from main.js on_load + nav handler
@@ -137,6 +137,7 @@ function initInstrDemoGrid(axisOrder, colorMap) {
     var noColor    = palette.NANW;
 
     var grid = buildSliderGrid(container, SIZE, SIZE, demoColor, noColor, {});
+    grid.setSliderVisible(false);  // hidden until step 1
 
     var hasInteracted = false;
     var demoCount     = 0;
@@ -179,7 +180,7 @@ function initInstrDemoGrid(axisOrder, colorMap) {
     function updateDots(currentStep) {
         if (!dotsEl) return;
         dotsEl.innerHTML = '';
-        [2, 3, 4, 5].forEach(function(s) {
+        [2, 3, 4, 5, 6].forEach(function(s) {
             var d = document.createElement('div');
             d.className = 'w-demo-dot';
             d.style.width      = currentStep >= s ? '18px' : '6px';
@@ -203,15 +204,15 @@ function initInstrDemoGrid(axisOrder, colorMap) {
     }
 
     // steps:
-    // 0 — all grey, '?', "100 random people"
-    // 1 — explain what slider does
-    // 2 — animate to ~65
-    // 3 — show count, pull back to ~30
-    // 4 — animate back to ~55, invite user to try
-    // 5 — user interacted
+    // 0 — all grey, no slider, "100 random people"
+    // 1 — slider fades in, "you'll use a slider like this"
+    // 2 — "drag to show how many are [dim1]"
+    // 3 — animate to ~65
+    // 4 — pull back to ~28
+    // 5 — drift to 40, invite + pulse
 
     function goStep(s) {
-        if (hasInteracted && s <= 4) return;
+        if (hasInteracted && s <= 5) return;
         updateDots(s);
 
         switch (s) {
@@ -220,25 +221,30 @@ function initInstrDemoGrid(axisOrder, colorMap) {
                 break;
 
             case 1:
-                setCaption('<div style="animation:fadeIn 500ms ease both;">For each question, drag the slider to show how many people are <em>' + demoDim + '</em> to do something.</div>');
+                grid.setSliderVisible(true);
+                setCaption('<div style="animation:fadeIn 500ms ease both;">You\'ll use a slider like this one to give your answer.</div>');
                 break;
 
             case 2:
+                setCaption('<div style="animation:fadeIn 500ms ease both;">Drag it to show how many people are <em>' + demoDim + '</em> to do something.</div>');
+                break;
+
+            case 3:
                 setCaption('<div style="animation:fadeIn 500ms ease both;">Drag right for more people…</div>');
                 grid.forceInteract();
                 driftToCount(65, 2200, null);
                 break;
 
-            case 3:
+            case 4:
                 setCaption('<div style="animation:fadeIn 500ms ease both;">…drag left for fewer.</div>');
                 driftToCount(28, 1800, null);
                 break;
 
-            case 4:
-                setCaption('<div style="animation:fadeIn 500ms ease both; font-size:15px; color:var(--muted);">Now try dragging the slider yourself!</div>');
+            case 5:
                 driftToCount(40, 1200, function() {
                     if (!hasInteracted) {
                         grid.setInviteActive(true);
+                        setCaption('<div style="animation:fadeIn 400ms ease both; font-size:15px; color:var(--muted);">Now try dragging the slider yourself!</div>');
                         showReplayBtn();
                     }
                 });
@@ -254,15 +260,16 @@ function initInstrDemoGrid(axisOrder, colorMap) {
         timers = [];
         grid.setInviteActive(false);
         setCaption('<div style="animation:fadeIn 400ms ease both; font-size:15px; color:var(--muted);">Drag the slider anywhere you like.</div>');
-        updateDots(5);
+        updateDots(6);
         showReplayBtn();
     };
 
     goStep(0);
     schedule(3000,  function() { goStep(1); });
     schedule(6000,  function() { goStep(2); });
-    schedule(9500,  function() { goStep(3); });
-    schedule(13000, function() { goStep(4); });
+    schedule(8500,  function() { goStep(3); });
+    schedule(12000, function() { goStep(4); });
+    schedule(15500, function() { goStep(5); });
 
     function cleanup() {
         timers.forEach(clearTimeout);
