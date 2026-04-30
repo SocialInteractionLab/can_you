@@ -2,7 +2,7 @@
 // Rendered as a custom jsPsychHtmlButtonResponse scene (not jsPsychSurveyHtmlForm)
 // so we can control styling & validation. Data is collected via processDemographicsWaffle().
 function getDemographicsSceneHTML() {
-    var genderOpts = ['Woman','Man','Non-binary','Prefer not to say'];
+    var genderOpts = ['Female','Male','Non-binary','Other','Prefer not to say'];
     var raceOpts   = ['Asian','Black','Hispanic / Latino','Native American','Pacific Islander','White','Other'];
     var eduOpts    = ['','High school','Some college','Bachelor\'s','Master\'s','Doctorate','Prefer not to say'];
 
@@ -48,8 +48,7 @@ function getDemographicsSceneHTML() {
 
                 <hr class="w-hr" style="margin-top:8px;">
                 <div style="display:flex; flex-direction:column; align-items:flex-end;">
-                    <button id="w-demo-submit" class="w-btn-primary" disabled>Continue</button>
-                    <div class="w-btn-hint" id="w-demo-hint">Please answer all four questions</div>
+                    <button id="w-demo-submit" class="w-btn-primary">Continue</button>
                 </div>
             </div>
         </div>
@@ -62,18 +61,8 @@ function initDemographicsScene(jsPsych) {
     var raceEl   = document.getElementById('w-demo-race');
     var eduEl    = document.getElementById('w-demo-edu');
     var submitEl = document.getElementById('w-demo-submit');
-    var hintEl   = document.getElementById('w-demo-hint');
 
     var selected = { gender: null, race: [] };
-
-    function checkOk() {
-        var ok = ageEl.value && selected.gender && selected.race.length > 0 && eduEl.value;
-        submitEl.disabled = !ok;
-        hintEl.style.display = ok ? 'none' : '';
-    }
-
-    ageEl.addEventListener('input', checkOk);
-    eduEl.addEventListener('change', checkOk);
 
     // radio (gender)
     genderEl.querySelectorAll('.w-seg-btn').forEach(function(btn) {
@@ -81,7 +70,6 @@ function initDemographicsScene(jsPsych) {
             genderEl.querySelectorAll('.w-seg-btn').forEach(function(b) { b.classList.remove('active'); });
             btn.classList.add('active');
             selected.gender = btn.dataset.val;
-            checkOk();
         });
     });
 
@@ -98,7 +86,6 @@ function initDemographicsScene(jsPsych) {
                 btn.classList.add('active');
                 btn.textContent = '✓ ' + val;
             }
-            checkOk();
         });
     });
 
