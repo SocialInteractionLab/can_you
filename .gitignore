@@ -4,6 +4,6 @@ __pycache__/
 model/ke_version.ipynb
 data/
 /writeup/
-/congig/
-/worker/
-/sandbox/
+experiments/norming/congig/
+experiments/norming/worker/
+experiments/norming/sandbox/
