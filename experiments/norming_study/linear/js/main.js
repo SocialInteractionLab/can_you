@@ -115,6 +115,8 @@ function initStudyLinear(stimuli) {
             body: JSON.stringify({ experimentID: experimentIdOSF, filename: filename, data: dataStr })
         }).then(function(r) {
             return r.json().then(function(data) {
+                // DataPipe returns either { success: true } or { message: "Success", ... }
+                data.success = data.success === true || data.message === 'Success';
                 if (!data.success) console.error('DataPipe rejected:', filename, data);
                 return data;
             });
