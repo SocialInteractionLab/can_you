@@ -133,7 +133,7 @@ function initInstrDemoGrid(axisOrder, colorMap) {
     var palette = colorMap || PALETTES[PALETTE_NAME];
 
     var demoColor  = axisOrder === 'AW' ? palette.AW  : palette.NAW;
-    var demoDim    = axisOrder === 'AW' ? 'able'       : 'willing';
+    var demoDim    = axisOrder === 'AW' ? 'able and willing' : 'willing and able';
     var noColor    = palette.NANW;
 
     var grid = buildSliderGrid(container, SIZE, SIZE, demoColor, noColor, {});
