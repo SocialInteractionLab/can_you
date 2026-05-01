@@ -4,10 +4,11 @@ function initStudyLinear(stimuli) {
     logToBrowser('initializing linear study', null);
     if (!TESTING_MODE) applyProductionProtections();
 
-    var urlParams = new URLSearchParams(window.location.search);
+    var urlParams  = new URLSearchParams(window.location.search);
     var prolificID = urlParams.get('PROLIFIC_PID');
     var studyID    = urlParams.get('STUDY_ID');
     var sessionID  = urlParams.get('SESSION_ID');
+    var captchaOk  = urlParams.get('captcha_ok');
 
     var jsPsych = initJsPsych({
         show_progress_bar: false,
@@ -18,6 +19,7 @@ function initStudyLinear(stimuli) {
     jsPsych.data.addProperties({ prolificID: prolificID });
     jsPsych.data.addProperties({ studyID:    studyID });
     jsPsych.data.addProperties({ sessionID:  sessionID });
+    jsPsych.data.addProperties({ captchaOk:  captchaOk });
     jsPsych.data.addProperties({ startTime:  Date.now() });
     var _now = new Date();
     var _ts = [_now.getFullYear(), String(_now.getMonth()+1).padStart(2,'0'), String(_now.getDate()).padStart(2,'0')].join('') +

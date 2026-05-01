@@ -190,11 +190,13 @@
 
       params.set('assignment_idx', assignmentIdx);
       params.set('condition', condition);
+      params.set('captcha_ok', captchaServerPass === true ? '1' : captchaServerPass === false ? '0' : 'err');
       window.location.replace(conditionToURL(condition, params));
     }
 
     // ---- turnstile ----
-    var captchaVerified = false;
+    var captchaVerified   = false;
+    var captchaServerPass = null;  // true/false/null(network err)
     var btn = document.getElementById('captcha-proceed');
     var msg = document.getElementById('loading-msg');
 
@@ -204,15 +206,15 @@
         turnstile.render('#turnstile-widget', {
           sitekey: TURNSTILE_SITE_KEY,
           callback: async function(token) {
-            // server-side verify (soft — routing proceeds regardless)
             try {
               var res = await fetch(VERIFY_WORKER_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ token }),
               });
-              await res.json();  // result logged server-side; not blocking
-            } catch (_) {}
+              var data = await res.json();
+              captchaServerPass = data.success === true;
+            } catch (_) { captchaServerPass = null; }
             captchaVerified = true;
             btn.style.display = 'inline-block';
           },
