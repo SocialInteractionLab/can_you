@@ -135,6 +135,7 @@ function getBaseSaveFields(d) {
         prolificID:      d.prolificID,
         studyID:         d.studyID,
         sessionID:       d.sessionID,
+        captchaOk:       d.captchaOk,
         DEBUG:           TEST ? 1 : 0,
         axisOrder:       d.axisOrder,
         colorAssignment: d.colorAssignment,
