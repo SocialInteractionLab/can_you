@@ -220,7 +220,7 @@ function initInstrDemoGrid(axisOrder, colorMap) {
             case 2:
                 // v-line appears
                 grid.setPos(5, 5, 5);
-                setCaption('<b>Step 1 — vertical line.</b> Splits everyone into <b style="color:' + cfg.stg1LeftColor + ';">' + dim1 + '</b> (left) vs. <b style="color:' + cfg.stg1RightColor + ';">' + not1 + '</b> (right)');
+                setCaption('<b>Step 1 — vertical line</b>');
                 break;
 
             case 3:
