@@ -102,14 +102,16 @@ function initStudyLinear(stimuli) {
     }
 
     // ---- save helper ----
-    var saveMsg = `
-        <div class="w-scene" style="display:flex; align-items:center; justify-content:center; min-height:100vh;">
-            <p style="font-family:var(--sans); color:var(--muted); font-size:15px;">Saving your data — please don't close this page…</p>
-        </div>`;
+    function saveToDataPipe(filename, dataStr) {
+        return fetch('https://pipe.jspsych.org/api/data/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ experimentID: experimentIdOSF, filename: filename, data: dataStr })
+        }).then(function(r) { return r.json(); });
+    }
 
-    function handleSaveResult(data, label) {
-        if (data.success) return;
-        console.error('DataPipe save failed', label, data.result);
+    function showSaveError(label) {
+        console.error('DataPipe save failed:', label);
         window.onbeforeunload = null;
         document.body.innerHTML = `
             <div style='font-family:var(--sans); text-align:center; margin:15vh auto; max-width:720px; color:var(--ink);'>
@@ -120,7 +122,6 @@ function initStudyLinear(stimuli) {
                 </p>
                 <p style='font-size:15px; color:var(--faint);'>Failed step: ${label}</p>
             </div>`;
-        throw new Error('DataPipe save failed: ' + label);
     }
 
     // ---- consent ----
@@ -205,15 +206,6 @@ function initStudyLinear(stimuli) {
                 on_load: function() { initHalfwayScene(jsPsych); },
                 on_finish: function() {}
             });
-            trialBlock.push({
-                type: jsPsychPipe,
-                action: 'save',
-                experiment_id: experimentIdOSF,
-                filename: getFilePrefix(jsPsych) + '_linear_1_half.csv',
-                data_string: function() { return formatFirstHalf(jsPsych); },
-                wait_message: '',
-                on_finish: function(data) { handleSaveResult(data, 'first half'); }
-            });
         }
     });
 
@@ -246,13 +238,16 @@ function initStudyLinear(stimuli) {
         var btn   = document.getElementById('w-halfway-continue');
         var hint  = document.getElementById('w-halfway-hint');
 
-        setTimeout(function() {
-            dot.classList.add('saved');
-            label.classList.add('saved');
-            label.textContent = 'Saved';
-            btn.disabled = false;
-            if (hint) hint.style.display = 'none';
-        }, 1400);
+        saveToDataPipe(getFilePrefix(jsPsych) + '_linear_1_half.csv', formatFirstHalf(jsPsych))
+            .then(function(data) {
+                if (!data.success) { showSaveError('first half'); return; }
+                dot.classList.add('saved');
+                label.classList.add('saved');
+                label.textContent = 'Saved';
+                btn.disabled = false;
+                if (hint) hint.style.display = 'none';
+            })
+            .catch(function() { showSaveError('first half'); });
 
         btn.addEventListener('click', function() {
             jsPsych.finishTrial();
@@ -288,13 +283,19 @@ function initStudyLinear(stimuli) {
         var btn   = document.getElementById('w-final-continue');
         var hint  = document.getElementById('w-final-hint');
 
-        setTimeout(function() {
+        var prefix = getFilePrefix(jsPsych);
+        Promise.all([
+            saveToDataPipe(prefix + '_linear_2_half.csv',    formatSecondHalf(jsPsych)),
+            saveToDataPipe(prefix + '_linear_demographics.csv', formatDemographics(jsPsych))
+        ]).then(function(results) {
+            if (!results[0].success) { showSaveError('second half'); return; }
+            if (!results[1].success) { showSaveError('demographics'); return; }
             dot.classList.add('saved');
             label.classList.add('saved');
             label.textContent = 'Saved';
             btn.disabled = false;
             if (hint) hint.style.display = 'none';
-        }, 1400);
+        }).catch(function() { showSaveError('final save'); });
 
         btn.addEventListener('click', function() { jsPsych.finishTrial(); });
     }
@@ -326,33 +327,13 @@ function initStudyLinear(stimuli) {
         on_load: function() { initTechnicalScene(jsPsych); }
     };
 
-    // ---- final save card (shown to user) + silent pipe saves ----
+    // ---- final save card ----
     var finalSaveCard = {
         type: jsPsychHtmlButtonResponse,
         stimulus: getFinalSaveHTML(),
         choices: [],
         response_ends_trial: false,
         on_load: function() { initFinalSaveScene(jsPsych); }
-    };
-
-    var save2half = {
-        type: jsPsychPipe,
-        action: 'save',
-        experiment_id: experimentIdOSF,
-        filename: getFilePrefix(jsPsych) + '_linear_2_half.csv',
-        data_string: function() { return formatSecondHalf(jsPsych); },
-        wait_message: '',
-        on_finish: function(data) { handleSaveResult(data, 'second half'); }
-    };
-
-    var saveDemographics = {
-        type: jsPsychPipe,
-        action: 'save',
-        experiment_id: experimentIdOSF,
-        filename: getFilePrefix(jsPsych) + '_linear_demographics.csv',
-        data_string: function() { return formatDemographics(jsPsych); },
-        wait_message: '',
-        on_finish: function(data) { handleSaveResult(data, 'demographics'); }
     };
 
     // ---- completion ----
@@ -387,7 +368,7 @@ function initStudyLinear(stimuli) {
     // ---- timeline ----
     var timeline = [consent, instructions]
         .concat(trialBlock)
-        .concat([demographics, strategy, technical, finalSaveCard, save2half, saveDemographics, completion]);
+        .concat([demographics, strategy, technical, finalSaveCard, completion]);
 
     // ---- dev panel + skip-to ----
     var N = N_TRIALS_PER_PARTICIPANT, m = midpoint;

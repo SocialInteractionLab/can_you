@@ -47,8 +47,8 @@ function getInstructionPagesWaffle(axisOrder) {
                 <h2 class="w-instr-title">Ready to start!</h2>
                 <div class="w-instr-rule"></div>
                 <div class="w-instr-body">
-                    <p style="animation: fadeUp 600ms cubic-bezier(.2,.8,.2,1) 300ms both;">There are no right or wrong answers — we're just interested in what you think.</p>
-                    <p style="animation: fadeUp 600ms cubic-bezier(.2,.8,.2,1) 650ms both;">Remember: being <em>${dim1}</em> and being <em>${dim2}</em> don't always go together.</p>
+                    <p style="animation: fadeUp 600ms cubic-bezier(.2,.8,.2,1) 300ms both;">Remember: there are no right or wrong answers — we're just interested in what you think.</p>
+                    <p style="animation: fadeUp 600ms cubic-bezier(.2,.8,.2,1) 650ms both;">Also: being <em>${dim1}</em> and being <em>${dim2}</em> don't always go together.</p>
                     <p style="animation: fadeUp 600ms cubic-bezier(.2,.8,.2,1) 1000ms both;">You will be asked for your thoughts on: <b>30 scenarios</b>.</p>
                 </div>
                 <hr class="w-hr">
