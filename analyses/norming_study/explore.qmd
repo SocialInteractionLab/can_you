@@ -1,7 +1,6 @@
 ---
 title: "Norming Study — Pilot C"
 date: today
-render_with_liquid: false
 format:
   html:
     theme: cosmo
