@@ -75,7 +75,7 @@ var STIMULI_DATA = {
     // --- ability: low | willingness: med ---
     {
       "itemID": 17,
-      "actionPhrase": "run 50 miles without stopping",
+      "actionPhrase": "run a marathon",
       "vignette": "You are sitting at a restaurant with a friend. Out of the blue, your friend says:"
     },
 
@@ -106,7 +106,7 @@ var STIMULI_DATA = {
     {
       "itemID": 22,
       "actionPhrase": "write and perform a song at my wedding ceremony",
-      "vignette": "A close friend is getting married and asks if you'd compose and perform an original piece for their ceremony. They know you play a little music and say:"
+      "vignette": "A close friend is getting married and asks if you'd compose and perform an original piece for their ceremony. They call you and say:"
     },
 
     {
@@ -130,19 +130,19 @@ var STIMULI_DATA = {
     {
       "itemID": 26,
       "actionPhrase": "fill in on bass guitar for the show tonight",
-      "vignette": "Your friend's band is performing tonight and their bassist just called in sick an hour before the show. You've played a little guitar before. In desperation your friend calls you and says:"
+      "vignette": "Your friend's band is performing tonight and their bassist just called in sick an hour before the show. In desperation your friend calls you and says:"
     },
 
     {
       "itemID": 27,
       "actionPhrase": "draft a formal legal response to the court for me",
-      "vignette": "A close friend has received a lawsuit notice and needs to file a written response to the court within 48 hours. They cannot afford a lawyer and know you're a strong writer. Desperately, they say:"
+      "vignette": "A close friend has received a lawsuit notice and needs to file a written response to the court within 48 hours. They cannot afford a lawyer. Desperately, they say:"
     },
 
     {
       "itemID": 28,
-      "actionPhrase": "throw a centered vase on the wheel for the video",
-      "vignette": "You are at a friend's house and they have a pottery wheel they just got. They want to film someone using it for their social media. You once took a single beginner's class. They point to the wheel and say:"
+      "actionPhrase": "throw a centered vase on the wheel",
+      "vignette": "You are at a friend's house and they have a pottery wheel they just got. They want to film someone using it for their social media. They point to the wheel and say:"
     },
 
     {
@@ -180,7 +180,7 @@ var STIMULI_DATA = {
     {
       "itemID": 35,
       "actionPhrase": "give me a quick trim",
-      "vignette": "A close friend desperately needs a haircut and can't get an appointment in time. They know you've cut your own hair before and say:"
+      "vignette": "A close friend desperately needs a haircut and can't get an appointment in time. Not knowing who else to ask, they call you and say:"
     },
 
     {
@@ -192,13 +192,13 @@ var STIMULI_DATA = {
     {
       "itemID": 38,
       "actionPhrase": "hot-wire this car so we can get them to the hospital in time",
-      "vignette": "Someone collapses at a rural rest stop and needs urgent medical care. The nearest ambulance is over an hour away, nobody can find the car keys, and no one has a working phone. Someone looks at you and says:"
+      "vignette": "Someone collapses at a rural rest stop and needs urgent medical care. The nearest ambulance is over an hour away, nobody can find the car keys, and no one has a working phone. A stranger looks at you and says:"
     },
 
     {
       "itemID": 39,
       "actionPhrase": "do a few acupuncture points on my back",
-      "vignette": "A close friend has been dealing with chronic back pain and desperately wants some relief. They have heard you mention interest in alternative medicine and say:"
+      "vignette": "A close friend has been dealing with chronic back pain and desperately wants some relief. They say:"
     },
 
     {
@@ -216,7 +216,7 @@ var STIMULI_DATA = {
     {
       "itemID": 44,
       "actionPhrase": "use sign language to figure out where their parents are",
-      "vignette": "You are at a busy public market when a young deaf child approaches you, clearly distressed and separated from their parents. They are trying to communicate in sign language but no one understands them. A bystander turns to you:"
+      "vignette": "You are at a busy public market when a young deaf child approaches you, clearly distressed and separated from their parents. They are trying to communicate in sign language but no one understands them. The shopkeeper turns to you:"
     },
 
     {
@@ -241,8 +241,8 @@ var STIMULI_DATA = {
     // --- ability: med | willingness: low ---
     {
       "itemID": 49,
-      "actionPhrase": "give a speech in front of everyone right now",
-      "vignette": "You are at a large company event. Your manager suddenly puts you on the spot and says:"
+      "actionPhrase": "give say some words about ",
+      "vignette": "You are at a large company event disussing the new product launch. Your manager suddenly puts you on the spot and says:"
     },
 
     {

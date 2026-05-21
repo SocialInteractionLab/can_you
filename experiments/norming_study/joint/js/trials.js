@@ -425,6 +425,7 @@ function buildBentCrosshairGrid(parentEl, size, axisOrder, palette, opts) {
             advanceStage(); // → stage 3; render() hides right panel if sx=10
         }
         if (stage === 1) area.style.cursor = 'ew-resize';
+        else area.style.cursor = 'ns-resize';
     }
     function onAreaMove(e) {
         if (dragging || destroyed || stage < 2) return;

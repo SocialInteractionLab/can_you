@@ -192,8 +192,8 @@ function buildSliderGrid(parentEl, gW, gH, yesColor, baseColor, opts) {
     sliderEl.addEventListener('input',      onInput);
     sliderEl.addEventListener('mousedown',  onDown);
     sliderEl.addEventListener('touchstart', onDown, { passive: true });
-    sliderEl.addEventListener('mouseup',    onUp);
-    sliderEl.addEventListener('touchend',   onUp);
+    document.addEventListener('mouseup',    onUp);
+    document.addEventListener('touchend',   onUp);
 
     // ---- controller ----
     ctrl.getValue = function() { return parseInt(sliderEl.value); };
@@ -243,8 +243,8 @@ function buildSliderGrid(parentEl, gW, gH, yesColor, baseColor, opts) {
         sliderEl.removeEventListener('input',      onInput);
         sliderEl.removeEventListener('mousedown',  onDown);
         sliderEl.removeEventListener('touchstart', onDown);
-        sliderEl.removeEventListener('mouseup',    onUp);
-        sliderEl.removeEventListener('touchend',   onUp);
+        document.removeEventListener('mouseup',    onUp);
+        document.removeEventListener('touchend',   onUp);
         if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
     };
 
@@ -367,10 +367,13 @@ function buildLinearTrial(stimulus, axisOrder, colorMap, trialIndex, jsPsych) {
                 grid2Col.style.display        = 'flex';
                 grid2Col.style.flexDirection  = 'column';
                 setTimeout(function() {
-                    grid2Col.style.opacity       = '1';
-                    grid2Col.style.transform     = 'translateX(0)';
-                    grid2Col.style.pointerEvents = 'auto';
+                    grid2Col.style.opacity   = '1';
+                    grid2Col.style.transform = 'translateX(0)';
                 }, 20);
+                // delay interactability until after transition (prevents accidental snap on appearance)
+                setTimeout(function() {
+                    grid2Col.style.pointerEvents = 'auto';
+                }, 520);
                 setTimeout(function() { grid2Gate = true; updateSubmitState(); }, grid2GateMs);
             };
 
