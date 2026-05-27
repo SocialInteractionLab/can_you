@@ -541,104 +541,6 @@ a fit parameter.
 IG still depends only on $\pi(\mu)$; the willingness prior $\pi(v)$ enters only
 through the comply term in the speaker and response utilities.
 
-% ============================================================
-\section{Comparison with Alternative Formulation (ke\_version)}
-% ============================================================
-\label{sec:ke}
-
-An alternative RSA formulation (\texttt{ke\_version.ipynb}) takes a substantially
-different approach. We describe its structure and give theoretical reasons to
-prefer the present model.
-
-\subsection{Structure of the alternative}
-
-\begin{itemize}
-  \item \textbf{Discrete world states}: ability $\times$ willingness are
-        binarized into four atomic worlds
-        $\{$able+willing, able+unwilling, unable+willing, unable+unwilling$\}$.
-  \item \textbf{No goal distinction in speaker}: the speaker always has an action
-        goal. Info-seeking intent ($\psi = \mathrm{info}$) is only considered
-        on the listener's side, not in the speaker's utility.
-  \item \textbf{Hardcoded info-utterance link}: $P(u{=}\textsc{can} \mid \psi{=}\mathrm{info}) = 1$
-        by stipulation.
-  \item \textbf{Extra free parameters}: $p_{\mathrm{intent}} = 0.5$ (prior
-        probability of request intent) and $\beta$ (conflict-aversion weight),
-        neither derived from the semantics.
-  \item \textbf{Only 3 levels}: L0 $\to$ S1 $\to$ L1. No S2/L2.
-  \item \textbf{No \textsc{null} utterance}: only \textsc{can} and \textsc{imp}.
-  \item \textbf{Conflict cost on listener}: declining \textsc{imp} incurs an
-        extra $c_{\mathrm{conflict}}$ penalty on the listener, meant to
-        represent a presupposition violation.
-\end{itemize}
-
-\subsection{Theoretical arguments for the present model}
-
-\paragraph{1. Information gain is derived, not stipulated.}
-In the ke formulation, the connection between \textsc{can} and information-seeking
-is asserted: $P(u{=}\textsc{can} \mid \psi{=}\mathrm{info}) = 1$ by fiat. The
-present model computes this connection from the literal semantics of \textsc{can}
-as an ability question: the informational utility of asking is the mutual
-information $\mathrm{IG}(f_{\mathrm{ctx}}, \theta)$ between the addressee's
-ability $\mu$ and the binary answer $\mathbf{1}[\mu > \theta]$. This is not
-assumed---it follows from what the question means. A consequence is that IG
-varies \emph{continuously and predictably} with context ($f_{\mathrm{ctx}}$): asking
-``can you benchpress 150?'' is genuinely informative; asking ``can you pass the
-salt?'' is nearly uninformative. The ke model cannot capture this gradient because
-the informational value of \textsc{can} is the same in all contexts by
-assumption.
-
-\paragraph{2. The goal prior is derived from a presupposition, not a free parameter.}
-The ke model sets $p_{\mathrm{intent}} = 0.5$ as a free parameter with no
-theoretical grounding. The present model derives the action-goal prior from the
-observation that action goals \emph{presuppose feasibility}---a speaker only
-wants you to do something if they believe you probably can and will. This gives:
-\[
-  P(g = \textsc{action} \mid f_{\mathrm{ctx}}) = \tfrac{1}{2}\,f_{\mathrm{ctx}}
-\]
-which is not a choice but a consequence of meaning. As a result, the model's
-context-sensitivity is an \emph{explanation}, not a description: the same
-utterance gets different goal inferences in different contexts because the prior
-itself changes with context, not because a dial was tuned.
-
-\paragraph{3. The ke model adds a free parameter ($\beta$) without explanatory gain.}
-The ke formulation introduces $\beta$, a weight on conflict aversion in S1's
-utility, with no grounding in linguistic or pragmatic theory. In the present
-model, the face-threat cost $\delta = 0.7$ is a fixed constant applied to
-\textsc{imp}---it reflects the speaker's cost of imposing, a well-motivated
-concept in politeness theory~\cite{brown1987politeness}. The ke model effectively
-adds a second dial ($\beta$) that scales an already-parameterized cost
-($c_{\mathrm{conflict}}$), which risks overfitting without adding theoretical
-content.
-
-\paragraph{4. Discrete world states cannot express graded ability.}
-By collapsing ability into a binary (able / not able), the ke model loses the
-distinction between ``barely able'' and ``reliably able.'' The threshold
-mechanism in the present model ($\mu > \theta$, marginalized over $\theta$)
-captures the intuition that ability is graded and that whether a threshold is
-exceeded depends on both the addressee's latent ability and the implicit
-standard being applied. This matters empirically: two contexts with the same
-nominal ``ability'' might differ in how \emph{certain} that ability is, which
-the continuous formulation handles naturally.
-
-\paragraph{5. The S2/A2 recursion captures strategic use of ``can you?''.}
-The ke model stops at L1. The present model's S2 level captures a genuine
-pragmatic phenomenon: a sophisticated speaker knows that asking ``can you pass
-the salt?'' will generate compliance (because A1 will infer action intent), so
-S2 \emph{strategically prefers} \textsc{can} over \textsc{imp} in
-high-feasibility contexts---getting the action without paying the face cost
-$\delta$. This is not just a modeling nicety; it predicts that indirect requests
-should be systematically preferred when compliance is near-certain. The ke model
-has no mechanism for this.
-
-\paragraph{6. Conflict cost is mislocated.}
-In ke, $c_{\mathrm{conflict}}$ penalizes the \emph{listener} for declining
-\textsc{imp}. But presupposition violation is a cost to the \emph{speaker}
-(they've made a false presupposition) or a reputational cost in the
-interaction---not a direct cost to the listener for responding truthfully. The
-present model places all social costs on the speaker ($\delta$ for \textsc{imp}),
-which is more consistent with standard treatments of face-threat and
-politeness~\cite{brown1987politeness}.
-
 \bigskip
 \begin{thebibliography}{9}
 \bibitem{frank2012predicting}
@@ -651,10 +553,6 @@ Goodman, N.\ D., \& Frank, M.\ C.\ (2016).
 Pragmatic language interpretation as probabilistic inference.
 \textit{Trends in Cognitive Sciences}, 20(11), 818--829.
 
-\bibitem{brown1987politeness}
-Brown, P., \& Levinson, S.\ C.\ (1987).
-\textit{Politeness: Some universals in language usage}.
-Cambridge University Press.
 \end{thebibliography}
 
 \end{document}
