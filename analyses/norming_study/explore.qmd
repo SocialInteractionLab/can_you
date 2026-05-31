@@ -69,7 +69,7 @@ C = {'joint-aw': '#1F5572', 'joint-wa': '#5C8FA8',
 C_AX  = {'aw': '#1F5572', 'wa': '#D69A57'}
 C_QUAD = {'AW': '#1F5572', 'ANW': '#5C8FA8', 'NAW': '#D69A57', 'NANW': '#A8A096'}
 BG, GRID_COL, PAD = 'white', '#e5e5e5', 5
-SHOW_ITEM_MEANS = True
+SHOW_ITEM_MEANS = False
 JIT = 1.5  # jitter radius in units (0–100 scale)
 def jit(n): return np.random.uniform(-JIT, JIT, n)
 AXIS_STYLE = dict(showgrid=False, gridcolor=GRID_COL, gridwidth=1,
@@ -230,6 +230,92 @@ fig.show()
 fig.write_html(f'{RESULTS_DIR}/fig1_scatter_marginals.html', include_plotlyjs='cdn')
 fig.write_image(f'{RESULTS_DIR}/fig1_scatter_marginals.png', scale=2)
 fig.write_image(f'{RESULTS_DIR}/fig1_scatter_marginals.pdf')
+```
+
+## Figure 1 — Lab Meeting: P(comply) heatmaps
+
+```{python}
+# Za from whyask_ability.ipynb (true 1D model → perfect columns)
+# Zf from whyask_with_willingness.ipynb (2D model)
+# Run respective grid cells first if .npz files are missing.
+
+import matplotlib.pyplot as _plt
+import matplotlib.colors as _mcolors
+
+_GRID_A = '../../results/model/whyask/fig1lm_grid_ability.npz'
+_GRID_F = '../../results/model/whyask/fig1lm_grid.npz'
+
+if not os.path.exists(_GRID_A) or not os.path.exists(_GRID_F):
+    print('grid(s) not found — run grid cells in whyask_ability.ipynb and whyask_with_willingness.ipynb first')
+else:
+    _da = np.load(_GRID_A)
+    _df = np.load(_GRID_F)
+    _Za, _FG, _WG = _da['Za'], _da['fg'], _da['wg']
+    _Zf = _df['Zf']
+
+    # highlighted points: (label, f, w, dx_pt, dy_pt, ha, va)
+    _ANN = [
+        ('run a marathon',                          0.10,  0.10,   8,   7, 'left',  'bottom'),
+        ('benchpress 225',                          0.10,  0.90,   8,  -5, 'left',  'top'   ),
+        ('can you slackline?',                      0.231, 0.372,  8,   5, 'left',  'bottom'),
+        ('can you cover for me\ntomorrow morning?', 0.407, 0.247,  8,  -5, 'left',  'top'   ),
+        ('call my landlord\nto complain?',          0.732, 0.420,  8,   5, 'left',  'bottom'),
+        ('give me $50?',                            0.80,  0.20,   8,  -5, 'left',  'top'   ),
+        ("who's looking\nfor another job?",         0.838, 0.261, -8,   8, 'right', 'bottom'),
+        ('drive me home',                           0.70,  0.80,  -8,   5, 'right', 'bottom'),
+        ('pass the salt',                           0.95,  0.95,  -8,  -5, 'right', 'top'   ),
+    ]
+
+    # warm (low compliance) → cool (high compliance): two distinct color families
+    _CMAP = _mcolors.LinearSegmentedColormap.from_list('comply',
+        ['#FFFDE0', '#FFAB40', '#2471A3', '#0D2B5E'])
+    # iso-compliance contour levels
+    _LEVELS = [0.2, 0.4, 0.6, 0.8]
+    _FONT = 'Avenir'
+
+    _fig, _axes = _plt.subplots(1, 2, figsize=(11, 4.2), sharey=True, layout='constrained')
+
+    for _ax, _Z, _title in zip(_axes, [_Za, _Zf], ['Ability only', 'Ability + willingness']):
+        _im = _ax.pcolormesh(_FG, _WG, _Z, cmap=_CMAP, vmin=0, vmax=1, shading='gouraud')
+
+        # iso-compliance lines (vertical for ability-only; arcs for full model)
+        _ax.contour(_FG, _WG, _Z, levels=_LEVELS,
+                    colors='white', linewidths=0.75, alpha=0.55)
+
+        # all norming study data points at low opacity (p_able/p_willing 0–100 → 0–1)
+        _ax.scatter(trials['p_able'] / 100, trials['p_willing'] / 100,
+                    s=8, color='white', alpha=0.25, linewidths=0, zorder=3)
+
+        # highlighted points + annotations
+        for (_lbl, _f, _w, _dx, _dy, _ha, _va) in _ANN:
+            _ax.scatter(_f, _w, s=50, color='white', edgecolors='#1F5572',
+                        linewidths=1.5, zorder=5, clip_on=False)
+            _ax.annotate(_lbl, xy=(_f, _w), xytext=(_dx, _dy),
+                         textcoords='offset points', fontsize=8, fontfamily=_FONT,
+                         ha=_ha, va=_va, color='#111', zorder=6, clip_on=False,
+                         bbox=dict(boxstyle='round,pad=0.15', fc='white', ec='none', alpha=0.72))
+
+        _ax.set_title(_title, fontfamily=_FONT, fontsize=11, pad=8, fontweight='normal')
+        _ax.set_xlabel('P(able)', fontfamily=_FONT, fontsize=10)
+        _ax.set_xlim(_FG[0], _FG[-1])
+        _ax.set_ylim(_WG[0], _WG[-1])
+        _ax.set_xticks([0.2, 0.4, 0.6, 0.8])
+        _ax.set_yticks([0.2, 0.4, 0.6, 0.8])
+        _ax.set_facecolor('white')
+        _ax.grid(False)
+        _ax.spines['top'].set_visible(False)
+        _ax.spines['right'].set_visible(False)
+        _ax.tick_params(labelsize=9, length=3)
+
+    _axes[0].set_ylabel('P(willing)', fontfamily=_FONT, fontsize=10)
+    _cb = _plt.colorbar(_im, ax=_axes[1], shrink=0.92, pad=0.03, aspect=25)
+    _cb.set_label('P(comply | "can you?")', fontfamily=_FONT, fontsize=9)
+    _cb.ax.tick_params(labelsize=8)
+    _cb.outline.set_visible(False)
+
+    _plt.savefig(f'{RESULTS_DIR}/norming_fig1_labmtg_heatmap.png', dpi=150, bbox_inches='tight')
+    _plt.savefig(f'{RESULTS_DIR}/norming_fig1_labmtg_heatmap.pdf', bbox_inches='tight')
+    _plt.show()
 ```
 
 ## Figure 1b — Primary × Conditional
